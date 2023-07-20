@@ -1,0 +1,29 @@
+﻿
+@helper GetTreeView(List<eRecruitment.Sita.BackEnd.Models.RoleMenuItemCheckboxModel> siteMenu, int parentID)
+{
+    foreach (var i in siteMenu.Where(a => a.ParentID.Equals(parentID)))
+    {
+        <li>
+            @{var submenu = siteMenu.Where(a => a.ParentID.Equals(i.MenuItemID)).Count();}
+            @if (submenu > 0)
+            {
+                <span class="collapse collapsible fa fa-angle-down">&nbsp;</span>
+            }
+            else
+            {
+                <span style="width:15px; display:inline-block">&nbsp;</span>
+            }
+            <span>
+                <input type="checkbox" name="@i.Name" id="@i.MenuItemID" value="@i.IsChecked" checked="@i.IsChecked" />
+                @i.Name
+            </span>
+            @if (submenu > 0)
+            {
+                <ul>
+                    @Treeview.GetTreeView(siteMenu, i.MenuItemID)
+                    @* Recursive  Call for Populate Sub items here*@
+                </ul>
+            }
+        </li>
+    }
+}

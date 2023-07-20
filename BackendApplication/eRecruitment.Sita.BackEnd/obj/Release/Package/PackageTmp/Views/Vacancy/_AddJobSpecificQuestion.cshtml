@@ -1,0 +1,95 @@
+﻿@*====================Peter 20221206 - Add Job Specific Questions - New View====================*@
+
+<link rel="stylesheet" href="~/Content/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+@model eRecruitment.BusinessDomain.DAL.Entities.AppModels.VacancyModels
+
+
+@using System.Data.Linq
+@using Microsoft.AspNet.Identity
+@{
+    eRecruitment.Sita.BackEnd.App_Data.Entities.DAL.eRecruitmentDataClassesDataContext _db = new eRecruitment.Sita.BackEnd.App_Data.Entities.DAL.eRecruitmentDataClassesDataContext();
+
+}
+<head>
+
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    @*<script src="~/Content/eRecruit/bootstrap-multiselect.js"></script>
+        <link href="~/Content/eRecruit/bootstrap-multiselect.css" rel="stylesheet" />
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Content/assets/js/jquery-ui.min.js"></script>*@
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <link href="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
+          rel="stylesheet" type="text/css" />
+    <script src="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"
+          rel="stylesheet" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+
+    @*<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
+              rel="stylesheet" type="text/css" />
+        <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"></script>
+        <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"
+              rel="stylesheet" type="text/css" />
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>*@
+
+
+    @*<link rel="stylesheet" href="~/Content/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">*@
+
+    @*<script src="~/Content/bower_components/ckeditor/ckeditor.js"></script>
+        <script>
+            $(function () {
+                // Replace the <textarea id="editor1"> with a CKEditor
+                // instance, using default configuration.
+                CKEDITOR.replace('editor1')
+                //bootstrap WYSIHTML5 - text editor
+                $('.textarea').wysihtml5()
+            })
+        </script>*@
+    <script type="text/javascript">
+        var j = jQuery.noConflict();
+        j(function () {
+            j('#VacancyQuestionID').multiselect({
+                includeSelectAllOption: true
+            });
+        });
+    </script>
+
+</head>
+
+@using (Html.BeginForm("AddVacancy", "Vacancy", FormMethod.Post, new { @id = "AddVacanyForm", @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+
+    <div class="col-md-12">
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <h3 class="box-title">Job Specific Questions<span style="color:red;"> * </span></h3>
+            </div>
+            <div>
+                <button type="button" id="btnDisplayJobDescTxtbox" onclick="DisplayJobDescTxtbox()" class="btn btn-secondary btn-sm bg-gray-active"><span class="fa fa-question-circle" aria-hidden="true"></span> Add Job Specific Questions</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6" id="divJobSpecQuestion">
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.TextBoxFor(Model => Model.JobSpecificQuestions, new { @class = "form-control", placeholder = "Add Job specific question here", required = "Required", tabindex = 14 })
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-6" id="divBtnAddQuestion">
+        <div class="form-group">
+            <a href="@Url.Action("AddLutJobSpecificQuestion", "Vacancy")" type="submit" class="btn btn-info btn-sm">
+                Add partial view
+            </a>
+        </div>
+    </div>
+
+}
+    @*==================================================================================*@

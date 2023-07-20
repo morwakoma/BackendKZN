@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "Learning and Teaching Support Materials";
+}
+
+@using ReportViewerForMvc;
+
+<style type="text/css">
+    iframe {
+        /*for the report viewer*/
+        border: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 10%;
+    }
+
+    .linkdisabled {
+        cursor: text;
+    }
+</style>
+@{ }
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="well well-sm text-center"><strong>REQUISITION STATISTICS & REPORTS</strong></div>
+            <!-- PAGE CONTENT BEGINS -->
+            <ul class="nav nav-tabs">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Dashboard <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Requisition Statistics ", "Index", "Report", new { reportname = "BlankTemplate" }, new { @class = "" })</li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> School Reports <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("School Requisitions - All", "Index", "Report", new { reportname = "SchoolRequisitionAll" }, new { @class = "" })</li>
+                        <li>@Html.ActionLink("Requisition Details - All", "Index", "Report", new { reportname = "RequisitionDetails" }, new { @class = "" })</li>
+                        <li>@Html.ActionLink("School Delivery Item", "Index", "Report", new { reportname = "SchoolDeliveryItems" }, new { @class = "" })</li>
+                        <li>@Html.ActionLink("School Delivery Notes", "Index", "Report", new { reportname = "SchoolDeliveryNotes" }, new { @class = "" })</li>
+                        <li>@Html.ActionLink("School Delivery Notes per Publisher", "Index", "Report", new { reportname = "SchoolDeliveryNotesPerPublisher" }, new { @class = "linkdisabled" })</li>
+                        <li>@Html.ActionLink("School Delivery Percentages - Per Batch Per Warehouse", "Index", "Report", new { reportname = "SchoolDeliveryPercentagePerBatchPerWarehouse" }, new { @class = "" })</li>
+                        <li>@Html.ActionLink("School LTSM Iterms Received", "Index", "Report", new { reportname = "ProvisialStatusesProgressDetails" }, new { @class = "linkdisabled" })</li>
+                        <li>@Html.ActionLink("School LTSM Iterms Received - No Response", "Index", "Report", new { reportname = "SchoolsItemsReceivedNoResponse" }, new { @class = "" })</li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Supplier Order Reports <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Order per Supplier - per District ", "Index", "Report", new { reportname = "SuplierOrderPerDistrict" }, new { @class = "" })</li>
+                        <li>@Html.ActionLink("Order per Supplier - Detail", "Index", "Report", new { reportname = "OrderPerSupplierPerDistrict" }, new { @class = "" })</li>
+                        <li>@Html.ActionLink("Order per Supplier - Summary", "Index", "Report", new { reportname = "suplierOrderssummary" }, new { @class = "" })</li>
+                        <li>@Html.ActionLink("Order per Warehouse - per Supplier", "Index", "Report", new { reportname = "WarehouseOrderperSupplier" }, new { @class = "" })</li>
+                        <li>@Html.ActionLink("Fund Certificate - Booksellers", "Index", "Report", new { reportname = "FundCertifcates_Booksellers" }, new { @class = "" })</li>
+                        <li>@Html.ActionLink("Fund Certificate - Distribution", "Index", "Report", new { reportname = "FundCertificates-Distribution" }, new { @class = "" })</li>
+                    </ul>
+                </li>
+                @*<li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Supplier Delivery Reports <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Supplier Delivery - per District", "Index", "Report", new { reportname = "OrderPerSupplierPerDistrict" }, new { @class = "" })</li>
+                        <li>@Html.ActionLink("Supplier Delivery - per Warehouse", "Index", "Report", new { reportname = "OrderperSupplier-perWarehouse" }, new { @class = "" })</li>
+                        <li>@Html.ActionLink("Supplier Outstanding Items - per Warehouse per Batch", "Index", "Report", new { reportname = "StatusDrivenReport" }, new { @class = "linkdisabled" })</li>
+                        <li>@Html.ActionLink("Supplier Delivery Summary - per Grade", "Index", "Report", new { reportname = "SupplierDeliverySummaryPerGrade" }, new { @class = "" })</li>
+                        <li>@Html.ActionLink("Supplier Delivery Paymments", "Index", "Report", new { reportname = "SupplierDeliveryPayments" }, new { @class = "" })</li>
+                    </ul>
+                </li>*@
+                @*<li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Redistribution Reports <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Exess Books in Pool", "Index", "Report", new { reportname = "ExcessBookInPool" }, new { @class = "" })</li>
+                        <li>@Html.ActionLink("Exess Books at Schools", "Index", "Report", new { reportname = "ExcessBooksAtSchools" }, new { @class = "" })</li>
+                        <li>@Html.ActionLink("Exess Books at Schools - Summary", "Index", "Report", new { reportname = "ExcessBooksatSchoolsSummary" }, new { @class = "" })</li>
+                        <li>@Html.ActionLink("Exess Books at Schools - per School", "Index", "Report", new { reportname = "ExcessBooksAtSchoolsPerSchool" }, new { @class = "" })</li>
+                        <li>@Html.ActionLink("Exess Books at Schools - Collection Forms", "Index", "Report", new { reportname = "ExcessBooksAtSchoolsCollectionForms" }, new { @class = "" })</li>
+                    </ul>
+                </li>*@
+                @*<li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Redistribution Shortages Reports <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Shortage Books at Schools", "Index", "Report", new { reportname = "ShortageBookAtSchool" }, new { @class = "" })</li>
+                        <li>@Html.ActionLink("Shortage Books at Schools - Summary", "Index", "Report", new { reportname = "StatusDrivenReport" }, new { @class = "linkdisabled" })</li>
+                        <li>@Html.ActionLink("Shortage Books at Schools - per School", "Index", "Report", new { reportname = "StatusDrivenReport" }, new { @class = "linkdisabled" })</li>
+                        <li>@Html.ActionLink("Shortage Books at Schools - Delivery Forms", "Index", "Report", new { reportname = "StatusDrivenReport" }, new { @class = "linkdisabled" })</li>
+                        <li>@Html.ActionLink("Workbooks Reported - Details ", "Index", "Report", new { reportname = "WorkbooksReportedDetails" }, new { @class = "" })</li>
+                        <li>@Html.ActionLink("Warehouse Stock Quantities ", "Index", "Report", new { reportname = "WarehouseStockQuantity" }, new { @class = "" })</li>
+                    </ul>
+                </li>*@
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> System Users <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("User", "Index", "Report", new { reportname = "SystemUsers" }, new { @class = "" })</li>
+                    </ul>
+                </li>
+            </ul>
+            @Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer, new { width = "1000", height = "1000" })
+
+
+            @*@Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer,new { ProcessingMode = "ProcessingMode.Local", SizeToReportContent = true, ZoomMode = "ZoomMode.FullPage", Width = "Unit.Percentage(100)", Height = "Unit.Percentage(100)"  }*@
+
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+    </a>
+</div>
+

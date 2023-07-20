@@ -1,0 +1,6 @@
+﻿1>------ Build started: Project: eRecruitment.BusinessDomain.DAL, Configuration: Debug Any CPU ------
+1>  eRecruitment.BusinessDomain.DAL -> D:\Work\Projects\BackEnd\eRecruitment\eRecruitmentObjects\eRecruitment.BusinessDomain.DAL\eRecruitment.BusinessDomain.DAL\bin\Debug\eRecruitment.BusinessDomain.DAL.dll
+2>------ Build started: Project: eRecruitment.Sita.BackEnd, Configuration: Debug Any CPU ------
+2>  eRecruitment.Sita.BackEnd -> D:\Work\Projects\BackEnd\eRecruitment\eRecruitmentBackendApplication\eRecruitment.Sita.BackEnd\eRecruitment.Sita.BackEnd\bin\eRecruitment.Sita.BackEnd.dll
+2>C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VisualStudio\v16.0\TypeScript\Microsoft.TypeScript.targets(73,5): warning : Your project specifies TypeScriptToolsVersion 3.1, but a matching compiler was not found. The latest available TypeScript compiler will be used (3.3). To remove this warning, install the TypeScript 3.1 SDK or update the value of TypeScriptToolsVersion.
+========== Build: 2 succeeded, 0 failed, 2 up-to-date, 0 skipped ==========

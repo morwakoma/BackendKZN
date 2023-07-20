@@ -1,0 +1,905 @@
+﻿<link rel="stylesheet" href="~/Content/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+@model eRecruitment.BusinessDomain.DAL.Entities.AppModels.VacancyModels
+
+
+@using System.Data.Linq
+@using Microsoft.AspNet.Identity
+@{
+    eRecruitment.Sita.BackEnd.App_Data.Entities.DAL.eRecruitmentDataClassesDataContext _db = new eRecruitment.Sita.BackEnd.App_Data.Entities.DAL.eRecruitmentDataClassesDataContext();
+
+}
+<head>
+
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    @*<script src="~/Content/eRecruit/bootstrap-multiselect.js"></script>
+        <link href="~/Content/eRecruit/bootstrap-multiselect.css" rel="stylesheet" />
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Content/assets/js/jquery-ui.min.js"></script>*@
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <link href="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
+          rel="stylesheet" type="text/css" />
+    <script src="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"
+          rel="stylesheet" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+
+    @*<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
+              rel="stylesheet" type="text/css" />
+        <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"></script>
+        <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"
+              rel="stylesheet" type="text/css" />
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>*@
+
+
+    @*<link rel="stylesheet" href="~/Content/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">*@
+
+    @*<script src="~/Content/bower_components/ckeditor/ckeditor.js"></script>
+        <script>
+            $(function () {
+                // Replace the <textarea id="editor1"> with a CKEditor
+                // instance, using default configuration.
+                CKEDITOR.replace('editor1')
+                //bootstrap WYSIHTML5 - text editor
+                $('.textarea').wysihtml5()
+            })
+        </script>*@
+    <script type="text/javascript">
+        var j = jQuery.noConflict();
+        j(function () {
+            j('#VacancyQuestionID').multiselect({
+                includeSelectAllOption: true
+            });
+        });
+    </script>
+
+</head>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Manage Vacancy
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Human Resource Center</a></li>
+            <li><a href="~/Vacancy/VacancyList">Manage Vacancy</a></li>
+            <li class="active">Add Vacancy</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!-- Default box -->
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">New Vacancy</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                            title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" disabled data-toggle="tooltip" title="Remove">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+
+                @using (Html.BeginForm("AddVacancy", "Vacancy", FormMethod.Post, new { @id = "AddVacanyForm", @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Organisation Name:</label>
+                                    @if (ViewBag.Organisation != null)
+                                    {
+                                        foreach (var d in ViewBag.Organisation)
+                                        {
+                                            <div class="form-control" readonly>
+                                                <label>
+                                                    <input type="text"
+                                                           name="Organisation"
+                                                           hidden value="@d.OrganisationID" id="OrganisationID" /> @d.OrganisationName
+                                                    </label>
+                                                </div>
+                                            }
+                                        }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Advert Reference Number:<span class="required" style="color:red;"> * </span></label>
+                                    @Html.Hidden("myBPSVacancyNo", Url.Action("checkVacancyBPSNumber"))
+                                    @*@Html.Hidden("myBPSVacancyNoAPI", Url.Action("validateBPSNumber"))*@
+                                    @Html.TextAreaFor(Model => Model.BPSVacancyNo, new
+                               {@*@id="BPSNum",*@@class = "form-control",
+placeholder = "Advert Reference Number",
+maxlength = "500",
+tabindex = 10
+})
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Department:<span class="required" style="color:red;"> * </span></label>
+                                    @Html.DropDownListFor(Model => Model.DivisionID, new SelectList(ViewBag.Division, "DivisionID", "DivisionDiscription"), "--Select Division --", new { @id = "DivisionID", @class = "form-control select2", required = "Required", tabindex = 1, onChange = "GetDepartment()" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Component:<span class="required" style="color:red;"> * </span></label>
+                                    @Html.DropDownListFor(Model => Model.DepartmentID, new SelectList(ViewBag.SitaDepartment, "DepartmentID", "DepartmentName"), "--Select Department --", new { @id = "DepartmentID", @class = "form-control select2", required = "Required", tabindex = 1, onChange = "GetApprover()", disabled = "true" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Job Title:<span class="required" style="color:red;"> * </span></label>
+                                    @*<select class="form-control select2" style="width: 100%;">
+                                            <option selected="selected">Alabama</option>
+                                            <option>Alaska</option>
+                                            <option>California</option>
+                                            <option>Delaware</option>
+                                            <option>Tennessee</option>
+                                            <option>Texas</option>
+                                            <option>Washington</option>
+                                        </select>*@
+                                    @Html.DropDownListFor(Model => Model.JobTitleID, new SelectList(ViewBag.JobTitle, "JobTitleID", "JobTitle"), "--Select Vacancy Name--", new { @class = "form-control select2", required = "Required", tabindex = 1, onChange = "GetJobProfile()" })
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Salary Type:<span class="required" style="color:red;"> * </span></label>
+                                    @Html.DropDownListFor(Model => Model.SalaryTypeID, new SelectList(ViewBag.SalaryType, "SalaryTypeID", "SalaryTypeDescr"), "--Select Salary Type--", new { @class = "form-control", required = "Required", tabindex = 1, onChange = "GetSalary()" })
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            @*<div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Salary Category:</label>
+                                    @Html.TextBoxFor(Model => Model.CategoryDescr, new { @id = "SalaryCategory", @class = "form-control", disabled = "disabled", placeholder = "Salary Category", tabindex = 2 })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Salary Sub-Category:</label>
+                                    @Html.TextBoxFor(Model => Model.Descr, new { @id = "SalarySubCategory", @class = "form-control", placeholder = "Salary Sub-Category", disabled = "disabled", tabindex = 2 })
+                                </div>
+                            </div>*@
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Job Level:</label>
+                                    @Html.TextBoxFor(Model => Model.JobLevelName, new { @id = "JobLevelName", @class = "form-control", placeholder = "Job Level",  tabindex = 2 })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" id="Min">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label> Minimum Salary:</label>
+                                        @Html.TextBoxFor(Model => Model.MinValue, new { @id = "MinValue", @class = "form-control", placeholder = " Minimum Value",  tabindex = 2 })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" id="Max">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label> Maximum Salary:</label>
+                                        @Html.TextBoxFor(Model => Model.MaxValue, new { @id = "MaxValue", @class = "form-control", placeholder = "  Maximum Value",  tabindex = 2 })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Recruiter Admin:</label>
+                                        @if (ViewBag.RecruitersInfo != null)
+                                        {
+                                            foreach (var d in ViewBag.RecruitersInfo)
+                                            {
+                                                <div class="form-control" disabled>
+                                                    <label>
+                                                        <input type="text"
+                                                               name="FullName"
+                                                               hidden value=" @d.Recruiter" /> @d.Recruiter
+                                                        </label>
+                                                    </div>
+                                                }
+                                            }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Recruiter Admin's Email Address:</label>
+                                        @if (ViewBag.RecruitersInfo != null)
+                                        {
+                                            foreach (var d in ViewBag.RecruitersInfo)
+                                            {
+                                                <div class="form-control" disabled>
+                                                    <label>
+                                                        <input type="text"
+                                                               name="EmailAddress"
+                                                               hidden value="@d.RecruiterEmail" /> @d.RecruiterEmail
+                                                        </label>
+                                                    </div>
+                                                }
+                                            }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Recruiter's Telephone Number:<span class="required" style="color:red;"> * </span></label>
+                                        @Html.TextBoxFor(Model => Model.RecruiterTel, new { @maxLength = "10", @class = "form-control", placeholder = "Recruiter's Telephone Number", required = "Required", tabindex = 6, onkeypress = "return isNumberKey(event)" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Vacancy Recruiter:<span class="required" style="color:red;"> * </span></label>
+                                        @Html.DropDownListFor(Model => Model.RecruiterUserId, new SelectList(ViewBag.RecruiterList, "RecruiterUserId", "Fullname"), "--Select Recruiter --", new { @id = "RecruiterUserId", @class = "form-control select2", required = "Required", tabindex = 1 })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Vacancy Approver:<span class="required" style="color:red;"> * </span></label>
+                                        @Html.DropDownListFor(Model => Model.Manager, new SelectList(ViewBag.ApproverList, "ApproverUserId", "Fullname"), "--Select Approver --", new { @id = "ApproverUserId", @class = "form-control select2", required = "Required", tabindex = 1 })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Preferred Gender:<span class="required" style="color:red;"> * </span></label>
+                                        @Html.DropDownListFor(Model => Model.GenderID, new SelectList(ViewBag.Gender, "GenderID", "Gender"), "--Select Gender--", new { @class = "form-control", required = "Required", tabindex = 9 })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Preferred Race:<span class="required" style="color:red;"> * </span></label>
+                                        @Html.DropDownListFor(Model => Model.RaceID, new SelectList(ViewBag.Race, "RaceID", "RaceName"), "--Select Race--", new { @class = "form-control", required = "Required", tabindex = 9 })
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*<div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label>Advertisment Period:<span class="required" style="color:red;"> * </span></label>
+                                            @Html.DropDownListFor(Model => Model.NumberOfDaysID, new SelectList(ViewBag.PublishDays, "NumberOfDaysID", "NumberOfDays"), "--Select Number Of Days--", new { @class = "form-control", required = "Required", tabindex = 1, onChange = "GetClosingDate()"  })
+                                        </div>
+                                    </div>
+                                </div>*@
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Closing Date:<span class="required" style="color:red;"> * </span></label>
+                                        <div class="input-group datepicker">
+                                            @Html.TextBoxFor(Model => Model.ClosingDate, new { @id = "ClosingDate", @class = "form-control", @Value = DateTime.Now.Date, required = "Required", tabindex = 12, @readonly = true, onchange = "datediff()" })<label class="input-group-btn" for="ClosingDate">
+                                                <span class="btn btn-default">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Employment Type:<span class="required" style="color:red;"> * </span></label>
+                                        @Html.DropDownListFor(Model => Model.EmploymentTypeID, new SelectList(ViewBag.EmploymentType, "EmploymentTypeID", "EmploymentType"), "--Select Employment Type--", new { @class = "form-control", onchange = "CheckEmployment()", id = "EmploymentTypeID", required = "Required", tabindex = 9 })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" id="ContractDuration">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Contract Duration:</label>
+                                        @Html.TextBoxFor(Model => Model.ContractDuration, new { @class = "form-control", placeholder = "Contract Duration", tabindex = 10 })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Number of Posts:<span class="required" style="color:red;"> * </span></label>
+                                        @Html.TextBoxFor(Model => Model.NumberOfOpenings, new { @class = "form-control", placeholder = "Number Of Openings", required = "Required", onkeypress = "return isNumberKey(event)", tabindex = 13 })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Vacancy Type:<span class="required" style="color:red;"> * </span></label>
+                                        @Html.DropDownListFor(Model => Model.VancyTypeID, new SelectList(ViewBag.VacancyType, "VancyTypeID", "VacancyTypeName"), "--Select Vacancy Type--", new { @class = "form-control", required = "Required", tabindex = 9, onchange = "CheckVacancyType()" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" id="DeligationReasons">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Deviation Reasons:</label>
+                                        @Html.TextBoxFor(Model => Model.DeligationReasons, new { @class = "form-control", placeholder = "Deviation Reasons", tabindex = 13 })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label> Centre :<span class="required" style="color:red;"> * </span></label>
+                                        @Html.DropDownListFor(Model => Model.Location, new SelectList(ViewBag.Location, "LocationID", "LocationDiscription"), "--Select Location --", new { @class = "form-control", required = "Required", tabindex = 1 })
+                                        @*@Html.TextBoxFor(Model => Model.Location, new { @class = "form-control", placeholder = "Location", required = "Required", tabindex = 14 })*@
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*<div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Skill Category:<span class="required" style="color:red;"> * </span></label>
+                                        @Html.DropDownListFor(Model => Model.CategoryID, new SelectList(ViewBag.SkillsCategoryList, "CategoryID", "Description"), "--Select Skill Category --", new { @class = "form-control", required = "Required", tabindex = 1, onChange = "GetSkillPerCatergory()" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="box box-warning">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Skills<span class="required" style="color:red;"> * </span></h3>
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body" id="Skill">
+
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                </div>*@
+
+                            <div class="col-md-12" hidden>
+                                <div class="box box-warning">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Behavioural Skills<span class="required" style="color:red;"> * </span></h3>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body">
+                                        @if (ViewBag.QuetionBanks != null)
+                                        {
+                                            foreach (var d in ViewBag.QuetionBanks)
+                                            {
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"
+                                                               name="VacancyQuestionID"
+                                                               value="@d.QuestionID" /> @d.QuestionDesc
+                                                        </label>
+                                                    </div>
+                                                }
+                                            }
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Purpose of the Job:</label>
+                                    @*@Html.TextAreaFor(Model => Model.VacancyPurpose, new { @id = "VacancyPurpose", @class = "form-control", @rows = "3", placeholder = "Purpose of the Job", disabled = "disabled", tabindex = 15 })*@
+                                    @Html.TextAreaFor(Model => Model.VacancyPurpose, new { @id = "VacancyPurpose", @class = "form-control", @rows = "3", placeholder = "Purpose of the Job", tabindex = 15 })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Responsibility:</label>
+                                    @*@Html.TextAreaFor(Model => Model.Responsibility, new { @id = "Responsibility", @class = "form-control", @rows = "3", placeholder = "Responsibilities of the Job", disabled = "disabled", tabindex = 16 })*@
+                                    @Html.TextAreaFor(Model => Model.Responsibility, new { @id = "Responsibility", @class = "form-control", @rows = "3", placeholder = "Responsibilities of the Job", tabindex = 16 })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Qualifications and Experience:</label>
+                                    @*@Html.TextAreaFor(Model => Model.QualificationAndExperience, new { @id = "QualificationAndExperience", @class = "form-control", @rows = "3", placeholder = "Qualifications and Experience required for the Job", disabled = "disabled", tabindex = 17 })*@
+
+                                    @Html.TextAreaFor(Model => Model.QualificationAndExperience, new { @id = "QualificationAndExperience", @class = "form-control", @style = "width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;", @rows = "3", placeholder = "Qualifications and Experience required for the Job", tabindex = 17 })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Knowledge:</label>
+                                    @*@Html.TextAreaFor(Model => Model.Knowledge, new { @id = "Knowledge", @class = "form-control", @rows = "3", placeholder = "Knowledge", disabled = "disabled", tabindex = 21 })*@
+                                    @Html.TextAreaFor(Model => Model.Knowledge, new { @id = "Knowledge", @class = "form-control ", @rows = "3", placeholder = "Knowledge", tabindex = 21 })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Technical Competencies:</label>
+                                    @*@Html.TextAreaFor(Model => Model.TechComps, new { @id = "TechComps", @class = "form-control", @rows = "3", placeholder = "Technical Competency Descriptions", disabled = "disabled", tabindex = 17 })*@
+                                    @Html.TextAreaFor(Model => Model.TechComps, new { @id = "TechComps", @class = "form-control", @rows = "3", placeholder = "Technical Competency Descriptions", tabindex = 17 })
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="Leadership">
+                                <div class="col-md-12">
+                                    <label>Leadership Competencies:</label>
+                                    @*@Html.TextAreaFor(Model => Model.LeadComps, new { @id = "LeadComps", @class = "form-control", @rows = "3", placeholder = "Leadership Competency Descriptions", disabled = "disabled", tabindex = 17 })*@
+                                    @Html.TextAreaFor(Model => Model.LeadComps, new { @id = "LeadComps", @class = "form-control", @rows = "3", placeholder = "Leadership Competency Descriptions", tabindex = 17 })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Interpersonal / Behavioural Competencies:</label>
+                                    @*@Html.TextAreaFor(Model => Model.BehaveComps, new { @id = "BehaveComps", @class = "form-control", @rows = "3", placeholder = "Behavioural Competency Descriptions", disabled = "disabled", tabindex = 17 })*@
+                                    @Html.TextAreaFor(Model => Model.BehaveComps, new { @id = "BehaveComps", @class = "form-control", @rows = "3", placeholder = "Behavioural Competency Descriptions", tabindex = 17 })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Additional Information:</label>
+                                    @Html.TextAreaFor(Model => Model.AdditonalRequirements, new { @id = "AdditonalRequirements", @class = "form-control", @rows = "3", placeholder = "Additional Information for the Job", tabindex = 22 })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+
+                                    @*@if (ViewBag.QuetionBanks != null)
+                                    {
+                                        foreach (var d in ViewBag.QuetionBanks)
+                                        {
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox"
+                                                           name="VacancyQuestionID"
+                                                           value="@d.QuestionID" /> @d.QuestionDesc
+                                                    </label>
+                                                </div>
+                                            }
+                                        }*@
+                                    <label>Disclaimer:</label>
+                                    @*@Html.TextAreaFor(Model => Model.Disclaimer, new { @id = "Disclaimer", @class = "form-control", @rows = "3", placeholder = "Disclaimer", disabled = "disabled", tabindex = 23 })*@
+                                    @Html.TextAreaFor(Model => Model.Disclaimer, new { @id = "Disclaimer", @class = "form-control", @rows = "3", placeholder = "Disclaimer", @readonly = "readonly", value = "@ViewBag.Disclaimer", tabindex = 23 })
+                                </div>
+                            </div>
+
+                            @*<div class="col-md-12">
+                                    <label>Attach Business Case:</label>
+                                    <input type="file" class="form-control-file" accept="image/gif, image/jpeg, application/pdf" name="postedBusinessCase" id="postedFile" />
+                                </div>*@
+
+                            <label>Attach File/s:<span class="required" style="color:red;"> * </span></label>
+                            <div class="form-group" id="uploadtemplate">
+
+                                <div class="col-md-3">
+
+                                    @*<input type="file" class="form-control-file" accept="image/gif, image/jpeg, application/pdf" name="postedFile" id="postedFile" required="Required" />*@
+                                    @*<label for="file1">Requisition:<span class="required" style="color:red;"> * </span></label>*@
+                                    <input type="file" name="files" id="file1" class="form-control-file" accept="image/gif, image/jpeg, application/pdf" required="Required" />
+                                </div>
+                                <div class="col-md-2">
+
+                                    <a href="#" data-toggle="tooltip" title="" data-original-title="Delete" id="remove" class="ace-icon glyphicon glyphicon-remove" style="color:red;"></a>
+                                </div>
+                            </div>
+
+                            <a href="#" id="addFile" class="btn btn-success"> Add More</a>
+
+                            <script>
+
+                                $(document).ready(function () {
+                                    //$("#ClosingDate").attr("readonly", true);
+                                    //$('.datepicker').attr('readonly', 'readonly').datepicker();
+                                    //debugger;
+                                    //$('#addFile').data('uploadtemplate', $('#uploadtemplate').attr('id', '').clone());
+
+                                    //$('#addFile').click(function (e) {
+                                    //    $(this).data('uploadtemplate').clone().insertBefore($(this));
+
+                                    //    e.preventDefault();
+                                    //});
+
+                                    //$("#remove").click(function (e) {
+                                    //    $(this).closest("#uploadtemplate").remove();
+                                    //    e.preventDefault();
+                                    //});
+
+                                    $("#remove").click(function (e) {
+                                        $(this).closest("#uploadtemplate").remove();
+                                        e.preventDefault();
+                                    });
+
+                                    $("#addFile").click(function (e) {
+                                        $("#uploadtemplate:last").clone(true).insertBefore(this).find("input").val(null);
+                                        e.preventDefault();
+                                    });
+
+                                    $(function () {
+                                        $('[data-toggle="tooltip"]').tooltip()
+                                    })
+                                });
+                            </script>
+                            <div class="clearfix"></div><br />
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <div class="box box-warning">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Qualification<span class="required" style="color:red;"> * </span></h3>
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body-qualification">
+                                            @if (ViewBag.QuetionBanks != null)
+                                            {
+                                                foreach (var d in ViewBag.QuetionBanks)
+                                                {
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox"
+                                                                   name="VacancyQuestionID"
+                                                                   value="@d.QuestionID" /> @d.QuestionDesc
+                                                            </label>
+                                                        </div>
+                                                    }
+                                                }
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <div class="box box-warning">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Experience<span class="required" style="color:red;"> * </span></h3>
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body-experience">
+                                            @if (ViewBag.QuetionExperienceCat != null)
+                                            {
+                                                foreach (var d in ViewBag.QuetionExperienceCat)
+                                                {
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox"
+                                                                   name="VacancyQuestionID"
+                                                                   value="@d.QuestionID" /> @d.QuestionDesc
+                                                            </label>
+                                                        </div>
+                                                    }
+                                                }
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <div class="box box-primary">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Certification</h3>
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body-certification">
+                                            @if (ViewBag.QuetionCertificationCat != null)
+                                            {
+                                                foreach (var d in ViewBag.QuetionCertificationCat)
+                                                {
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox"
+                                                                   name="VacancyQuestionID"
+                                                                   value="@d.QuestionID" /> @d.QuestionDesc
+                                                            </label>
+                                                        </div>
+                                                    }
+                                                }
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <div class="box box-primary">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Current Annual Salary<span class="required" style="color:red;"> * </span></h3>
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body-annaul-salary">
+                                            @if (ViewBag.QuetionAnnualSalaryCat != null)
+                                            {
+                                                foreach (var d in ViewBag.QuetionAnnualSalaryCat)
+                                                {
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox"
+                                                                   name="VacancyQuestionID"
+                                                                   value="@d.QuestionID" /> @d.QuestionDesc
+                                                            </label>
+                                                        </div>
+                                                    }
+                                                }
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="box box-warning">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Notice Period<span style="color:red;"> * </span></h3>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body-notice-period">
+                                        @if (ViewBag.QuetionNoticePeriodCat != null)
+                                        {
+                                            foreach (var d in ViewBag.QuetionNoticePeriodCat)
+                                            {
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"
+                                                               name="VacancyQuestionID"
+                                                               value="@d.QuestionID" /> @d.QuestionDesc
+                                                        </label>
+                                                    </div>
+                                                }
+                                            }
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                            </div>
+
+                            @*====================Peter 20221206 - Add Job Specific Questions====================*@
+                            @*<div class="col-md-12">
+                                <div class="box box-warning">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Job Specific Questions<span style="color:red;"> * </span></h3>
+                                    </div>
+                                    <div>
+                                        <button type="button" id="btnDisplayJobDescTxtbox" onclick="DisplayJobDescTxtbox()" class="btn btn-secondary btn-sm bg-gray-active"><span class="fa fa-question-circle" aria-hidden="true"></span> Add Job Specific Questions</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" id="divJobSpecQuestion">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        @Html.TextBoxFor(Model => Model.JobSpecificQuestions, new { @id = "JobSpecQuestions", @class = "form-control", placeholder = "Add Job specific question here", required = "Required", tabindex = 14 })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" id="divBtnAddQuestion">
+                                <div class="form-group">
+                                    <input type="submit" onclick="customValidation(event)" name="button" value="Add" class="btn btn-info btn-sm" />
+                                </div>
+                            </div>*@
+
+                            @*==================================================================================*@
+                            @*==================================================================================*@
+                            <div class="clearfix"></div><br />
+                            <div class="col-md-12 pull-right">
+                                <input type="submit" onclick="customValidation(event)" name="button" class="btn btn-success" value="Save" /> |
+                                @*<input type="submit" onclick="customValidation(event)" name="btnSave" class="btn btn-success" value="Save" /> |*@
+                                <a href="@Url.Action("VacancyList", "Vacancy")" onclick="return confirm('Are you sure you want to cancel?')" type="button" class="btn btn-danger">
+                                    Cancel
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                &nbsp;
+            </div>
+            <!-- /.box-footer-->
+        </div>
+        <!-- /.box -->
+        @*Date Validation*@
+        <div class="modal fade" id="modal-warning" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel"> Message</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Closing Date Cannot Be In The Past. Please Select Future Date.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
+
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div id="mainContent" class="modal-content col-sm-12">
+                    <div id="myModalContent"></div>
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Message</h4>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button class="btn btn-danger btn-sm" data-dismiss="modal">Ok</button>
+                        @*@Html.ActionLink("Cancel", "ViewForApproval", new { id = User.Identity.GetUserId(), msg = "CANCEL" }, new { @class = "btn btn-primary btn-sm" })*@
+                        @*<input class="btn btn-primary" type="submit" value="Submit" />*@
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<script src="~/Scripts/DropDownListValues.js"></script>
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        if (document.getElementById("JobTitleID").value !== '') {
+            document.getElementById("JobTitleID").onchange();
+        }
+        if (document.getElementById("DepartmentID").value !== '') {
+            document.getElementById("DepartmentID").onchange();
+        }
+        /*==========Peter added the following function======*/
+        //$("#divJobSpecQuestion").hide();
+        //$("#divBtnAddQuestion").hide();
+        /*===================================================*/
+    });
+
+    //function datediff() {
+    //    var selectedText = document.getElementById("ClosingDate").value;
+    //    var selectedDate = new Date(selectedText);
+    //    var now = new Date();
+    //    //startDate: new Date();
+    //    if (selectedDate < now) {
+    //        alert("Date must be in the future");
+    //        document.getElementById('ClosingDate').value = " ";
+    //    }
+    //}
+
+    $(function () {
+        $("#ClosingDate").datepicker({
+            format: "yyyy-mm-dd",
+            autoHide: true
+        }).on('changeDate', function (ev) {
+            $(this).datepicker('hide');
+        }).datepicker('setDate', ClosingDate.value);
+    });
+
+    var d = document.getElementById("DivisionID").value;
+    console.log(d);
+    if (!d) {
+        document.getElementById("DepartmentID").disabled = true;
+        console.log('inside');
+    }
+    else {
+        document.getElementById("DepartmentID").disabled = false;
+        console.log('outside');
+    }
+
+
+
+    /*==========Peter added the following function======*/
+    //function DisplayJobDescTxtbox() {
+    //    $("#divJobSpecQuestion").show();
+    //    $("#divBtnAddQuestion").show();
+    //}
+    /*===================================================*/
+
+
+    //======================Peter 20230125================================
+    //function InsertJobSpecificData() {
+    //    var JobJobSpecificQuestionModel = {
+    //        JobTitleID: $("10").val(),
+    //        JobSpecificeQuestionDesc: $("#JobSpecQuestions").val(),
+    //        //CreatedDate: $("").val(),
+    //        //CreatedBy: $("").val(),
+    //    }
+    //    $.ajax({
+    //        async: true,
+    //        type: 'POST',
+    //        url: baseUrl,
+    //        data: JSON.stringify(JobJobSpecificQuestionModel),
+    //        dataType: 'JSON',
+    //        contentType: 'application/json; charset=utf-8',
+    //        success: function (data) {
+                
+    //        },
+    //        error: function () {
+    //            alert('There is some problem to add the job specific question.');
+    //        }
+    //    })
+    //}
+    //====================================================================
+
+
+</script>
+
+<!-- CK Editor -->
+<script src="~/Content/bower_components/ckeditor/ckeditor.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="~/Content/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<script>
+    $(function () {
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace('editor1')
+        //bootstrap WYSIHTML5 - text editor
+        $('.textarea').wysihtml5()
+    })
+</script>
+
+
+
+

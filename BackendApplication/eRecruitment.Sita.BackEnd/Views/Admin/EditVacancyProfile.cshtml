@@ -1,0 +1,379 @@
+﻿@model IEnumerable<eRecruitment.BusinessDomain.DAL.Entities.AppModels.JobProfileViewModel>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="hide hidden listOfSkills">
+
+        @foreach (var item in ViewBag.VacancyProfileSkillsList)
+        {
+            <input type="text" value="@item.skillID" class="hidden" />
+        }
+    </div>
+
+    <section class="content-header">
+        <style>
+            /*.box .wysihtml5-toolbar {
+                visibility: hidden;
+            }*/
+
+            .textarea {
+                width: 1000px;
+                border: hidden;
+            }
+        </style>
+        <h1>
+            Manage Job Profile
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-wrench"></i> Administration</a></li>
+            <li><a href="~/Admin/JobLevelList">Job Profile</a></li>
+            <li class="active">Edit Job Profile</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!-- Default box -->
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Edit Job Profile</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                            title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" disabled data-toggle="tooltip" title="Remove">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+
+                @foreach (var item in Model)
+                {
+                    using (Html.BeginForm("EditVacancyProfile", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Organisation Name:</label>
+                                        @if (ViewBag.Organisation != null)
+                                        {
+                                            foreach (var d in ViewBag.Organisation)
+                                            {
+                                                <div class="form-control" readonly>
+                                                    <label>
+                                                        <input type="text"
+                                                               name="Organisation"
+                                                               hidden value="@d.OrganisationID" /> @d.OrganisationName
+                                                        </label>
+                                                    </div>
+                                                }
+                                            }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Job Title:<span class="required" style="color:red;"> * </span></label>
+                                        @Html.DropDownListFor(Model => @item.JobTitleID, new SelectList(ViewBag.JobTitle, "JobTitleID", "JobTitle", @item.JobTitleID), "--Select Job Title --", new { id = "JobTitleID", @class = "form-control select2", required = "Required", tabindex = 1, onChange = "GetSalaryStructureForEdit()" })
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Salary Category:</label>
+                                        @Html.TextBoxFor(Model => @item.CategoryDescr, new { @id = "SalaryCat", @class = "form-control", @readonly = "readonly", placeholder = "Salary Category", tabindex = 2 })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Salary Sub-Category:</label>
+                                        @Html.TextBoxFor(Model => @item.Descr, new { @id = "SalarySubCat", @class = "form-control", placeholder = "Salary Sub-Category", @readonly = "readonly", tabindex = 2 })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Job Level:</label>
+                                        @Html.HiddenFor(Model => item.JobLevelID, new { @id = "JobLevelID" })
+                                        @Html.TextBoxFor(Model => @item.JobLevelName, new { @id = "JobLevel", @class = "form-control", placeholder = "Job Level", @readonly = "readonly", tabindex = 2 })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label> Minimum Value:</label>
+                                            @Html.TextBoxFor(Model => @item.MinValue, new { @id = "Min", @class = "form-control", placeholder = " Minimum Value", @readonly = "readonly", tabindex = 2 })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label> Maximum Value:</label>
+                                            @Html.TextBoxFor(Model => @item.MaxValue, new { @id = "Max", @class = "form-control", placeholder = "  Maximum Value", @readonly = "readonly", tabindex = 2 })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*<div class="form-group">
+            <div class="col-md-12">
+                <label>Skill Category:<span class="required" style="color:red;"> * </span></label>
+                @Html.DropDownListFor(Model => @item.CategoryID, new SelectList(ViewBag.SkillsCategoryList, "CategoryID", "Description", @item.CategoryID), "--Select Skill Category --", new { @id = "SkillsID", @class = "form-control", required = "Required", tabindex = 1, onChange = "GetSkillPerCatergoryForEditSkill()" })
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="box box-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Skills<span class="required" style="color:red;"> * </span></h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body" id="Skills">
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>*@
+
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Purpose of the Job:<span class="required" style="color:red;"> * </span></label>
+                                        @Html.TextAreaFor(Model => @item.VacancyPurpose, new { @class = "form-control", @style = "width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;", placeholder = "Purpose of the Job", required = "Required", tabindex = 2 })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Key Responsibilities:<span class="required" style="color:red;"> * </span></label>
+                                        @Html.TextAreaFor(Model => @item.Responsibility, new { @class = "form-control", @style = "width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;", placeholder = "Responsibility", required = "Required", tabindex = 2 })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Qualifications and Experience:<span class="required" style="color:red;"> * </span></label>
+                                        @Html.TextAreaFor(Model => @item.QualificationAndExperience, new { @class = "form-control", @style = "width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;", placeholder = "Qualifications and Experience", required = "Required", tabindex = 2 })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Knowledge:<span class="required" style="color:red;"> * </span></label>
+                                        @Html.TextAreaFor(Model => @item.Knowledge, new { @class = "form-control", @style = "width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;", placeholder = "Knowledge", required = "Required", tabindex = 2 })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Technical Competencies:</label><br />
+                                        @Html.DropDownListFor(Model => @item.SelectedTechComps, new MultiSelectList(ViewBag.TechComp, "TechnicalCompetencyID", "TechnicalComp", @item.SelectedTechComps), new { @class = "form-control", id = "lstChosenTech", multiple = "multiple", buttonWidth = "25%" })
+                                        <br />
+                                        @Html.TextAreaFor(Model => @item.TechComps, new { @class = "form-control", id = "TechComps", placeholder = "Technical Competency Descriptions", @readonly = "readonly", tabindex = 2 })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Leadership Competencies:</label><br />
+                                        @Html.ListBoxFor(Model => @item.SelectedLeadComps, new MultiSelectList(ViewBag.LeadComp, "LeadershipCompetencyID", "LeadershipComp", @item.SelectedLeadComps), new { @class = "form-control", id = "lstChosenLead", multiple = "multiple" })
+                                        <br />
+                                        @Html.TextAreaFor(Model => @item.LeadComps, new { @class = "form-control", id = "LeadComps", placeholder = "Leadership Competency Descriptions", @readonly = "readonly", tabindex = 2 })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Interpersonal / Behavioural Competencies:</label><br />
+                                        @Html.ListBoxFor(Model => @item.SelectedBehaveComps, new MultiSelectList(ViewBag.BehaveComp, "BehaviouralCompetencyID", "BehaviouralComp", @item.SelectedBehaveComps), new { @class = "form-control", id = "lstChosenBehave", multiple = "multiple" })
+                                        <br />
+                                        @Html.TextAreaFor(Model => @item.BehaveComps, new { @class = "form-control", id = "BehaveComps", placeholder = "Interpersonal / Behavioural Competency Descriptions", @readonly = "readonly", tabindex = 2 })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Additional Requirements:<span class="required" style="color:red;"> * </span></label>
+                                        @Html.TextAreaFor(Model => @item.AdditionalRequirements, new { @class = "form-control", @style = "width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;", placeholder = "Additional Requirements", required = "Required", tabindex = 2 })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label>Disclaimer:</label>
+                                    @if (ViewBag.Disclamer != null)
+                                    {
+                                        foreach (var d in ViewBag.Disclamer)
+                                        {
+                                            
+                                                @*<textarea class="textarea" id="some-textarea" disabled>@item.Disclaimer</textarea>*@
+                                                <label>
+                                                    <input type="text"
+                                                           name="Disclaimer"
+                                                           hidden value="@d.DisclaimerDescr" /> @d.DisclaimerDescr
+                                                    </label>
+                                           
+                                            }
+                                        }
+                                </div>
+
+                                <div class="clearfix"></div><br /> <br /><br /><br /><br /><br />
+                                <div class="col-md-12 pull-right">
+                                    <input type="submit" class="btn btn-success" value="Save" /> |
+                                    <a href="@Url.Action("VacancyProfileList", "Admin")" onclick="return confirm('Are you sure you want to cancel?')" type="button" class="btn btn-danger">
+                                        Cancel
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+
+
+
+                }
+
+
+            </div>
+
+            <!-- /.box-body -->
+            <div class="box-footer">
+                &nbsp;
+            </div>
+            <!-- /.box-footer-->
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script src="~/Scripts/DropDownListValues.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#lstChosenTech").multiselect({
+            dropRight: true,
+            buttonWidth: '450px',
+            maxHeight: 375,
+            disabled: 'disabled',
+            onChange: function (element) {
+            var values = "";
+            var definitions = "";
+            var selected = $("[id*=lstChosenTech] option:selected");
+            selected.each(function () {
+                //values += $(this).html() + " " + $(this).val() + "\n";
+                values += $(this).val() + ";"
+            });
+
+            if (values.length > 0) {
+                $.post('@Url.Action("GetTechCompPerIDs")',
+                { ids: values }, function (data) {
+                    if (data != null && !jQuery.isEmptyObject(data)) {
+                        var TechComp = document.getElementById("TechComps");
+
+                        data.forEach(function (item) {
+                            definitions += item.TechnicalComp + " \n\n" + item.TechnicalCompDesc + " \n\n";
+                        });
+
+                        definitions = definitions.substr(0, definitions.length - 4);
+
+                        TechComp.value = definitions;
+                    }
+                    else { alert("Error : Could not find definitions for Technical Competencies "); }
+
+                });
+            }
+            }
+        });
+
+        $("#lstChosenLead").multiselect({
+            dropRight: true,
+            buttonWidth: '450px',
+            maxHeight: 375,
+            onChange: function (element) {
+                var values = "";
+                var definitions = "";
+                var selected = $("[id*=lstChosenLead] option:selected");
+                selected.each(function () {
+                    //values += $(this).html() + " " + $(this).val() + "\n";
+                    values += $(this).val() + ";"
+                });
+
+                if (values.length > 0) {
+                    $.post('@Url.Action("GetLeadCompPerIDs")',
+                    { ids: values }, function (data) {
+                        if (data != null && !jQuery.isEmptyObject(data)) {
+                            var LeadComp = document.getElementById("LeadComps");
+
+                            data.forEach(function (item) {
+                                definitions += item.LeadershipComp + " \n\n" + item.LeadershipCompDesc + " \n\n";
+                            });
+
+                            definitions = definitions.substr(0, definitions.length - 4);
+
+                            LeadComp.value = definitions;
+                        }
+                        else { alert("Error : Could not find definitions for Leadership Competencies "); }
+
+                    });
+                }
+            }
+        });
+
+        $("#lstChosenBehave").multiselect({
+            dropRight: true,
+            buttonWidth: '450px',
+            maxHeight: 375,
+            onChange: function (element) {
+                var values = "";
+                var definitions = "";
+                var selected = $("[id*=lstChosenBehave] option:selected");
+                selected.each(function () {
+                    //values += $(this).html() + " " + $(this).val() + "\n";
+                    values += $(this).val() + ";"
+                });
+
+                if (values.length > 0) {
+                    $.post('@Url.Action("GetBehaveCompPerIDs")',
+                    { ids: values }, function (data) {
+                        if (data != null && !jQuery.isEmptyObject(data)) {
+                            var BehaveComp = document.getElementById("BehaveComps");
+
+                            data.forEach(function (item) {
+                                definitions += item.BehaviouralComp + " \n\n" + item.BehaviouralCompDesc + " \n\n";
+                            });
+
+                            definitions = definitions.substr(0, definitions.length - 4);
+
+                            BehaveComp.value = definitions;
+                        }
+                        else { alert("Error : Could not find definitions for Behavioural Competencies "); }
+
+                    });
+                }
+            }
+        });
+
+        var JobLevelID = document.getElementById("JobLevelID");
+
+        if (JobLevelID.value < 17) {
+            $('#lstChosenLead').multiselect('disable');
+        }
+    });
+
+</script>

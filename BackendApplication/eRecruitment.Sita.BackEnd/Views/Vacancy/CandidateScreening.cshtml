@@ -1,0 +1,187 @@
+﻿@model eRecruitment.BusinessDomain.DAL.Entities.AppModels.ScreenedCandidateModel
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Candidate Screening
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Human Resource Center</a></li>
+            <li class="active">Candidate Screening</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!-- Default box -->
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Candidate Screening</h3>
+                <div class="box-tools pull-right">
+                    @*<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>*@
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" disabled data-toggle="tooltip" title="Remove">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+
+                @using (Html.BeginForm("ExportToExel", "Vacancy", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Vacancy Reference Number:<span class="required" style="color:red;"> * </span></label>
+                                    @*=============Peter commented on 20221004===========*@
+                                    @*@Html.DropDownListFor(Model => Model.VacancyID, new SelectList(ViewBag.Vacancy, "ID", "JobTitle"), "--Select Vacancy Description --", new { @class = "form-control", required = "Required", onchange = "GetQuestionBanksPerVacancy()", tabindex = 1 })*@
+                                    @*===================================================*@
+                                    @*=============Peter Added code on 20221004===========*@
+                                    @Html.DropDownListFor(Model => Model.VacancyID, new SelectList(ViewBag.Vacancy, "ID", "JobTitle"), "--Select Vacancy Description --", new { @class = "form-control select2", required = "Required", onchange = "GetQuestionBanksPerVacancy()", tabindex = 1 })
+                                    @*===================================================*@
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Province Name:<span class="required" style="color:red;"> * </span></label>
+                                    @Html.DropDownListFor(Model => Model.ProvinceID, new SelectList(ViewBag.ProvinceList, "ProvinceID", "ProvinceName"), "--Select Province --", new { @class = "form-control", required = "Required", tabindex = 1 })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Age Range:<span class="required" style="color:red;"> * </span></label>
+                                    <select id="AgeRange" required name="AgeRange" class="form-control">
+                                        <option value="" selected>--Select Age Range --</option>
+                                        <option value="1">All </option>
+                                        <option value="2">18 - 25</option>
+                                        <option value="3">25 - 30</option>
+                                        <option value="4">18 - 59</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Gender:<span class="required" style="color:red;"> * </span></label>
+                                    @Html.DropDownListFor(Model => Model.GenderID, new SelectList(ViewBag.GenderList, "GenderID", "Gender"), "--Select Gender --", new { @class = "form-control", required = "Required", tabindex = 1 })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Race:<span class="required" style="color:red;"> * </span></label>
+                                    @Html.DropDownListFor(Model => Model.RaceID, new SelectList(ViewBag.RaceList, "RaceID", "RaceName"), "--Select Race --", new { @class = "form-control", required = "Required", tabindex = 1 })
+                                </div>
+                            </div>
+
+                            @*<div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Professionally registered?:<span class="required" style="color:red;"> * </span></label>
+                                        <select id="professioonallyRegistered" name="professioonallyRegistered" class="form-control">
+                                            <option value="0" selected>--Select --</option>
+                                            <option value="1">Yes</option>
+                                            <option value="2">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Previously employed in the Public Service?:<span class="required" style="color:red;"> * </span></label>
+                                        <select id="previouslyEmployedPS" name="previouslyEmployedPS" class="form-control">
+                                            <option value="0" selected>--Select --</option>
+                                            <option value="1">Yes</option>
+                                            <option value="2">No</option>
+                                        </select>
+                                    </div>
+                                </div>*@
+                            <br>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>
+                                        <input type="checkbox" id="chkWithDisabilities" name="chkWithDisabilities" class="minimal">
+                                        &nbsp; Candidates with disabilities
+                                    </label>
+                                </div>
+                                @*<div class="col-md-4">
+                                        <label>
+                                            <input type="checkbox" id="chkWithAttachedCV" checked name="chkWithAttachedCV" class="minimal">
+                                            &nbsp; Candidates with attached CV
+                                        </label>
+                                    </div>*@
+                                <div class="col-md-4">
+                                    <label>
+                                        <input type="checkbox" id="professioonallyRegistered" name="professioonallyRegistered" class="minimal">
+                                        &nbsp; Professionally registered?
+                                    </label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        <input type="checkbox" id="previouslyEmployedPS" name="previouslyEmployedPS" class="minimal">
+                                        &nbsp; Previously employed in the Public Service?
+                                    </label>
+                                </div>
+                                @*==================Removed as per client request - Peter 20230324====================*@
+                                @*<div class="col-md-4">
+                                        <label>
+                                            <input type="checkbox" id="chkWithAttachedID" name="chkWithAttachedID" class="minimal">
+                                            &nbsp; Candidates with attached ID Copy
+                                        </label>
+                                    </div>*@
+                                @*====================================================================================*@
+                                <div class="col-md-4">
+                                    <label>
+                                        <input type="checkbox" id="chkMatricCompleted" name="chkMatricCompleted" class="minimal">
+                                        &nbsp; Completed Matric or equivalent
+                                    </label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        <input type="checkbox" id="chkDriversLicence" name="chkDriversLicence" class="minimal">
+                                        &nbsp; Valid Driver's Licence
+                                    </label>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="col-md-12">
+                                <div class="box box-success">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Question Banks<span class="required" style="color:red;"> * </span></h3>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body" id="Questions">
+
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div><br />
+                            <div class="col-md-12 pull-right">
+                                <input type="submit" class="btn btn-success" value="Generate List" /> |
+                                <button type="button" disabled class="btn btn-primary"><span class="fa fa-save"></span> Accept List</button>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                &nbsp;
+            </div>
+            <!-- /.box-footer-->
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<script src="~/Scripts/DropDownListValues.js"></script>

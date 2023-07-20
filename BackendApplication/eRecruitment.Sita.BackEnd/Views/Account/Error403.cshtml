@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "Error403";
+}
+<div class="page-header">
+    <h1>
+        Error403
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            All
+        </small>
+    </h1>
+</div><!-- /.page-header -->
+<div class="row">
+    <div class="col-xs-12">
+
+        @TempData["UserInfo"]
+    <!--Code section-->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="error-container">
+                <div class="well">
+                    <h1 class="grey lighter smaller">
+                        <span class="blue bigger-125">
+                            <i class="ace-icon fa fa-random"></i>
+                            403
+                        </span>
+                        No Access!
+                    </h1>
+
+                    <hr />
+                    <h3 class="lighter smaller">
+                        You do not currently have access to this page, please click <a href="@Url.Action("Index", "Home")">HERE</a> to go back to
+                        the Dashboard Page.
+                    </h3>
+
+                    <div class="space"></div>
+
+                    <div>
+                        <h4 class="lighter smaller">Meanwhile, try one of the following:</h4>
+
+                        <ul class="list-unstyled spaced inline bigger-110 margin-15">
+                            <li>
+                                <i class="ace-icon fa fa-hand-o-right blue"></i>
+                                Please log in as School
+                            </li>
+
+                            <li>
+                                <i class="ace-icon fa fa-hand-o-right blue"></i>
+                                Contact admin to assign you Role of School
+                            </li>
+                        </ul>
+                    </div>
+
+                    <hr />
+                    <div class="space"></div>
+                </div>
+            </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+    <!--end of code-->
+    <!-- PAGE CONTENT ENDS -->
+</div><!-- /.col -->
+</div><!-- /.row -->
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+</a>
+<!--Script Section below-->

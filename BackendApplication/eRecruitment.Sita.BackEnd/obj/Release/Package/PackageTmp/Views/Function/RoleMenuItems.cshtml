@@ -1,0 +1,288 @@
+﻿@model IEnumerable<eRecruitment.Sita.BackEnd.Models.RoleMenuItemCheckboxModel>
+
+@{
+    ViewBag.Title = "RoleMenuItems";
+    //LTSM.Cryptography.Cryptograph cryptograph = new LTSM.Cryptography.Cryptograph();
+}
+
+
+<style>
+    ul {
+        list-style: none;
+    }
+    /*Here We will add some css for style our treeview*/
+    .collapse {
+        width: 15px;
+        background-image: url('../../Content/Images/ui-icons_454545_256x240.png');
+        background-repeat: no-repeat;
+        background-position: -36px -17px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .expand {
+        width: 15px;
+        background-image: url('../../Content/Images/ui-icons_454545_256x240.png');
+        background-repeat: no-repeat;
+        background-position: -50px -17px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .treeview ul {
+        font: 14px Arial, Sans-Serif;
+        margin: 0px;
+        padding-left: 20px;
+        list-style: none;
+    }
+
+    .treeview > li > a {
+        font-weight: bold;
+    }
+
+    .treeview li {
+    }
+
+        .treeview li a {
+            padding: 4px;
+            font-size: 12px;
+            display: inline-block;
+            text-decoration: none;
+            width: auto;
+        }
+</style>
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Role Functions
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Administration</a></li>
+            <li class="active">Assign Role Functions</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!-- Default box -->
+        <div class="box-body">
+            <div class="box">
+                <div class="box-header with-border">
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove" disabled data-toggle="tooltip" title="Remove">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+    
+                <div class="box-body">
+                    <div class="box">
+                        <div class="box-body">
+      
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <!-- PAGE CONTENT BEGINS -->
+                                    <div class="row">
+                                        <div class="col-sm-12">
+
+                                            <br />
+                                            <div class="tabbable">
+                                                <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                                                    <li class="active">
+                                                        <a data-toggle="tab" href="#home4">System Permisions</a>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="tab-content">
+                                                    <div id="home4" class="tab-pane in active">
+
+                                                        <br />
+                                                        <div class="table-header center">
+                                                            @*<label>Book Year : @ViewBag.Bookyear</label>*@
+                                                        </div>
+
+                                                        <div>
+                                                            <div class="form-group">
+                                                                @Html.Label("Role Name:", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                                                <div class="col-md-9">
+                                                                    @Html.DropDownList("RoleID", new SelectList(ViewBag.RoleList, "Id", "Description"), "--Select Role--", new { @class = "form-control chosen-select", id = "RoleID", required = "required" })
+
+                                                                </div>
+                                                            </div> <br />
+                                                            <div>
+                                                                <div class="form-group">
+                                                                    @Html.Label("Menu Items(s):", htmlAttributes: new { @class = "control-label col-md-2" })
+                                                                    <div class="col-md-10">
+
+                                                                        <div class="treeview" id="myTreeView">
+
+                                                                            @if (Model != null && Model.Count() > 0)
+                                                                            {
+                                                                            <ul>
+                                                                                @Treeview.GetTreeView(Model.ToList(), 0)
+                                                                            </ul>
+                                                                            }
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix"> </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div><!-- /.col -->
+                                    </div>
+                                    <!--Code section-->
+                                    <!--Put your code here to display and to eanble control for responsive  view-->
+                                    <!--end of code-->
+                                    <!-- PAGE CONTENT ENDS -->
+                                </div><!-- /.col -->
+                            </div><!-- /.row -->
+                            <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+                                <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+                            </a>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    @*Footer*@
+                </div>
+                <!-- /.box-footer-->
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+
+<script src="~/Content/chart.js/sweetalert.min.js"></script>
+@section Scripts{
+    <script>
+        $('#RoleID').change(function () {
+            var RoleID = $('#RoleID').val();
+            var pData = '?RoleID=' + RoleID;
+            //alert(RoleID);
+            if (RoleID != null && RoleID != '') {
+                window.location.href = '@Url.Action("RoleMenuItems", "Function")' + pData;
+            } else
+            {
+                window.location.href = '@Url.Action("RoleMenuItems", "Function")' + pData;
+                //$("#myTreeView").children().attr("disabled", "disabled");
+                //$("#myTreeView").children().prop('disabled', true);
+            }
+
+        });
+        $(document).ready(function () {
+            $(".treeview li>ul").css('display', 'none'); // Hide all 2-level ul
+            $(".collapsible").click(function (e) {
+                e.preventDefault();
+                $(this).toggleClass("collapse expand");
+                $(this).closest('li').children('ul').slideToggle();
+            });
+
+
+        });
+        $('input[type=checkbox]').on('change', function () {
+            var lenchk = $(this).closest('li').find(':checkbox');
+            var lenchkChecked = $(this).closest('li').find(':checkbox:checked');
+            var all = $(this).parent().siblings().find('li input[type=checkbox]');
+            //alert($('#RoleID').val());
+            if ($('#RoleID').val() == null || $('#RoleID').val() == '')
+            {
+                alert("Role must be selected first. Changes will not be saved until Role is selected first");
+            }
+            // if is checked
+            if ($(this).is(':checked')) {
+                //alert("Checked....");
+                // check all children
+               // alert("is_last_item: " + $(this).attr('id'));
+                var RoleFunctionthis = { "MenuItemID": $(this).attr('id'), "IsSelected": true, "RoleID": $('#RoleID').val() };
+                //alert("MenuItemID : " + $(this).attr('id') + " , RoleID" + $('#RoleID').val());
+                myFunction(RoleFunctionthis);
+                $(this).parent().siblings().find('li input[type=checkbox]').prop('checked', true);
+
+                jQuery.each(all, function (i, val) {
+                    var RoleFunctionInfo = { "MenuItemID": val.id, "IsSelected": true, "RoleID": $('#RoleID').val() };
+                    var is_last_item = (i == (all.length - 1));
+                     myFunction(RoleFunctionInfo);
+                    if (is_last_item) {
+                    /* swal("success!","The permission has been granted for the selected role successfully", "success");*/
+                        //alert("The permission has been granted for the selected role successfully");
+                        Location.reload();
+                    }
+                });
+
+                //if all siblings are checked, check its parent checkbox
+                if (lenchk.length == lenchkChecked.length) {
+                    $(this).closest('input[type=checkbox]').siblings().find(':checkbox').prop('checked', true);
+                    //check its parent checkbox
+                } else {
+                    // alert('not all siblings checked');
+                    $(this).closest('ul').siblings().find(':checkbox').prop('checked', true);
+                }
+
+            } else {
+                //alert("Unchecked......");
+                // uncheck all children
+                var RoleFunctionthis = { "MenuItemID": $(this).attr('id'), "IsSelected": false, "RoleID": $('#RoleID').val() };
+                //alert("MenuItemID : " + $(this).attr('id') + " , RoleID : -- " + $('#RoleID').val());
+                //alert("attempting to remove parent.....");
+                myFunction(RoleFunctionthis);
+                //alert("done attempting to remove first.....");
+                $(this).parent().siblings().find('li input[type=checkbox]').prop('checked', false);
+
+                jQuery.each(all, function (i, val) {
+                    //alert("inside sibling.....");
+                    var RoleFunctionInfo = { "MenuItemID": val.id, "IsSelected": false, "RoleID": $('#RoleID').val() };
+                    /*alert("MenuItemID = " + val.id, "IsSelected = " + false, "RoleID = " + $('#RoleID').val());*/
+                    var is_last_item = (i == (all.length - 1));
+                   // alert("is_last_item: " + is_last_item);
+                    //alert("attempting to remove sibling.....");
+                    myFunction(RoleFunctionInfo);
+                    //alert("done attempting to remove sibling.....");
+                    if (is_last_item) {
+                    /*  swal("success!", "The permission has been removed for the selected role successfully", "success");*/
+                        alert("The permission has been removed for the selected role successfully");
+                        Location.reload();
+                    }
+                });
+                //  $(this).closest('ul').siblings().find(':checkbox').prop('checked', false); alert('siblings checked');
+
+            }
+        });
+
+        function myFunction(RoleFunctionInfo) {
+            $.ajax({
+                    url: "@Url.Action("UpdateRoleMenuItemByID", "Function")",
+                    type: 'get',
+                    datatype: 'json',
+                        data: { list: JSON.stringify(RoleFunctionInfo)  },
+                       success: function (data, textStatus) {
+                           //alert("success: " +  textStatus);
+                        },
+                       error: function (xhr, textStatus, errorThrown) {
+                          // alert("Error: " + textStatus);
+                         }
+                    });
+
+        }
+
+    </script>
+}
+

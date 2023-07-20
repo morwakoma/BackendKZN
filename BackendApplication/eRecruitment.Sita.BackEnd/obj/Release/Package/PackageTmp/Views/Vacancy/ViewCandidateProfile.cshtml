@@ -1,0 +1,688 @@
+﻿@model IEnumerable<eRecruitment.BusinessDomain.DAL.Entities.AppModels.ProfileViewModel>
+    @using Microsoft.AspNet.Identity;
+    @using System.Data.Linq
+    @{
+
+        eRecruitment.Sita.BackEnd.App_Data.Entities.DAL.eRecruitmentDataClassesDataContext _db =
+            new eRecruitment.Sita.BackEnd.App_Data.Entities.DAL.eRecruitmentDataClassesDataContext();
+        string userid = User.Identity.GetUserId();
+    }
+    <!-- Content Wrapper. Contains page content -->
+
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Candidate Z83
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Human Resource Center</a></li>
+                <li><a href="~/Vacancy/VacancyList">Candidate Z83</a></li>
+                <li class="active">View Z83</li>
+            </ol>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <!-- Default box -->
+            <div class="box">
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Personal Information</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        @Html.Hidden("downloadProfile", Url.Action("DownloadCandidateProfile"))
+
+                        @foreach (var item in Model)
+                        {
+                            using (Html.BeginForm("UpdateProfile", "Candidate", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data", role = "form", id = "myForm" }))
+                            {
+                                @Html.Hidden("profileID", item.pkProfileID)
+                                @Html.Hidden("applicationID", item.ApplicationID)
+                                <br />
+                                <div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">ID Number<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.IDNumber, null, new { @class = "form-control", @readonly = "readonly", placeholder = "Enter Id Number", required = "required", value = "", onkeypress = "return isNumberKey(event)" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">Passport Number<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.PassportNumber, null, new { @class = "form-control", @readonly = "readonly", placeholder = "Enter Passport Number", required = "required", value = "", onkeypress = "return isNumberKey(event)" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputSurname" class="col-sm-2 control-label">Surname<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.Surname, null, new { @class = "form-control", placeholder = "Enter surname", @readonly = "readonly", required = "required", value = "", onKeyPress = "return ValidateAlpha(event);" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">First Name<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.FirstName, null, new { @id = "FirstName", @readonly = "readonly", @class = "form-control", placeholder = "Enter Name", required = "required", value = "", onKeyPress = "return ValidateAlpha(event);" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="date01">Date of Birth<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.EditorFor(i => item.DateOfBirth, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @id = "DateOfBirth", @class = "form-control", @type = "text", placeholder = "Date of Birth", tabindex = 7, @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputRace" class="col-sm-2 control-label">Race<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.DropDownListFor(m => item.fkRaceID, new SelectList(ViewBag.Race, "RaceID", "RaceName", item.fkRaceID, "--Select Race--"), new { @class = "form-control", id = "RaceID", required = "required", value = "", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputGender" class="col-sm-2 control-label">Gender<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.DropDownListFor(m => item.fkGenderID, new SelectList(ViewBag.Gender, "GenderID", "Gender", item.fkGenderID, "--Select Gender--"), new { @class = "form-control", id = "GenderID", required = "required", value = "", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputContactNo" class="col-sm-2 control-label">Contact No<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.CellNo, null, new { @maxLength = "10", @id = "CellNo", @class = "form-control", @readonly = "readonly", placeholder = "Enter contactNo", required = "required", value = "", onkeypress = "return isNumberKey(event)" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputAlternative" class="col-sm-2 control-label">Alternative No</label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.AlternativeNo, null, new { @maxLength = "10", @id = "AlternativeNo", @class = "form-control", placeholder = "Enter Alternative Contact No", value = "", onkeypress = "return isNumberKey(event)", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail" class="col-sm-2 control-label">Email<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.EmailAddress, null, new { @id = "EmailAddress", @class = "form-control", @readonly = "readonly", placeholder = "Enter Email", required = "required", value = "", type = "email" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputMatric" class="col-sm-2 control-label">Matric<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.Matric, null, new { @id = "Matric", @class = "form-control", @readonly = "readonly", placeholder = "Matric", required = "required", value = "" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputDriversLicense" class="col-sm-2 control-label">Drivers License<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.DriversLicense, null, new { @id = "DriversLicense", @class = "form-control", @readonly = "readonly", placeholder = "DriversLicense", required = "required", value = "" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputUnitNo" class="col-sm-2 control-label">Unit No<span class="required" style="color:red;"></span></label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.UnitNo, null, new { @id = "UnitNo", @class = "form-control", placeholder = "Enter Unit No", value = "", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputComplex" class="col-sm-2 control-label">Complex<span class="required" style="color:red;"></span></label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.ComplexName, null, new { @id = "ComplexName", @class = "form-control", placeholder = "Enter Complex", value = "", onKeyPress = "return ValidateAlpha(event);", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputStreetNo" class="col-sm-2 control-label">Street No<span class="required" style="color:red;"></span></label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.StreetNo, null, new { @id = "StreetNo", @class = "form-control", placeholder = "Enter Street No", value = "", onkeypress = "return isNumberKey(event)", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputStreetName" class="col-sm-2 control-label">Street Name<span class="required" style="color:red;"></span></label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.StreetName, null, new { @id = "StreetName", @class = "form-control", placeholder = "Enter Street Name", value = "", onKeyPress = "return ValidateAlpha(event);", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputSuburb" class="col-sm-2 control-label">Suburb<span class="required"></span></label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.SuburbName, null, new { @id = "SuburbName", @class = "form-control", placeholder = "Enter Suburb", value = "", onKeyPress = "return ValidateAlpha(event);", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputCity" class="col-sm-2 control-label">City<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.City, null, new { @id = "City", @class = "form-control", placeholder = "Enter City", required = "required", value = "", onKeyPress = "return ValidateAlpha(event);", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputProvince" class="col-sm-2 control-label">Province<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.DropDownListFor(m => item.fkProvinceID, new SelectList(ViewBag.Province, "ProvinceID", "ProvinceName", item.fkProvinceID, "--Select Province--"), new { @class = "form-control", id = "fkProvinceID", required = "required", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPostalCode" class="col-sm-2 control-label">Postal Code<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.PostalCode, null, new { @id = "postalCode", @class = "form-control", placeholder = "Enter Postal Code", required = "required", value = "", onkeypress = "return isNumberKey(event)", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group" id="ProfessionallyRegistered">
+                                    <label for="inputProfessionallyRegistered" class="col-sm-2 control-label">Are You Professionally Registered?<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.DropDownListFor(m => item.ProfessionallyRegisteredID, new SelectList(ViewBag.YesorNo, "AnswerID", "Answer", item.ProfessionallyRegisteredID, "---Select....---"), new { @class = "form-control", onchange = "CheckProfessionallyRegistered()", id = "ProfessionallyRegisteredID", @disabled = "disabled", value = "" })
+                                    </div>
+                                </div>
+                                <div class="form-group" id="RegistrationDate">
+                                    <label for="inputRegistrationDate" class="col-sm-2 control-label">Registration Date</label>
+                                    <div class="col-sm-10">
+                                        @Html.EditorFor(i => item.RegistrationDate, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @disabled = "disabled", @id = "RegistrationDate", @class = "form-control", @type = "date", placeholder = "RegistrationDate", tabindex = 7, value = @item.RegistrationDate } })
+                                    </div>
+                                </div>
+                                <div class="form-group" id="RegistrationNumber">
+                                    <label for="inputRegistrationNumber" class="col-sm-2 control-label">Registration Number</label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.RegistrationNumber, null, new
+                                   {
+                                       @disabled = "disabled",
+                                       @id = "RegistrationNumber",
+                                       @class = "form-control",
+                                       placeholder = "Enter Registration Number",
+                                       value = ""@*, onKeyPress = "return ValidateAlpha(event);"*@})
+                                    </div>
+                                </div>
+                                <div class="form-group" id="RegistrationBody">
+                                    <label for="inputRegistrationBody" class="col-sm-2 control-label">Registration Body</label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.RegistrationBody, null, new { @disabled = "disabled", @id = "RegistrationBody", @class = "form-control", placeholder = "Enter Registration Body", value = "", onKeyPress = "return ValidateAlpha(event);" })
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group" id="PreviouslyEmployedPS">
+                                    <label for="inputPreviouslyEmployedPS" class="col-sm-2 control-label">&nbsp;</label>
+                                    <label>&nbsp;&nbsp; Were you previously employed in the Public Service?<span class="required red" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.DropDownListFor(m => item.PreviouslyEmployedPS, new SelectList(ViewBag.YesorNo, "AnswerID", "Answer", item.PreviouslyEmployedPS, "---Select....---"), new { @disabled = "disabled", @class = "form-control", onchange = "CheckPreviouslyEmployedPS()", id = "PreviouslyEmployedPSID", required = "required", value = "" })
+                                    </div>
+                                </div>
+                                <div class="form-group" id="ReEmployment">
+                                    <label for="inputPreviouslyEmployedDepartment" class="col-sm-2 control-label">&nbsp;</label>
+                                    <label>&nbsp;&nbsp; Are there any  conditions exists that prevents your re-employment?@*<span class="required red" style="color:red;"> * </span>*@</label>
+                                    <div class="col-sm-10">
+                                        @Html.DropDownListFor(m => item.ConditionsThatPreventsReEmploymentID, new SelectList(ViewBag.YesorNo, "AnswerID", "Answer", item.ConditionsThatPreventsReEmploymentID, "---Select....---"), new { @disabled = "disabled", @class = "form-control", id = "ConditionsThatPreventsReEmploymentID", required = "required", value = "" })
+                                        @*@Html.TextBoxFor(i => item.ReEmployment, null, new { @disabled = "disabled", @id = "ReEmployment", @class = "form-control", placeholder = "Enter Conditions", value = "", onKeyPress = "return ValidateAlpha(event);" })*@
+                                    </div>
+                                </div>
+                                <div class="form-group" id="ReEmployment">
+                                    <label for="inputPreviouslyEmployedDepartment" class="col-sm-2 control-label">&nbsp;</label>
+                                    <label>&nbsp;&nbsp; If Yes please specify@*<span class="required red" style="color:red;"> * </span>*@</label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(m => item.ReEmployment, null, new { @id = "ReEmployment", @class = "form-control", placeholder = "Enter Conditions", value = "" })
+                                    </div>
+                                </div>
+                                <div class="form-group" id="PreviouslyEmployedDepartment">
+                                    <label for="inputPreviouslyEmployedDepartment" class="col-sm-2 control-label">&nbsp;</label>
+                                    <label>&nbsp;&nbsp; Provide the name of the previous employing department@*<span class="required red" style="color:red;"> * </span>*@</label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.PreviouslyEmployedDepartment, null, new { @disabled = "disabled", @id = "PreviouslyEmployedDepartment", @class = "form-control", placeholder = "Enter Department", value = "", onKeyPress = "return ValidateAlpha(event);" })
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label for="inputDisability" class="col-sm-2 control-label">Disability<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.DropDownListFor(m => item.fkDisabilityID, new SelectList(ViewBag.YesorNo, "AnswerID", "Answer", item.fkDisabilityID, "--Please Select--"), new { @class = "form-control", onchange = "CheckDisability()", required = "required", value = "", @disabled = "disabled" })
+                                        @Html.HiddenFor(m => @item.fkDisabilityID, new { id = "fkDisabilityID" })
+                                    </div>
+                                </div>
+                                if (item.fkDisabilityID == 1)
+                                {
+                                    <div class="form-group DisabilityDetails" id="DisabilityDetails">
+                                        <label for="inputDisabilityDetails" class="col-sm-2 control-label">Disability Details<span class="required"></span></label>
+                                        <div class="col-sm-10">
+                                            @Html.DropDownListFor(m => item.NatureOfDisability, new SelectList(ViewBag.Disability, "DisabilityID", "Disability", item.NatureOfDisability, "---Select Nature Of Disability...---"), new { @class = "form-control", onchange = "CheckDisabilityNature()", id = "DisabilityID", required = "required", value = "", onKeyPress = "return ValidateAlpha(event);", @disabled = "disabled" })
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+
+                                }
+
+                                <div class="form-group" id="OtherNatureOfDisability">
+                                    <label for="inputOtherNatureOfDisability" class="col-sm-2 control-label">If Other, Details</label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.OtherNatureOfDisability, null, new { @id = "OtherNatureOfDisability", @class = "form-control", placeholder = "Enter Nature if Disability is Other", value = "", onKeyPress = "return ValidateAlpha(event);", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputRSACitizen" class="col-sm-2 control-label">RSA Citizen<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.DropDownListFor(m => item.SACitizen, new SelectList(ViewBag.Citizenship, "AnswerID", "Answer", item.SACitizen, "--Please Select---"), new { @class = "form-control", onchange = "CheckNationality()", id = "CitizenID", required = "required", value = "", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                                <div class="form-group" id="NationanityDetails">
+                                    <label for="inputCitizen" class="col-sm-2 control-label">If No, Nationality<span class="required"></span></label>
+                                    <div class="col-sm-10">
+                                        @Html.DropDownListFor(m => item.fkNationalityID, new SelectList(ViewBag.Country, "CountryID", "CountryName", item.fkNationalityID, "---Select Language....---"), new { @class = "form-control", required = "required", value = "", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                                <div class="form-group" id="WorkPermit">
+                                    <label for="inputWorkPermit" class="col-sm-2 control-label">Valid Work Permit<span class="required"></span></label>
+                                    <div class="col-sm-10">
+                                        @Html.DropDownListFor(m => item.fkWorkPermitID, new SelectList(ViewBag.YesorNo, "AnswerID", "Answer", item.fkWorkPermitID, "---Select....---"), new { @class = "form-control", onchange = "CheckWorkPermit()", id = "WorkPermitID", required = "required", value = "", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                                <div class="form-group" id="WorkPermitNo">
+                                    <label for="inputCriminalOffense" class="col-sm-2 control-label">Permit Number</label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.WorkPermitNo, null, new { @id = "WorkPermitNo", @class = "form-control", placeholder = "Work Permit Number", value = "", onkeypress = "return isNumberKey(event)", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputCriminalOffense" class="col-sm-2 control-label">Criminal Offence<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.DropDownListFor(m => item.pkCriminalOffenseID, new SelectList(ViewBag.YesorNo, "AnswerID", "Answer", item.pkCriminalOffenseID, "---Select....---"), new { @class = "form-control", id = "CriminalOffenseID", required = "required", value = "", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label for="inputLanguageForCorrespondence" class="col-sm-2 control-label">&nbsp;</label>
+                                    <label>&nbsp;&nbsp; Preferred Language For Correspondence<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.DropDownListFor(m => item.fkLanguageForCorrespondenceID, new SelectList(ViewBag.Language, "LanguageID", "LanguageName", item.fkLanguageForCorrespondenceID, "---Select Language....---"), new { @class = "form-control", id = "LanguageForCorrespondenceID", required = "required", value = "", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputTelNoDuringWorkingHours" class="col-sm-2 control-label">&nbsp;</label>
+                                    <label>&nbsp;&nbsp; Telephone No During Working Hours<span class="required red" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.TelNoDuringWorkingHours, null, new { @maxLength = "10", @id = "TelNoDuringWorkingHours", @class = "form-control", placeholder = "Enter Telephone No During Working Hours", required = "required", value = "", onkeypress = "return isNumberKey(event)", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputWayForCorrespondance" class="col-sm-2 control-label">&nbsp;</label>
+                                    <label>&nbsp;&nbsp; Preferred Way Of Correspondence<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.DropDownListFor(m => item.MethodOfCommunicationID, new SelectList(ViewBag.CommunicationMethod, "MethodID", "MethodName", item.MethodOfCommunicationID, "--Select Method of Communication--"), new { @class = "form-control", required = "required", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputCorrespondanceDetails" class="col-sm-2 control-label">&nbsp;</label>
+                                    <label>&nbsp;&nbsp; Correspondence Details<span class="required" style="color:red;"> * </span></label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(i => item.CorrespondanceDetails, null, new { @id = "CorrespondanceDetails", @class = "form-control", placeholder = "Enter Correspondence Details", required = "required", value = "", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <hr>
+                            }
+                        }
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Education</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Institution</th>
+                                    <th>Qualification</th>
+                                    <th>Qualification Type</th>
+                                    <th>Certificate#</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (@ViewBag.CandidateEducationList != null)
+                                {
+                                    foreach (var item in ViewBag.CandidateEducationList)
+                                    {
+                                        <tr>
+                                            <td>@item.institutionName</td>
+                                            <td>@item.qualificationName</td>
+                                            <td>@item.QualificationTypeName</td>
+                                            <td>@item.certificateNumber</td>
+                                            <td>@item.startDate</td>
+                                            <td>@item.endDate</td>
+                                        </tr>
+
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+                <hr><br>
+
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Work History</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Company Name</th>
+                                    <th>Job Title</th>
+                                    <th>Duties</th>
+                                    <th>Department</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Reason For Leaving</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (@ViewBag.CandidateWorkHistoryList != null)
+                                {
+
+
+                                    foreach (var item in ViewBag.CandidateWorkHistoryList)
+                                    {
+                                        string text = item.positionHeld;
+
+                                        //string positionHeld = text.Replace("\u0095", ".").Replace("\u0092", "'").Replace("\u0096", "-").Replace("?", ".").Trim();
+                                        <tr>
+                                            <td>@item.companyName</td>
+                                            <td>@item.jobTitle</td>
+                                            <td style="white-space: pre-line;">@item.positionHeld</td>
+                                            @*<td style="white-space: pre-line;">@item.positionHeld</td>*@
+                                            <td>@item.department</td>
+                                            <td>@item.startDate</td>
+                                            @if (@item.endDate == "0001/01/01" || @item.endDate == "0001-01-01" || @item.endDate == "1/1/0001" || @item.endDate == "01/01/0001")
+                                            {
+                                                <td>Current</td>
+                                            }
+                                            else
+                                            {
+                                                <td>@item.endDate</td>
+                                            }
+                                            <td>@item.reasonForLeaving</td>
+                                        </tr>
+
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+                <hr><br>
+
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Skills</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Skill Name</th>
+                                    <th>Skill Proficiency</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (@ViewBag.CandidateSkillList != null)
+                                {
+                                    foreach (var item in ViewBag.CandidateSkillList)
+                                    {
+                                        <tr>
+                                            <td>@item.skillName</td>
+                                            <td>@item.SkillProficiency</td>
+                                        </tr>
+
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+                <hr><br>
+
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Languages</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Language Name</th>
+                                    <th>Language Proficiency</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (@ViewBag.CandidateLanguageList != null)
+                                {
+                                    foreach (var item in ViewBag.CandidateLanguageList)
+                                    {
+                                        <tr>
+                                            <td>@item.LanguageName</td>
+                                            <td>@item.LanguageProficiency</td>
+                                        </tr>
+
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+                <hr><br>
+
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">References</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Reference Name</th>
+                                    <th>Company Name</th>
+                                    <th>Position Held</th>
+                                    <th>Tel No</th>
+                                    <th>Email Address</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (@ViewBag.CandidateReferenceList != null)
+                                {
+                                    foreach (var item in ViewBag.CandidateReferenceList)
+                                    {
+                                        <tr>
+                                            <td>@item.refName</td>
+                                            <td>@item.companyName</td>
+                                            <td>@item.positionHeld</td>
+                                            <td>@item.telNo</td>
+                                            <td>@item.emailAddress</td>
+                                        </tr>
+
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+
+                <hr><br>
+
+                @*<div class="box box-warning">
+            <div class="box-header with-border">
+                <h3 class="box-title">Attachments</h3>
+            </div>
+            <div class="box-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (@ViewBag.CandidateAttachmentList != null)
+                        {
+                            foreach (var item in ViewBag.CandidateAttachmentList)
+                            {
+                                <tr>
+                                    <td>
+                                        @if (@item.fileName != "Curriculum Vitae")
+                                        {
+                                            <a href="@Url.Action("DownLoadCandidateAttachment", "Vacancy", new { attachmentID = @item.attachmentID})">@item.fileName</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>*@
+
+
+                @*<br>*@
+            <div class="col-md-12 pull-right">
+                <a href="@Url.Action("CandidateProfile", "Vacancy", new { id = 0 })" onclick="return confirm('Are you sure you want to go back to list?')" type="button" class="btn btn-primary">
+                    Back To List
+                </a>
+                @foreach (var item in Model)
+                {
+                    
+                        @*<a href="@Url.Action("DownloadCandidateCVitae", "Vacancy", new {ID =@item.ProfileID})"><span class="fa fa-download" style="color:blue"></span> Download Profile</a>*@
+            <a href="@Url.Action("DownloadCandidateProfile", "Vacancy", new {profileID = item.pkProfileID,ID=item.ApplicationID })"><span class="fa fa-download" style="color:blue"></span> Download Z83</a>
+                   
+                }
+                </div>
+                
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        &nbsp;
+                    </div>
+                    <!-- /.box-footer-->
+                </div>
+                <!-- /.box -->
+</section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <script src="~/Scripts/DropDownListValues.js"></script>
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            //alert("Hello! I am an alert box!!");
+            //  alert($("#ProfessionallyRegisteredID").val());
+            CheckProfessionallyRegistered();
+            CheckPreviouslyEmployedPS();
+            CheckDisability();
+            CheckDisabilityNature();
+            CheckNationality();
+            CheckWorkPermit();
+        });
+    </script>
+    <script>
+
+
+        function CheckProfessionallyRegistered() {
+            var d = $("#ProfessionallyRegisteredID").val();
+            //alert($("#ProfessionallyRegisteredID").val());
+            if (d == 1) {
+                $("#RegistrationDate").show();
+                $("#RegistrationNumber").show();
+                $("#RegistrationBody").show();
+
+                document.getElementById("RegistrationDate").required = true;
+                document.getElementById("RegistrationNumber").required = true;
+                document.getElementById("RegistrationBody").required = true;
+            }
+            else {
+                $("#RegistrationDate").hide();
+                $("#RegistrationNumber").hide();
+                $("#RegistrationBody").hide();
+
+                document.getElementById("RegistrationDate").required = false;
+                document.getElementById("RegistrationNumber").required = false;
+                document.getElementById("RegistrationBody").required = false;
+            }
+        }
+
+        function CheckPreviouslyEmployedPS() {
+            var d = $("#PreviouslyEmployedPSID").val();
+            //alert($("#PreviouslyEmployedPSID").val());
+            if (d == 1) {
+                $("#ReEmployment").show();
+                $("#PreviouslyEmployedDepartment").show();
+
+                document.getElementById("PreviouslyEmployedDepartment").required = true;
+                document.getElementById("ReEmployment").required = true;
+            }
+            else {
+                $("#ReEmployment").hide();
+                $("#PreviouslyEmployedDepartment").hide();
+
+                document.getElementById("ReEmployment").required = false;
+                document.getElementById("PreviouslyEmployedDepartment").required = false;
+
+            }
+        }
+
+        function CheckDisability() {
+            var d = $("#AnswerID").val();
+            //alert($("#AnswerID").val());
+            if (d == 1) {
+                $("#DisabilityDetails").show();
+            }
+            else {
+                $("#DisabilityDetails").hide();
+                $("#OtherNatureOfDisability").hide();
+            }
+        }
+
+        function CheckDisabilityNature() {
+            var d = $("#DisabilityID").val();
+            if (d == 11) {
+                $("#OtherNatureOfDisability").show();
+            }
+            else {
+                $("#OtherNatureOfDisability").hide();
+            }
+        }
+
+        function CheckNationality() {
+            var d = $("#CitizenID").val();
+            if (d == 2) {
+                $("#NationanityDetails").show();
+                $("#WorkPermit").show();
+            }
+            else {
+                $("#NationanityDetails").hide();
+                $("#WorkPermit").hide();
+            }
+        }
+
+        function CheckWorkPermit() {
+            var a = $("#WorkPermitID").val();
+            if (a == 1) {
+                $("#WorkPermitNo").show();
+            }
+            else {
+                $("#WorkPermitNo").hide();
+            }
+        }
+    </script>
