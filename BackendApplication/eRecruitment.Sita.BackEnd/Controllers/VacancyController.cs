@@ -2213,7 +2213,7 @@ namespace eRecruitment.Sita.BackEnd.Controllers
             //return value;
             //return Regex.Replace(value, @"[^0-9A-Za-z ,]", " ").Replace("&#61623", ".").Replace("  61623", ".").Replace("&#61553", ".").Replace("  61553", ".").Replace(" ", " ").Trim();
             //return Regex.Replace(value, @"[^0-9A-Za-z ,]", ".").Replace("\u0095", ".").Replace("\u0092", "'").Trim();
-            return value.Replace("\u0095", ".").Replace("\u0092", "'").Replace("\u0096", "-").Replace("•", ".").Replace("amp;amp;amp;", "").Replace("&#39;", "'").Replace("&amp;amp;amp;", "&").Replace("‘", "'").Replace("’", "'").Replace("#39", "'").Replace("&quot;", "\"").Replace("&lt", "<").Replace("&gt", ">").Replace("&amp", "&").Trim();
+            return value.Replace("\u0095", ".").Replace("\u0091", "`").Replace("\u0094", "”").Replace("\u0092", "'").Replace("\u0096", "-").Replace("•", ".").Replace("amp;amp;amp;", "").Replace("&#39;", "'").Replace("&amp;amp;amp;", "&").Replace("‘", "'").Replace("’", "'").Replace("#39", "'").Replace("&quot;", "\"").Replace("&lt", "<").Replace("&gt", ">").Replace("&amp", "&").Trim();
         }
 
 
@@ -2279,24 +2279,31 @@ namespace eRecruitment.Sita.BackEnd.Controllers
                                  join b in _db.tblProfiles on a.UserID equals b.UserID
                                  join c in _db.tblVacancies on a.VacancyID equals c.ID
                                  join d in _db.lutJobTitles on c.JobTitleID equals d.JobTitleID
-                                 join e in _db.lutSalaryStructures on d.JobTitleID equals e.JobTitleID
-                                 join f in _db.lutJobLevels on e.JobLevelID equals f.JobLevelID
                                  where a.VacancyID == id
-                                 select new { a.UserID, b.EmailAddress, b.FirstName, b.Surname, b.CellNo, d.JobTitle, c.ReferenceNo, f.JobLevelName }).ToList();
+                                 select new { a.UserID, b.EmailAddress, b.FirstName, b.Surname, b.CellNo, d.JobTitle, c.ReferenceNo, b.CorrespondanceDetails}).ToList();
 
             foreach (var data in candidateInfo)
             {
+                string email = "";
+                if(data.CorrespondanceDetails == null)
+                {
+                    email = data.CorrespondanceDetails;
+                }
+                else
+                {
+                    email = data.EmailAddress;
+                }
 
                 rbuilder = new StringBuilder();
                 rbuilder.Append("Dear : <b>" + data.FirstName + " " + data.Surname + "</b>" + "<br/>");
-                rbuilder.AppendLine("Please note the position " + data.JobTitle + ", " + data.JobLevelName + ", Reference No: " + data.ReferenceNo + "<br/>");
+                rbuilder.AppendLine("Please note the position " + data.JobTitle + ", Reference No: " + data.ReferenceNo + "<br/>");
                 rbuilder.Append(" has been retracted and should the position be re-advertised your application will be considered.");
                 rbuilder.Append("");
                 rbuilder.Append("<br/>");
                 rbuilder.Append("<br/><b><i>Please note: This e-mail was sent from a notification-only address that cannot accept incoming e-mail. Please do not reply to this message.</i></b>");
                 rbuilder.Append("<br/>Kind Regards<br/>E-Recruitment Team");
                 string candidateEmailText = rbuilder.ToString();
-                notify.SendEmail(data.EmailAddress, "e-Recruitment Notification", candidateEmailText);
+                notify.SendEmail(email, "e-Recruitment Notification", candidateEmailText);
 
             }
             var recruiterInfo = (from a in _db.AspNetUserRoles
@@ -2306,8 +2313,6 @@ namespace eRecruitment.Sita.BackEnd.Controllers
                                  join e in _db.AssignedDivisionDepartments on a.UserId equals e.UserId
                                  join f in _db.tblVacancies on d.UserID equals f.Manager
                                  join g in _db.lutJobTitles on f.JobTitleID equals g.JobTitleID
-                                 join h in _db.lutSalaryStructures on g.JobTitleID equals h.JobTitleID
-                                 join i in _db.lutJobLevels on h.JobLevelID equals i.JobLevelID
                                  where Convert.ToInt32(c.Id) == 2 && f.ID == id
                                  orderby d.FirstName ascending
                                  select new
@@ -2316,7 +2321,6 @@ namespace eRecruitment.Sita.BackEnd.Controllers
                                      ApproverUserIdUserId = d.UserID,
                                      Fullname = d.FirstName + " " + d.Surname,
                                      JobTitle = g.JobTitle,
-                                     JobLevelName = i.JobLevelName,
                                      ReferenceNo = f.ReferenceNo,
                                      EmailAddress = d.EmailAddress
                                  }).Distinct().OrderBy(x => x.Fullname).ToList();
@@ -2327,7 +2331,7 @@ namespace eRecruitment.Sita.BackEnd.Controllers
 
                 rbuilder = new StringBuilder();
                 rbuilder.Append("Dear : <b>" + rInfo.Fullname + "</b>" + "<br/>");
-                rbuilder.AppendLine("Please note the position " + rInfo.JobTitle + ", " + rInfo.JobLevelName + ", Reference No: " + rInfo.ReferenceNo + "<br/>");
+                rbuilder.AppendLine("Please note the position " + rInfo.JobTitle + ", Reference No: " + rInfo.ReferenceNo + "<br/>");
                 rbuilder.Append(" has been retracted and should the position be re-advertised your application will be considered.");
                 rbuilder.Append("");
                 rbuilder.Append("<br/>");

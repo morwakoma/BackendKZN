@@ -5014,7 +5014,7 @@ namespace eRecruitment.BusinessDomain.DAL
             _db = new eRecruitmentDataClassesDataContext();
 
             //============Peter 20221028============
-            var data = _db.lutSalaryTypes.Where(y => y.SalaryTypeDescr == "Salary").OrderBy(x => x.SalaryTypeDescr).ToList();
+            var data = _db.lutSalaryTypes.OrderBy(x => x.SalaryTypeDescr).ToList();
             //======================================
             //var data = _db.lutSalaryTypes.ToList();
 
