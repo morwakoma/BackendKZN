@@ -3071,13 +3071,22 @@ namespace eRecruitment.Sita.BackEnd.Controllers
             var languageData = _dal.GetCandidateLanguageList(applicationId);
             var referenceData = _dal.GetReferenceList(applicationId);
 
-            //var data = _db.sp_GetVacancyAdDetail(id).FirstOrDefault();
+            var b = from a in _db.tblCandidateVacancyApplications
+                            where a.ApplicationID == applicationId
+                            select new
+                            {
+                                VacancyID = a.VacancyID
+                            }.VacancyID;
+            
+
+            var data = _db.sp_GetVacancyAdDetail(Convert.ToInt32(b.FirstOrDefault())).FirstOrDefault();
+
+            List<string> noticePeriod = _dal.GetNoticePeriod(applicationId, Convert.ToInt32(b.FirstOrDefault()));
 
             using (System.IO.MemoryStream memoryStream = new System.IO.MemoryStream())
             {
-
                 //Document document = new Document(PageSize.A4, 10, 10, 10, 10);
-                Document document = new Document(PageSize.A4.Rotate(), 10, 10, 10, 10);
+                Document document = new Document(PageSize.A4);
                 //Document document = new Document(new Rectangle(288f, 144f), 10, 10, 10, 10);
                 //document.SetPageSize(iTextSharp.text.PageSize.A4.Rotate());
                 Font courier = new Font(Font.FontFamily.HELVETICA, 9f);
@@ -3088,522 +3097,434 @@ namespace eRecruitment.Sita.BackEnd.Controllers
 
                 Paragraph paraHead = new Paragraph("Candidate Profile of ".ToUpper() + string.Format("{0} {1}", profileData.Surname, profileData.FirstName).ToUpper());
                 paraHead.Alignment = Element.ALIGN_CENTER;
-                paraHead.Font = FontFactory.GetFont("dax-black", 20, Font.BOLD);
+                paraHead.Font = FontFactory.GetFont("arial", 20, Font.BOLD);
+
                 //cellVacancyPurpose.BackgroundColor = BaseColor.LIGHT_GRAY;
 
                 document.Add(paraHead);
                 document.Add(new Paragraph("\n"));
 
+                Font arial = FontFactory.GetFont("Arial", 8, BaseColor.BLACK);
+
+                //BaseFont bfTimes = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, false);
+                //iTextSharp.text.Font f = new iTextSharp.text.Font(bfTimes, 6,
+                //    iTextSharp.text.Font.ITALIC, BaseColor.BLACK);
+
                 PdfPTable table = new PdfPTable(2);
 
-                //PdfPCell cell = new PdfPCell(new Phrase("Vacancy Information Download"));
-                PdfPCell cell = new PdfPCell(new Phrase("Personal Information"));
+                PdfPCell cell = new PdfPCell(new Phrase("A. THE ADVERTISED POST (All sections of this form are compulsory)", FontFactory.GetFont("Arial", 8, Font.BOLD, BaseColor.BLACK)));
                 cell.Colspan = 2;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.BackgroundColor = BaseColor.LIGHT_GRAY;
-                cell.Border = 0; //Added this for testing
                 table.AddCell(cell);
 
-                PdfPCell emptyCell = new PdfPCell(new Phrase(" "));
-                emptyCell.Colspan = 2;
-                emptyCell.Border = 0;
+                cell = new PdfPCell(new Phrase("Position for which you are applying (as advertised): " + data.JobTitle, arial));
+                table.AddCell(cell);
 
-                table.AddCell(emptyCell);
-                table.SetWidths(new int[] { 1, 2 });
-                PdfPCell cellP = null;
+                cell = new PdfPCell(new Phrase("Department where the position was advertised: " + data.DepartmentName, arial));
+                table.AddCell(cell);
 
-                cellP = new PdfPCell(new Phrase("ID Number: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.IDNumber);
+                cell = new PdfPCell(new Phrase("Reference number (as stated in the advert): " + data.ReferenceNo, arial));
+                table.AddCell(cell);
 
-                cellP = new PdfPCell(new Phrase("Passport Number: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.PassportNumber);
+                cell = new PdfPCell(new Phrase("If you are offered the position, when can you start OR how much notice must you serve with your current employer?: " + noticePeriod[0], arial));
+                table.AddCell(cell);
 
-                cellP = new PdfPCell(new Phrase("Surname: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.Surname);
+                document.Add(table);
+                document.Add(new Paragraph("\n"));
 
-                cellP = new PdfPCell(new Phrase("First Name: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.FirstName);
+                table = new PdfPTable(4);
 
-                cellP = new PdfPCell(new Phrase("Date of Birth: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.DateOfBirth);
 
-                cellP = new PdfPCell(new Phrase("Race: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.Race);
+                cell = new PdfPCell(new Phrase("B. PERSONAL INFORMATION", FontFactory.GetFont("Arial", 8, Font.BOLD, BaseColor.BLACK)));
+                cell.Colspan = 4;
+                table.AddCell(cell);
 
-                cellP = new PdfPCell(new Phrase("Gender: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.Gender);
+                cell = new PdfPCell(new Phrase("Surname and Full names", arial));
+                cell.Rowspan = 2;
+                cell.Colspan = 2;
+                table.AddCell(cell);
 
-                cellP = new PdfPCell(new Phrase("Contact No: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.CellNo);
+                cell = new PdfPCell(new Phrase(profileData.FirstName, arial));
+                cell.Colspan = 2;
+                table.AddCell(cell);
 
-                cellP = new PdfPCell(new Phrase("Alternative No: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.AlternativeNo);
+                cell = new PdfPCell(new Phrase(profileData.Surname, arial));
+                cell.Colspan = 2;
+                table.AddCell(cell);
 
-                cellP = new PdfPCell(new Phrase("Email Address: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.EmailAddress);
+                cell = new PdfPCell(new Phrase("Date Of Birth", arial));
+                cell.Rowspan = 2;
+                table.AddCell(cell);
 
-                cellP = new PdfPCell(new Phrase("Matric: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.Matric);
+                cell = new PdfPCell(new Phrase(profileData.DateOfBirth, arial));
+                cell.Rowspan = 2;
+                table.AddCell(cell);
 
-                cellP = new PdfPCell(new Phrase("Drivers License: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.DriversLicense);
+                cell = new PdfPCell(new Phrase("Identity Number", arial));
+                table.AddCell(cell);
 
-                cellP = new PdfPCell(new Phrase("Unit No: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.UnitNo);
+                table.AddCell(new PdfPCell(new Phrase(profileData.IDNumber, arial)));
 
-                cellP = new PdfPCell(new Phrase("Complex Name: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.ComplexName);
+                table.AddCell(new PdfPCell(new Phrase("Passport number", arial)));
+                table.AddCell("");
 
-                cellP = new PdfPCell(new Phrase("Street No: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.StreetNo);
+                table.AddCell(new PdfPCell(new Phrase("Race", arial)));
 
-                cellP = new PdfPCell(new Phrase("Street Name: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.StreetName);
+                cell = new PdfPCell(new Phrase(profileData.Race, arial));
+                cell.Colspan = 3;
+                table.AddCell(cell);
 
-                cellP = new PdfPCell(new Phrase("Suburb Name: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.SuburbName);
+                cell = new PdfPCell(new Phrase("Gender", arial));
+                cell.Colspan = 3;
+                table.AddCell(cell);
+                table.AddCell(new PdfPCell(new Phrase(profileData.Gender, arial)));
 
-                cellP = new PdfPCell(new Phrase("City: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.City);
-
-                cellP = new PdfPCell(new Phrase("Province: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.Province);
-
-                cellP = new PdfPCell(new Phrase("Postal Code: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.PostalCode);
-
-                if (profileData.ProfessionallyRegisteredID == 1)
-                {
-                    cellP = new PdfPCell(new Phrase("Are You Professionally Registered?"));
-                    cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    table.AddCell("Are You Professionally Registered? ");
-                    table.AddCell("Yes");
-
-                    cellP = new PdfPCell(new Phrase("Registration Date: "));
-                    cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    table.AddCell(cellP);
-
-                    if (profileData.RegistrationDate.ToString().Contains("0001/01/01"))
-                    {
-                        table.AddCell(string.Empty);
-                    }
-                    else { table.AddCell(profileData.RegistrationDate.ToString()); }
-
-                    cellP = new PdfPCell(new Phrase("Registration Number: "));
-                    cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    table.AddCell(cellP);
-                    if (profileData.RegistrationNumber != null) { table.AddCell(profileData.RegistrationNumber.ToString()); } else { table.AddCell(string.Empty); }
-
-                    cellP = new PdfPCell(new Phrase("Registration Body: "));
-                    cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    table.AddCell(cellP);
-                    if (profileData.RegistrationBody != null) { table.AddCell(profileData.RegistrationBody.ToString()); } else { table.AddCell(string.Empty); }
-                    //table.AddCell(profileData.RegistrationBody.ToString());
-                }
-                else
-                {
-                    cellP = new PdfPCell(new Phrase("Are You Professionally Registered? "));
-                    cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    table.AddCell(cellP);
-                    table.AddCell("No");
-                }
-
-                cellP = new PdfPCell(new Phrase("Were you previously employed in the Public Service? "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                if (profileData.PreviouslyEmployedPS == 1)
-                {
-                    table.AddCell("Yes");
-                }
-                else
-                {
-                    table.AddCell("No");
-                }
-
-                if (profileData.ConditionsThatPreventsReEmploymentID == 1)
-                {
-                    cellP = new PdfPCell(new Phrase("Are there any conditions that prevents your re-employment?"));
-                    cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    table.AddCell(cellP);
-                    table.AddCell("Yes");
-
-                    cellP = new PdfPCell(new Phrase("If Yes please specify:"));
-                    cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    table.AddCell(cellP);
-                    table.AddCell(profileData.ReEmployment);
-
-                    cellP = new PdfPCell(new Phrase("Provide the name of the previous employing department:"));
-                    cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    table.AddCell(cellP);
-                    table.AddCell(profileData.PreviouslyEmployedDepartment);
-                }
-                else
-                {
-                    cellP = new PdfPCell(new Phrase("Are there any conditions that prevents your re-employment?"));
-                    cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    table.AddCell(cellP);
-                    table.AddCell("No");
-                }
+                cell = new PdfPCell(new Phrase("Do you have a disability?", arial));
+                cell.Colspan = 3;
+                table.AddCell(cell);
 
                 if (profileData.fkDisabilityID == 1)
                 {
-                    cellP = new PdfPCell(new Phrase("Disability:"));
-                    cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    table.AddCell(cellP);
-                    table.AddCell("Yes");
-
-                    //cellP = new PdfPCell(new Phrase("Disability:"));
-                    //cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    //table.AddCell(cellP);
-                    //table.AddCell(profileData.Disability);
-
-                    //if (profileData.NatureOfDisability == 2)
-                    //{
-                    //    table.AddCell("Nature of Disability: ");
-                    //    table.AddCell(profileData.OtherNatureOfDisability);
-                    //}
-
-                    cellP = new PdfPCell(new Phrase("Nature of Disability: "));
-                    cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    table.AddCell(cellP);
-                    table.AddCell(profileData.OtherNatureOfDisability);
-
+                    table.AddCell(new PdfPCell(new Phrase("Yes", arial)));
                 }
                 else
                 {
-                    cellP = new PdfPCell(new Phrase("Disability: "));
-                    cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    table.AddCell(cellP);
-                    table.AddCell("No");
+                    table.AddCell(new PdfPCell(new Phrase("No", arial)));
                 }
+
+                cell = new PdfPCell(new Phrase("Are you a South African citizen", arial));
+                cell.Colspan = 3;
+                table.AddCell(cell);
 
                 if (profileData.SACitizen == 1)
                 {
-                    cellP = new PdfPCell(new Phrase("RSA Citizen: "));
-                    cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    table.AddCell(cellP);
-                    table.AddCell("Yes");
+                    table.AddCell(new PdfPCell(new Phrase("Yes", arial)));
                 }
                 else
                 {
-                    cellP = new PdfPCell(new Phrase("RSA Citizen: "));
-                    cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    table.AddCell(cellP);
-                    table.AddCell("No");
+                    table.AddCell(new PdfPCell(new Phrase("No", arial)));
                 }
 
-                if (profileData.pkCriminalOffenseID == 1)
+                cell = new PdfPCell(new Phrase("If no, what is your nationality?", arial));
+                cell.Colspan = 3;
+                table.AddCell(cell);
+                table.AddCell(new PdfPCell(new Phrase(profileData.Country, arial)));
+
+                cell = new PdfPCell(new Phrase("Do you have a valid work permit? (only if non-South African)", arial));
+                cell.Colspan = 3;
+                table.AddCell(cell);
+
+                if (profileData.fkWorkPermitID == 1)
                 {
-                    cellP = new PdfPCell(new Phrase("Criminal Offence: "));
-                    cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    table.AddCell(cellP);
-                    table.AddCell("Yes");
+                    table.AddCell(new PdfPCell(new Phrase("Yes", arial)));
                 }
                 else
                 {
-                    cellP = new PdfPCell(new Phrase("Criminal Offence: "));
-                    cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    table.AddCell(cellP);
-                    table.AddCell("No");
+                    table.AddCell(new PdfPCell(new Phrase("No", arial)));
                 }
 
+                cell = new PdfPCell(new Phrase("Have you been convicted or found guilty of a criminal offence (including an admission of guilt)? If yes(provide the details)", arial));
+                cell.Colspan = 3;
+                cell.Rowspan = 2;
+                table.AddCell(cell);
+
+                if (profileData.CriminalOffence == 1)
+                {
+                    table.AddCell(new PdfPCell(new Phrase("Yes", arial)));
+                }
+                else
+                {
+                    table.AddCell(new PdfPCell(new Phrase("No", arial)));
+                }
+                table.AddCell(new PdfPCell(new Phrase(profileData.CriminalOffenceDesc, arial)));
+
+                cell = new PdfPCell(new Phrase("Do you have any pending criminal case against you? If yes, (provide the details)", arial));
+                cell.Colspan = 3;
+                cell.Rowspan = 2;
+                table.AddCell(cell);
+
+                if (profileData.CriminalCase == 1)
+                {
+                    table.AddCell(new PdfPCell(new Phrase("Yes", arial)));
+                }
+                else
+                {
+                    table.AddCell(new PdfPCell(new Phrase("No", arial)));
+                }
+                table.AddCell(new PdfPCell(new Phrase(profileData.CriminalCaseDesc, arial)));
+
+                cell = new PdfPCell(new Phrase("Have you ever been dismissed for misconduct from the Public Service?", arial));
+                cell.Colspan = 3;
+                table.AddCell(cell);
+
+                if (profileData.Misconduct == 1)
+                {
+                    table.AddCell(new PdfPCell(new Phrase("Yes", arial)));
+                }
+                else
+                {
+                    table.AddCell(new PdfPCell(new Phrase("No", arial)));
+                }
+                cell = new PdfPCell(new Phrase("If yes (provide the details)", arial));
+                cell.Colspan = 3;
+                table.AddCell(cell);
+
+                table.AddCell(new PdfPCell(new Phrase(profileData.MisconductDesc, arial)));
+
+                cell = new PdfPCell(new Phrase("Do you have any pending disciplinary case against you? If yes, (provide the details)", arial));
+                cell.Colspan = 3;
+                cell.Rowspan = 2;
+                table.AddCell(cell);
+
+                if (profileData.DisciplinaryCase == 1)
+                {
+                    table.AddCell(new PdfPCell(new Phrase("Yes", arial)));
+                }
+                else
+                {
+                    table.AddCell(new PdfPCell(new Phrase("No", arial)));
+                }
+                table.AddCell(new PdfPCell(new Phrase(profileData.DisciplinaryCaseDesc, arial)));
+
+                cell = new PdfPCell(new Phrase("Have you resigned from a recent job pending any disciplinary proceeding against you? If yes, (please note that the provisions of the Public Service Act shall apply).", arial));
+                cell.Colspan = 3;
+                cell.Rowspan = 2;
+                table.AddCell(cell);
+
+                if (profileData.DisciplinaryProceeding == 1)
+                {
+                    table.AddCell(new PdfPCell(new Phrase("Yes", arial)));
+                }
+                else
+                {
+                    table.AddCell(new PdfPCell(new Phrase("No", arial)));
+                }
+                table.AddCell(new PdfPCell(new Phrase("")));
+
+                cell = new PdfPCell(new Phrase("Have you been discharged or retired from the Public Service on grounds of Ill-health or on condition that your cannot be re- employed?", arial));
+                cell.Colspan = 3;
+                table.AddCell(cell);
+
+                if (profileData.RetiredorDiscarged == 1)
+                {
+                    table.AddCell(new PdfPCell(new Phrase("Yes", arial)));
+                }
+                else
+                {
+                    table.AddCell(new PdfPCell(new Phrase("No", arial)));
+                }
+
+                cell = new PdfPCell(new Phrase("Are you conducting business with the State or are you a Director of a Public or Private company conducting business with the State?6 If yes, (provide the details)", arial));
+                cell.Colspan = 3;
+                cell.Rowspan = 2;
+                table.AddCell(cell);
+
+                if (profileData.Business == 1)
+                {
+                    table.AddCell(new PdfPCell(new Phrase("Yes", arial)));
+                }
+                else
+                {
+                    table.AddCell(new PdfPCell(new Phrase("No", arial)));
+                }
+                table.AddCell(new PdfPCell(new Phrase(profileData.BusinessDesc, arial)));
+
+                cell = new PdfPCell(new Phrase("In the event that you are employed in the Public Service, will you immediately relinquish such business interests?", arial));
+                cell.Colspan = 3;
+                table.AddCell(cell);
+
+                if (profileData.RelinquishBusiness == 1)
+                {
+                    table.AddCell(new PdfPCell(new Phrase("Yes", arial)));
+                }
+                else
+                {
+                    table.AddCell(new PdfPCell(new Phrase("No", arial)));
+                }
+
+                cell = new PdfPCell(new Phrase("Please specify the total number of years of experience you have", arial));
+                cell.Colspan = 2;
+                cell.Rowspan = 2;
+                table.AddCell(cell);
+
+                table.AddCell(new PdfPCell(new Phrase("Private Sector", arial)));
+                table.AddCell(new PdfPCell(new Phrase("Public Sector", arial)));
+
+                table.AddCell(new PdfPCell(new Phrase(profileData.YearsExperience.ToString(), arial)));
+                table.AddCell(new PdfPCell(new Phrase(profileData.YearsExperience.ToString(), arial)));
+
+                document.Add(table);
+
+                document.Add(new Paragraph("\n"));
+
+                table = new PdfPTable(2);
+
+                cell = new PdfPCell(new Phrase("C. CONTACT DETAILS AND MEDIUM OF COMMUNICATIONS", FontFactory.GetFont("Arial", 8, Font.BOLD, BaseColor.BLACK)));
+                cell.Colspan = 2;
+                table.AddCell(cell);
+
+                table.AddCell(new PdfPCell(new Phrase("Preferred language for correspondence", arial)));
                 string lang = _db.lutLanguages.Where(x => x.languageID == profileData.fkLanguageForCorrespondenceID).Select(x => x.LanguageName).FirstOrDefault();
-                cellP = new PdfPCell(new Phrase("Preferred Language For Correspondence: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(lang);
+                table.AddCell(new PdfPCell(new Phrase(lang, arial)));
 
-                cellP = new PdfPCell(new Phrase("Telephone No During Working Hours: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(profileData.TelNoDuringWorkingHours);
-
+                table.AddCell(new PdfPCell(new Phrase("Method for correspondence", arial)));
                 string commMethod = _db.lutMethodOfCommunications.Where(x => x.MethodID == profileData.MethodOfCommunicationID).Select(x => x.MethodOfCommunication).FirstOrDefault();
-                cellP = new PdfPCell(new Phrase("Preferred Way Of Correspondence: "));
-                cellP.BackgroundColor = BaseColor.LIGHT_GRAY;
-                table.AddCell(cellP);
-                table.AddCell(commMethod);
+                table.AddCell(new PdfPCell(new Phrase(commMethod, arial)));
 
-                table.AddCell(emptyCell);
+                table.AddCell(new PdfPCell(new Phrase("Contact details (in terms of the above)", arial)));
+                table.AddCell(new PdfPCell(new Phrase(profileData.EmailAddress, arial)));
 
-                PdfPTable tableEducation = new PdfPTable(6);
-                PdfPCell cellEducationHistory = new PdfPCell(new Phrase("Education History"));
-                cellEducationHistory.Colspan = 6;
-                cellEducationHistory.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
-                cellEducationHistory.BackgroundColor = BaseColor.GRAY;
-                tableEducation.AddCell(cellEducationHistory);
+                document.Add(table);
+                document.Add(new Paragraph("\n"));
 
+                table = new PdfPTable(2);
 
-                PdfPCell cellQualificationName = new PdfPCell(new Phrase("Qualification Name"));
-                cellQualificationName.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellQualificationName.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableEducation.AddCell(cellQualificationName);
+                cell = new PdfPCell(new Phrase("D. SOUTH AFRICAN OFFICIAL LANGUAGE PROFICIENCY – state ‘good’, ‘fair’, or ‘poor’", FontFactory.GetFont("Arial", 8, Font.BOLD, BaseColor.BLACK)));
+                cell.Colspan = 2;
+                table.AddCell(cell);
 
-                PdfPCell cellInstitutionName = new PdfPCell(new Phrase("Institution Name"));
-                cellInstitutionName.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellInstitutionName.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableEducation.AddCell(cellInstitutionName);
+                cell = new PdfPCell(new Phrase("Languages (specify)", arial));
+                table.AddCell(cell);
 
-                PdfPCell cellQualificationTypeName = new PdfPCell(new Phrase("Qualification Type"));
-                cellQualificationTypeName.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellQualificationTypeName.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableEducation.AddCell(cellQualificationTypeName);
-
-                PdfPCell cellCertificateNumber = new PdfPCell(new Phrase("Certificate Number"));
-                cellCertificateNumber.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellCertificateNumber.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableEducation.AddCell(cellCertificateNumber);
-
-                PdfPCell cellEducationStartDate = new PdfPCell(new Phrase("Start Date"));
-                cellEducationStartDate.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellEducationStartDate.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableEducation.AddCell(cellEducationStartDate);
-
-
-                PdfPCell cellEducationEndDate = new PdfPCell(new Phrase("End Date"));
-                cellEducationEndDate.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellEducationEndDate.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableEducation.AddCell(cellEducationEndDate);
-
-                foreach (var d in educationData)
-                {
-                    tableEducation.AddCell(d.qualificationName);
-                    tableEducation.AddCell(d.institutionName);
-                    tableEducation.AddCell(d.QualificationTypeName);
-                    tableEducation.AddCell(d.certificateNumber);
-                    tableEducation.AddCell(d.startDate);
-                    tableEducation.AddCell(d.endDate);
-                }
-
-                //Work History
-                PdfPTable tableWorkHistory = new PdfPTable(6);
-                //tableWorkHistory.SetWidths(new int[] { 1, 1, 2, 1, 1, 1, 1 });
-                PdfPCell cellWorkHistory = new PdfPCell(new Phrase("Work History"));
-                cellWorkHistory.Colspan = 6;
-                cellWorkHistory.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
-                cellWorkHistory.BackgroundColor = BaseColor.GRAY;
-                tableWorkHistory.AddCell(cellWorkHistory);
-
-                PdfPCell cellCompanyName = new PdfPCell(new Phrase("Company Name"));
-                cellCompanyName.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellCompanyName.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableWorkHistory.AddCell(cellCompanyName);
-
-                PdfPCell cellJobTitle = new PdfPCell(new Phrase("Job Title"));
-                cellJobTitle.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellJobTitle.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableWorkHistory.AddCell(cellJobTitle);
-
-                PdfPCell cellDepartment = new PdfPCell(new Phrase("Department"));
-                cellDepartment.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellDepartment.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableWorkHistory.AddCell(cellDepartment);
-
-                PdfPCell cellStartDate = new PdfPCell(new Phrase("Start Date"));
-                cellStartDate.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellStartDate.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableWorkHistory.AddCell(cellStartDate);
-
-                PdfPCell cellEndDate = new PdfPCell(new Phrase("End Date"));
-                cellEndDate.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellEndDate.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableWorkHistory.AddCell(cellEndDate);
-
-                PdfPCell cellReasonForLeaving = new PdfPCell(new Phrase("Reason For Leaving"));
-                cellReasonForLeaving.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellReasonForLeaving.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableWorkHistory.AddCell(cellReasonForLeaving);
-
-                foreach (var d in workHistoryData)
-                {
-                    tableWorkHistory.AddCell(d.companyName);
-                    tableWorkHistory.AddCell(d.jobTitle);
-                    tableWorkHistory.AddCell(d.department);
-                    tableWorkHistory.AddCell(d.startDate);
-                    if (d.reasonForLeaving == "current") { tableWorkHistory.AddCell(string.Empty); } else { tableWorkHistory.AddCell(d.endDate); }
-                    if (d.reasonForLeaving == "current") { tableWorkHistory.AddCell(string.Empty); } else { tableWorkHistory.AddCell(d.reasonForLeaving); }
-
-                    PdfPCell cellDutiesHeading = new PdfPCell(new Phrase("Duties"));
-                    cellDutiesHeading.Colspan = 6;
-                    cellDutiesHeading.HorizontalAlignment = 0; //0=Left, 1=Centre, 2=Right
-                    cellDutiesHeading.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    tableWorkHistory.AddCell(cellDutiesHeading);
-
-                    if (d.positionHeld != null && d.positionHeld != "")
-                    {
-
-                        string text = d.positionHeld;
-                        string duties1 = this.RemoveSpecialCharacters(text);
-
-                        PdfPCell cellDuties = new PdfPCell(new Phrase(duties1));
-                        cellDuties.Colspan = 6;
-                        cellDuties.HorizontalAlignment = 0; //0=Left, 1=Centre, 2=Right
-                                                            //cellDuties.BackgroundColor = BaseColor.GRAY;
-                                                            //cellDuties.HorizontalAlignment = Element.ALIGN_JUSTIFIED;
-                        tableWorkHistory.AddCell(cellDuties);
-                    }
-                    else
-                    {
-                        PdfPCell cellDuties = new PdfPCell(new Phrase("No duties specified."));
-                        cellDuties.Colspan = 6;
-                        cellDuties.HorizontalAlignment = 0; //0=Left, 1=Centre, 2=Right
-                                                            //cellDuties.BackgroundColor = BaseColor.GRAY;
-                        tableWorkHistory.AddCell(cellDuties);
-                    }
-                }
-
-                //Candidate Skills
-                PdfPTable tableSkills = new PdfPTable(2);
-                PdfPCell cellSkills = new PdfPCell(new Phrase("Skills"));
-                cellSkills.Colspan = 2;
-                cellSkills.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
-                cellSkills.BackgroundColor = BaseColor.GRAY;
-                tableSkills.AddCell(cellSkills);
-
-                PdfPCell cellSkillName = new PdfPCell(new Phrase("Skill Name"));
-                cellSkillName.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellSkillName.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableSkills.AddCell(cellSkillName);
-
-                PdfPCell cellSkillProficiency = new PdfPCell(new Phrase("Skill Proficiency"));
-                cellSkillProficiency.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellSkillProficiency.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableSkills.AddCell(cellSkillProficiency);
-
-                foreach (var d in skillsData)
-                {
-                    tableSkills.AddCell(d.skillName);
-                    tableSkills.AddCell(d.SkillProficiency);
-
-                }
-
-                //Candidate Languages
-                PdfPTable tableLanguage = new PdfPTable(2);
-                PdfPCell cellLanguage = new PdfPCell(new Phrase("Languages"));
-                cellLanguage.Colspan = 2;
-                cellLanguage.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
-                cellLanguage.BackgroundColor = BaseColor.GRAY;
-                tableLanguage.AddCell(cellLanguage);
-
-                PdfPCell cellLanguageName = new PdfPCell(new Phrase("Language Name"));
-                cellLanguageName.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellLanguageName.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableLanguage.AddCell(cellLanguageName);
-
-                PdfPCell cellLanguageProficiency = new PdfPCell(new Phrase("Language Proficiency"));
-                cellLanguageProficiency.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellLanguageProficiency.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableLanguage.AddCell(cellLanguageProficiency);
+                cell = new PdfPCell(new Phrase("Proficiency", arial));
+                table.AddCell(cell);
 
                 foreach (var d in languageData)
                 {
-                    tableLanguage.AddCell(d.LanguageName);
-                    tableLanguage.AddCell(d.LanguageProficiency);
+                    table.AddCell(new PdfPCell(new Phrase(d.LanguageName, arial)));
+                    table.AddCell(new PdfPCell(new Phrase(d.LanguageProficiency, arial)));
                 }
 
-                //Candidate Reference
-                PdfPTable tableReference = new PdfPTable(5);
-                PdfPCell cellReference = new PdfPCell(new Phrase("References"));
-                cellReference.Colspan = 5;
-                cellReference.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
-                cellReference.BackgroundColor = BaseColor.GRAY;
-                tableReference.AddCell(cellReference);
+                document.Add(table);
+                document.Add(new Paragraph("\n"));
 
-                PdfPCell cellFullNames = new PdfPCell(new Phrase("Full Names"));
-                cellFullNames.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellFullNames.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableReference.AddCell(cellFullNames);
+                table = new PdfPTable(3);
 
-                PdfPCell cellRefCompanyName = new PdfPCell(new Phrase("Company Name"));
-                cellRefCompanyName.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellRefCompanyName.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableReference.AddCell(cellRefCompanyName);
+                cell = new PdfPCell(new Phrase("E. FORMAL QUALIFICATION (from highest to the lowest)", FontFactory.GetFont("Arial", 8, Font.BOLD, BaseColor.BLACK)));
+                cell.Colspan = 3;
+                table.AddCell(cell);
 
-                PdfPCell cellRefPositionHeld = new PdfPCell(new Phrase("Position Held"));
-                cellRefPositionHeld.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellRefPositionHeld.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableReference.AddCell(cellRefPositionHeld);
+                table.AddCell(new PdfPCell(new Phrase("Name of School/Technical College", arial)));
+                table.AddCell(new PdfPCell(new Phrase("Name of qualification obtained", arial)));
+                table.AddCell(new PdfPCell(new Phrase("Year obtained", arial)));
 
-                PdfPCell cellTelephoneNo = new PdfPCell(new Phrase("Telephone No"));
-                cellTelephoneNo.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellTelephoneNo.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableReference.AddCell(cellTelephoneNo);
-
-                PdfPCell cellEmailAddress = new PdfPCell(new Phrase("Email Address"));
-                cellEmailAddress.HorizontalAlignment = Element.ALIGN_LEFT;
-                cellEmailAddress.BackgroundColor = BaseColor.LIGHT_GRAY;
-                tableReference.AddCell(cellEmailAddress);
-
-                foreach (var d in referenceData)
+                foreach (var d in educationData)
                 {
-                    tableReference.AddCell(d.refName);
-                    tableReference.AddCell(d.companyName);
-                    tableReference.AddCell(d.positionHeld);
-                    tableReference.AddCell(d.telNo);
-                    tableReference.AddCell(d.emailAddress);
+                    table.AddCell(new PdfPCell(new Phrase(d.institutionName, arial)));
+                    table.AddCell(new PdfPCell(new Phrase(d.qualificationName, arial)));
+                    table.AddCell(new PdfPCell(new Phrase(d.endDate, arial)));
+                }
+
+                cell = new PdfPCell(new Phrase("Current study (institution and qualification): ", arial));
+                cell.Colspan = 3;
+                table.AddCell(cell);
+                document.Add(table);
+                document.Add(new Paragraph("\n"));
+
+                table = new PdfPTable(5);
+
+                cell = new PdfPCell(new Phrase("F. WORK EXPERIENCE (Also attach a detailed CV)", FontFactory.GetFont("Arial", 8, Font.BOLD, BaseColor.BLACK)));
+                cell.Colspan = 5;
+                table.AddCell(cell);
+
+                table.AddCell(new PdfPCell(new Phrase("Employer (including current employer)", arial)));
+                table.AddCell(new PdfPCell(new Phrase("Post held", arial)));
+                table.AddCell(new PdfPCell(new Phrase("From", arial)));
+                table.AddCell(new PdfPCell(new Phrase("To", arial)));
+                table.AddCell(new PdfPCell(new Phrase("Reason for leaving", arial)));
+
+                foreach (var d in workHistoryData)
+                {
+                    table.AddCell(new PdfPCell(new Phrase(d.companyName, arial)));
+                    table.AddCell(new PdfPCell(new Phrase(d.positionHeld, arial)));
+                    table.AddCell(new PdfPCell(new Phrase(d.startDate, arial)));
+                    if (d.reasonForLeaving == "current") { table.AddCell(new PdfPCell(new Phrase("Current", arial))); } else { table.AddCell(new PdfPCell(new Phrase(d.endDate, arial))); }
+                    if (d.reasonForLeaving == "current") { table.AddCell(string.Empty); } else { table.AddCell(new PdfPCell(new Phrase(d.reasonForLeaving, arial))); }
+                }
+
+                cell = new PdfPCell(new Phrase("If you were previously employed in the Public Service, is there any condition that prevents your re- appointment?", arial));
+                cell.Colspan = 4;
+                table.AddCell(cell);
+
+                if (profileData.ConditionsThatPreventsReEmploymentID == 1)
+                {
+                    table.AddCell(new PdfPCell(new Phrase("Yes", arial)));
+                }
+                else
+                {
+                    table.AddCell(new PdfPCell(new Phrase("No", arial)));
+                }
+
+                cell = new PdfPCell(new Phrase("If yes, Provide the name of the previous employing department and indicate the nature of the condition.", arial));
+                cell.Colspan = 3;
+                table.AddCell(cell);
+
+                if (profileData.ConditionsThatPreventsReEmploymentID == 1)
+                {
+                    cell = new PdfPCell(new Phrase("Department: " + profileData.PreviouslyEmployedDepartment + ". Condition: " + profileData.PreviouslyEmployedPS, arial));
+                    cell.Colspan = 2;
+                    table.AddCell(cell);
+                }
+                else
+                {
+                    table.AddCell(new PdfPCell(new Phrase("")));
+                }
+                document.Add(table);
+                document.Add(new Paragraph("\n"));
+
+                table = new PdfPTable(2);
+
+                cell = new PdfPCell(new Phrase("G. SKILLS", FontFactory.GetFont("Arial", 8, Font.BOLD, BaseColor.BLACK)));
+                cell.Colspan = 2;
+                table.AddCell(cell);
+
+                table.AddCell(new PdfPCell(new Phrase("Skill Name", arial)));
+                table.AddCell(new PdfPCell(new Phrase("Skill Proficiency", arial)));
+
+                foreach (var d in skillsData)
+                {
+                    table.AddCell(new PdfPCell(new Phrase(d.skillName, arial)));
+                    table.AddCell(new PdfPCell(new Phrase(d.SkillProficiency, arial)));
                 }
 
 
                 document.Add(table);
-                document.Add(tableEducation);
                 document.Add(new Paragraph("\n"));
-                document.Add(tableWorkHistory);
-                document.Add(new Paragraph("\n"));
-                document.Add(tableSkills);
-                document.Add(new Paragraph("\n"));
-                document.Add(tableLanguage);
-                document.Add(new Paragraph("\n"));
-                document.Add(tableReference);
 
-                //paragraph.Add(text);
-                Paragraph paraEnd = new Paragraph("******NB: End of Candidate Profile******");
-                paraEnd.Alignment = Element.ALIGN_CENTER;
-                paraHead.Font = FontFactory.GetFont("dax-black", 20, Font.ITALIC);
-                document.Add(paraEnd);
+                table = new PdfPTable(3);
 
-                document.SetPageSize(iTextSharp.text.PageSize.A4.Rotate());
+                cell = new PdfPCell(new Phrase("H. REFERENCES", FontFactory.GetFont("Arial", 8, Font.BOLD, BaseColor.BLACK)));
+                cell.Colspan = 3;
+                table.AddCell(cell);
+
+                table.AddCell(new PdfPCell(new Phrase("Name", arial)));
+                table.AddCell(new PdfPCell(new Phrase("Relationship to you", arial)));
+                table.AddCell(new PdfPCell(new Phrase("Tel. No. (office hours)", arial)));
+
+                foreach (var d in referenceData)
+                {
+                    table.AddCell(new PdfPCell(new Phrase(d.refName, arial)));
+                    table.AddCell(new PdfPCell(new Phrase(d.positionHeld, arial)));
+                    table.AddCell(new PdfPCell(new Phrase(d.telNo, arial)));
+                }
+
+                document.Add(table);
+                document.Add(new Paragraph("\n"));
+
+                table = new PdfPTable(1);
+                cell = new PdfPCell(new Phrase("DECLARATIONS", FontFactory.GetFont("Arial", 8, Font.BOLD, BaseColor.BLACK)));
+                table.AddCell(cell);
+                string text = "I declare that all the information provided (including any attachments) is complete and correct to the best of my knowledge. I understand that any false information provided will result in my application being disqualified or disciplinary action taken against me if I am appointed:";
+                cell = new PdfPCell(new Phrase(text, FontFactory.GetFont("Arial", 8, Font.ITALIC, BaseColor.BLACK)));
+                table.AddCell(cell);
+
+                cell = new PdfPCell(new Phrase("Date: "+ noticePeriod[1], FontFactory.GetFont("Arial", 8, Font.BOLDITALIC, BaseColor.BLACK)));
+                cell.FixedHeight = 20;
+                table.AddCell(cell);
+
+                document.Add(table);
 
                 document.Close();
+
                 byte[] bytes = memoryStream.ToArray();
                 memoryStream.Close();
                 Response.Clear();
@@ -3623,7 +3544,7 @@ namespace eRecruitment.Sita.BackEnd.Controllers
                 Response.End();
                 Response.Close();
             }
-                return View();
+            return View();
         }
 
         //Department By Division

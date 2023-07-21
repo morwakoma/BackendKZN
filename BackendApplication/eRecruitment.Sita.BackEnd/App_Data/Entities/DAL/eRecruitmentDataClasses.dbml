@@ -1072,6 +1072,28 @@
       <Column Name="VacancyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Z83Questions" Member="Z83Questions">
+    <Type Name="Z83Question">
+      <Column Name="Z83QuestionsID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProfileID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CriminalCase" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CriminalCaseDesc" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Misconduct" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MisconductDesc" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="DisciplinaryProceeding" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RetiredorDiscarged" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Business" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BusinessDesc" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="RelinquishBusiness" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="YearsExperiencePrivate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CriminalOffence" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CriminalOffenceDesc" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="DisciplinaryCase" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DisciplinaryCaseDesc" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="YearsofExperiencePublic" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="YearsExperience" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.proc_eRecruitmentInsertUserRole" Method="proc_eRecruitmentInsertUserRole">
     <Parameter Name="UserId" Parameter="userId" Type="System.String" DbType="NVarChar(128)" />
     <Parameter Name="RoleId" Parameter="roleId" Type="System.Int32" DbType="Int" />

@@ -27,3 +27,9 @@ D:\work\Erecruitment\Backend\eRecruitmentObjects\SITA.eRecruitment.BL\bin\Debug\
 D:\work\Erecruitment\Backend\eRecruitmentObjects\SITA.eRecruitment.BL\obj\Debug\SITA.eRecruitment.BL.csproj.CoreCompileInputs.cache
 D:\work\Erecruitment\Backend\eRecruitmentObjects\SITA.eRecruitment.BL\obj\Debug\SITA.eRecruitment.BL.dll
 D:\work\Erecruitment\Backend\eRecruitmentObjects\SITA.eRecruitment.BL\obj\Debug\SITA.eRecruitment.BL.pdb
+D:\Repos\GitHub\BackendKZN\eRecruitmentObjects\SITA.eRecruitment.BL\bin\Debug\SITA.eRecruitment.BL.dll
+D:\Repos\GitHub\BackendKZN\eRecruitmentObjects\SITA.eRecruitment.BL\bin\Debug\SITA.eRecruitment.BL.pdb
+D:\Repos\GitHub\BackendKZN\eRecruitmentObjects\SITA.eRecruitment.BL\obj\Debug\SITA.eRecruitment.BL.csproj.AssemblyReference.cache
+D:\Repos\GitHub\BackendKZN\eRecruitmentObjects\SITA.eRecruitment.BL\obj\Debug\SITA.eRecruitment.BL.csproj.CoreCompileInputs.cache
+D:\Repos\GitHub\BackendKZN\eRecruitmentObjects\SITA.eRecruitment.BL\obj\Debug\SITA.eRecruitment.BL.dll
+D:\Repos\GitHub\BackendKZN\eRecruitmentObjects\SITA.eRecruitment.BL\obj\Debug\SITA.eRecruitment.BL.pdb

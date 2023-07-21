@@ -27,3 +27,9 @@ D:\work\Erecruitment\Backend\eRecruitmentObjects\SITA.Notifications\obj\Debug\SI
 D:\work\Erecruitment\Backend\eRecruitmentObjects\SITA.Notifications\obj\Debug\SITA.Notifications.dll
 D:\work\Erecruitment\Backend\eRecruitmentObjects\SITA.Notifications\obj\Debug\SITA.Notifications.pdb
 D:\work\Erecruitment\Backend\eRecruitmentObjects\SITA.Notifications\obj\Debug\SITA.Notifications.csproj.AssemblyReference.cache
+D:\Repos\GitHub\BackendKZN\eRecruitmentObjects\SITA.Notifications\bin\Debug\SITA.Notifications.dll
+D:\Repos\GitHub\BackendKZN\eRecruitmentObjects\SITA.Notifications\bin\Debug\SITA.Notifications.pdb
+D:\Repos\GitHub\BackendKZN\eRecruitmentObjects\SITA.Notifications\obj\Debug\SITA.Notifications.csproj.AssemblyReference.cache
+D:\Repos\GitHub\BackendKZN\eRecruitmentObjects\SITA.Notifications\obj\Debug\SITA.Notifications.csproj.CoreCompileInputs.cache
+D:\Repos\GitHub\BackendKZN\eRecruitmentObjects\SITA.Notifications\obj\Debug\SITA.Notifications.dll
+D:\Repos\GitHub\BackendKZN\eRecruitmentObjects\SITA.Notifications\obj\Debug\SITA.Notifications.pdb

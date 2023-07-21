@@ -31,3 +31,9 @@ D:\work\Erecruitment\Backend\eRecruitmentObjects\SITA.Cryptography\bin\Debug\SIT
 D:\work\Erecruitment\Backend\eRecruitmentObjects\SITA.Cryptography\obj\Debug\SITA.Cryptography.csproj.CoreCompileInputs.cache
 D:\work\Erecruitment\Backend\eRecruitmentObjects\SITA.Cryptography\obj\Debug\SITA.Cryptography.dll
 D:\work\Erecruitment\Backend\eRecruitmentObjects\SITA.Cryptography\obj\Debug\SITA.Cryptography.pdb
+D:\Repos\GitHub\BackendKZN\eRecruitmentObjects\SITA.Cryptography\bin\Debug\SITA.Cryptography.dll
+D:\Repos\GitHub\BackendKZN\eRecruitmentObjects\SITA.Cryptography\bin\Debug\SITA.Cryptography.pdb
+D:\Repos\GitHub\BackendKZN\eRecruitmentObjects\SITA.Cryptography\obj\Debug\SITA.Cryptography.csproj.AssemblyReference.cache
+D:\Repos\GitHub\BackendKZN\eRecruitmentObjects\SITA.Cryptography\obj\Debug\SITA.Cryptography.csproj.CoreCompileInputs.cache
+D:\Repos\GitHub\BackendKZN\eRecruitmentObjects\SITA.Cryptography\obj\Debug\SITA.Cryptography.dll
+D:\Repos\GitHub\BackendKZN\eRecruitmentObjects\SITA.Cryptography\obj\Debug\SITA.Cryptography.pdb

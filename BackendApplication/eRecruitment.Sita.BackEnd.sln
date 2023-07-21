@@ -5,13 +5,13 @@ VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eRecruitment.Sita.BackEnd", "eRecruitment.Sita.BackEnd\eRecruitment.Sita.BackEnd.csproj", "{D22BE644-0D9A-49FB-8D13-029582B0731E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SITA.Cryptography", "..\..\eRecruitmentObjects\SITA.Cryptography\SITA.Cryptography.csproj", "{EA531105-6AB7-403C-9801-5386DE676497}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SITA.Cryptography", "..\eRecruitmentObjects\SITA.Cryptography\SITA.Cryptography.csproj", "{EA531105-6AB7-403C-9801-5386DE676497}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SITA.eRecruitment.BL", "..\..\eRecruitmentObjects\SITA.eRecruitment.BL\SITA.eRecruitment.BL.csproj", "{BB8A0257-71D3-4182-8D4A-DA6C56BD33C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SITA.eRecruitment.BL", "..\eRecruitmentObjects\SITA.eRecruitment.BL\SITA.eRecruitment.BL.csproj", "{BB8A0257-71D3-4182-8D4A-DA6C56BD33C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SITA.eRecruitment.Data", "..\..\eRecruitmentObjects\SITA.eRecruitment.Data\SITA.eRecruitment.Data.csproj", "{03267410-7FD9-4FFD-AD42-B62E5E84E7F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SITA.eRecruitment.Data", "..\eRecruitmentObjects\SITA.eRecruitment.Data\SITA.eRecruitment.Data.csproj", "{03267410-7FD9-4FFD-AD42-B62E5E84E7F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SITA.Notifications", "..\..\eRecruitmentObjects\SITA.Notifications\SITA.Notifications.csproj", "{FDB99888-9884-493E-B38D-73B5694CC33B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SITA.Notifications", "..\eRecruitmentObjects\SITA.Notifications\SITA.Notifications.csproj", "{FDB99888-9884-493E-B38D-73B5694CC33B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

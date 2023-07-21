@@ -874,6 +874,26 @@ namespace eRecruitment.BusinessDomain.DAL.Entities.AppModels
         public int? ConditionsThatPreventsReEmploymentID { get; set; }
         public string ReEmployment { get; set; }
         public string PreviouslyEmployedDepartment { get; set; }
+
+        public string Country { get; set; }
+
+        //Z83 Questions
+        public int Z83QuestionsID { get; set; }
+        public int ProfileID { get; set; }
+        public int CriminalCase { get; set; }
+        public string CriminalCaseDesc { get; set; }
+        public int YearsExperience { get; set; }
+        public int DisciplinaryProceeding { get; set; }
+        public int RetiredorDiscarged { get; set; }
+        public int Business { get; set; }
+        public int Misconduct { get; set; }
+        public int RelinquishBusiness { get; set; }
+        public string BusinessDesc { get; set; }
+        public string MisconductDesc { get; set; }
+        public string CriminalOffenceDesc { get; set; }
+        public int CriminalOffence { get; set; }
+        public int DisciplinaryCase { get; set; }
+        public string DisciplinaryCaseDesc { get; set; }
     }
 
     [Table("lutSkill")]

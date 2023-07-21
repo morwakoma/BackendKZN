@@ -621,5 +621,11 @@
         <elementListCompartment Id="02b4c0d9-4852-42c9-95cc-3d1d53882e9e" isExpanded="false" absoluteBounds="7.765, 5.71, 1.9700000000000002, 0.2493896484375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="b70d4844-7817-4cf3-8ce6-48e862939dac" absoluteBounds="6.5, 7.625, 2, 4.2708154296875">
+      <DataClassMoniker Name="/eRecruitmentDataClassesDataContext/Z83Question" />
+      <nestedChildShapes>
+        <elementListCompartment Id="af8e465b-c02f-4203-92d5-b1759ab1424b" absoluteBounds="6.515, 8.085, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

@@ -61,7 +61,7 @@
     <Folder Include="Entities\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\eRecruitmentBackendApplication\eRecruitment.Sita.BackEnd\eRecruitment.Sita.BackEnd\eRecruitment.Sita.BackEnd.csproj">
+    <ProjectReference Include="..\..\BackendApplication\eRecruitment.Sita.BackEnd\eRecruitment.Sita.BackEnd.csproj">
       <Project>{D22BE644-0D9A-49FB-8D13-029582B0731E}</Project>
       <Name>eRecruitment.Sita.BackEnd</Name>
     </ProjectReference>

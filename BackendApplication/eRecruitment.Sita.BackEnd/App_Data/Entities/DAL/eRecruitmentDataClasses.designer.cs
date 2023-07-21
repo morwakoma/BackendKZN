@@ -306,6 +306,9 @@ namespace eRecruitment.Sita.BackEnd.App_Data.Entities.DAL
     partial void InserttblVacancySalary(tblVacancySalary instance);
     partial void UpdatetblVacancySalary(tblVacancySalary instance);
     partial void DeletetblVacancySalary(tblVacancySalary instance);
+    partial void InsertZ83Question(Z83Question instance);
+    partial void UpdateZ83Question(Z83Question instance);
+    partial void DeleteZ83Question(Z83Question instance);
     #endregion
 		
 		public eRecruitmentDataClassesDataContext() : 
@@ -1151,6 +1154,14 @@ namespace eRecruitment.Sita.BackEnd.App_Data.Entities.DAL
 			get
 			{
 				return this.GetTable<tblVacancySalary>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Z83Question> Z83Questions
+		{
+			get
+			{
+				return this.GetTable<Z83Question>();
 			}
 		}
 		
@@ -20921,6 +20932,476 @@ namespace eRecruitment.Sita.BackEnd.App_Data.Entities.DAL
 					this._VacancyID = value;
 					this.SendPropertyChanged("VacancyID");
 					this.OnVacancyIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Z83Questions")]
+	public partial class Z83Question : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Z83QuestionsID;
+		
+		private int _ProfileID;
+		
+		private System.Nullable<int> _CriminalCase;
+		
+		private string _CriminalCaseDesc;
+		
+		private System.Nullable<int> _Misconduct;
+		
+		private string _MisconductDesc;
+		
+		private System.Nullable<int> _DisciplinaryProceeding;
+		
+		private System.Nullable<int> _RetiredorDiscarged;
+		
+		private System.Nullable<int> _Business;
+		
+		private string _BusinessDesc;
+		
+		private System.Nullable<int> _RelinquishBusiness;
+		
+		private System.Nullable<int> _YearsExperiencePrivate;
+		
+		private System.Nullable<int> _CriminalOffence;
+		
+		private string _CriminalOffenceDesc;
+		
+		private System.Nullable<int> _DisciplinaryCase;
+		
+		private string _DisciplinaryCaseDesc;
+		
+		private System.Nullable<int> _YearsofExperiencePublic;
+		
+		private System.Nullable<int> _YearsExperience;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnZ83QuestionsIDChanging(int value);
+    partial void OnZ83QuestionsIDChanged();
+    partial void OnProfileIDChanging(int value);
+    partial void OnProfileIDChanged();
+    partial void OnCriminalCaseChanging(System.Nullable<int> value);
+    partial void OnCriminalCaseChanged();
+    partial void OnCriminalCaseDescChanging(string value);
+    partial void OnCriminalCaseDescChanged();
+    partial void OnMisconductChanging(System.Nullable<int> value);
+    partial void OnMisconductChanged();
+    partial void OnMisconductDescChanging(string value);
+    partial void OnMisconductDescChanged();
+    partial void OnDisciplinaryProceedingChanging(System.Nullable<int> value);
+    partial void OnDisciplinaryProceedingChanged();
+    partial void OnRetiredorDiscargedChanging(System.Nullable<int> value);
+    partial void OnRetiredorDiscargedChanged();
+    partial void OnBusinessChanging(System.Nullable<int> value);
+    partial void OnBusinessChanged();
+    partial void OnBusinessDescChanging(string value);
+    partial void OnBusinessDescChanged();
+    partial void OnRelinquishBusinessChanging(System.Nullable<int> value);
+    partial void OnRelinquishBusinessChanged();
+    partial void OnYearsExperiencePrivateChanging(System.Nullable<int> value);
+    partial void OnYearsExperiencePrivateChanged();
+    partial void OnCriminalOffenceChanging(System.Nullable<int> value);
+    partial void OnCriminalOffenceChanged();
+    partial void OnCriminalOffenceDescChanging(string value);
+    partial void OnCriminalOffenceDescChanged();
+    partial void OnDisciplinaryCaseChanging(System.Nullable<int> value);
+    partial void OnDisciplinaryCaseChanged();
+    partial void OnDisciplinaryCaseDescChanging(string value);
+    partial void OnDisciplinaryCaseDescChanged();
+    partial void OnYearsofExperiencePublicChanging(System.Nullable<int> value);
+    partial void OnYearsofExperiencePublicChanged();
+    partial void OnYearsExperienceChanging(System.Nullable<int> value);
+    partial void OnYearsExperienceChanged();
+    #endregion
+		
+		public Z83Question()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Z83QuestionsID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Z83QuestionsID
+		{
+			get
+			{
+				return this._Z83QuestionsID;
+			}
+			set
+			{
+				if ((this._Z83QuestionsID != value))
+				{
+					this.OnZ83QuestionsIDChanging(value);
+					this.SendPropertyChanging();
+					this._Z83QuestionsID = value;
+					this.SendPropertyChanged("Z83QuestionsID");
+					this.OnZ83QuestionsIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProfileID", DbType="Int NOT NULL")]
+		public int ProfileID
+		{
+			get
+			{
+				return this._ProfileID;
+			}
+			set
+			{
+				if ((this._ProfileID != value))
+				{
+					this.OnProfileIDChanging(value);
+					this.SendPropertyChanging();
+					this._ProfileID = value;
+					this.SendPropertyChanged("ProfileID");
+					this.OnProfileIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CriminalCase", DbType="Int")]
+		public System.Nullable<int> CriminalCase
+		{
+			get
+			{
+				return this._CriminalCase;
+			}
+			set
+			{
+				if ((this._CriminalCase != value))
+				{
+					this.OnCriminalCaseChanging(value);
+					this.SendPropertyChanging();
+					this._CriminalCase = value;
+					this.SendPropertyChanged("CriminalCase");
+					this.OnCriminalCaseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CriminalCaseDesc", DbType="VarChar(500)")]
+		public string CriminalCaseDesc
+		{
+			get
+			{
+				return this._CriminalCaseDesc;
+			}
+			set
+			{
+				if ((this._CriminalCaseDesc != value))
+				{
+					this.OnCriminalCaseDescChanging(value);
+					this.SendPropertyChanging();
+					this._CriminalCaseDesc = value;
+					this.SendPropertyChanged("CriminalCaseDesc");
+					this.OnCriminalCaseDescChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Misconduct", DbType="Int")]
+		public System.Nullable<int> Misconduct
+		{
+			get
+			{
+				return this._Misconduct;
+			}
+			set
+			{
+				if ((this._Misconduct != value))
+				{
+					this.OnMisconductChanging(value);
+					this.SendPropertyChanging();
+					this._Misconduct = value;
+					this.SendPropertyChanged("Misconduct");
+					this.OnMisconductChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MisconductDesc", DbType="VarChar(500)")]
+		public string MisconductDesc
+		{
+			get
+			{
+				return this._MisconductDesc;
+			}
+			set
+			{
+				if ((this._MisconductDesc != value))
+				{
+					this.OnMisconductDescChanging(value);
+					this.SendPropertyChanging();
+					this._MisconductDesc = value;
+					this.SendPropertyChanged("MisconductDesc");
+					this.OnMisconductDescChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DisciplinaryProceeding", DbType="Int")]
+		public System.Nullable<int> DisciplinaryProceeding
+		{
+			get
+			{
+				return this._DisciplinaryProceeding;
+			}
+			set
+			{
+				if ((this._DisciplinaryProceeding != value))
+				{
+					this.OnDisciplinaryProceedingChanging(value);
+					this.SendPropertyChanging();
+					this._DisciplinaryProceeding = value;
+					this.SendPropertyChanged("DisciplinaryProceeding");
+					this.OnDisciplinaryProceedingChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RetiredorDiscarged", DbType="Int")]
+		public System.Nullable<int> RetiredorDiscarged
+		{
+			get
+			{
+				return this._RetiredorDiscarged;
+			}
+			set
+			{
+				if ((this._RetiredorDiscarged != value))
+				{
+					this.OnRetiredorDiscargedChanging(value);
+					this.SendPropertyChanging();
+					this._RetiredorDiscarged = value;
+					this.SendPropertyChanged("RetiredorDiscarged");
+					this.OnRetiredorDiscargedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Business", DbType="Int")]
+		public System.Nullable<int> Business
+		{
+			get
+			{
+				return this._Business;
+			}
+			set
+			{
+				if ((this._Business != value))
+				{
+					this.OnBusinessChanging(value);
+					this.SendPropertyChanging();
+					this._Business = value;
+					this.SendPropertyChanged("Business");
+					this.OnBusinessChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusinessDesc", DbType="VarChar(500)")]
+		public string BusinessDesc
+		{
+			get
+			{
+				return this._BusinessDesc;
+			}
+			set
+			{
+				if ((this._BusinessDesc != value))
+				{
+					this.OnBusinessDescChanging(value);
+					this.SendPropertyChanging();
+					this._BusinessDesc = value;
+					this.SendPropertyChanged("BusinessDesc");
+					this.OnBusinessDescChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RelinquishBusiness", DbType="Int")]
+		public System.Nullable<int> RelinquishBusiness
+		{
+			get
+			{
+				return this._RelinquishBusiness;
+			}
+			set
+			{
+				if ((this._RelinquishBusiness != value))
+				{
+					this.OnRelinquishBusinessChanging(value);
+					this.SendPropertyChanging();
+					this._RelinquishBusiness = value;
+					this.SendPropertyChanged("RelinquishBusiness");
+					this.OnRelinquishBusinessChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YearsExperiencePrivate", DbType="Int")]
+		public System.Nullable<int> YearsExperiencePrivate
+		{
+			get
+			{
+				return this._YearsExperiencePrivate;
+			}
+			set
+			{
+				if ((this._YearsExperiencePrivate != value))
+				{
+					this.OnYearsExperiencePrivateChanging(value);
+					this.SendPropertyChanging();
+					this._YearsExperiencePrivate = value;
+					this.SendPropertyChanged("YearsExperiencePrivate");
+					this.OnYearsExperiencePrivateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CriminalOffence", DbType="Int")]
+		public System.Nullable<int> CriminalOffence
+		{
+			get
+			{
+				return this._CriminalOffence;
+			}
+			set
+			{
+				if ((this._CriminalOffence != value))
+				{
+					this.OnCriminalOffenceChanging(value);
+					this.SendPropertyChanging();
+					this._CriminalOffence = value;
+					this.SendPropertyChanged("CriminalOffence");
+					this.OnCriminalOffenceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CriminalOffenceDesc", DbType="VarChar(500)")]
+		public string CriminalOffenceDesc
+		{
+			get
+			{
+				return this._CriminalOffenceDesc;
+			}
+			set
+			{
+				if ((this._CriminalOffenceDesc != value))
+				{
+					this.OnCriminalOffenceDescChanging(value);
+					this.SendPropertyChanging();
+					this._CriminalOffenceDesc = value;
+					this.SendPropertyChanged("CriminalOffenceDesc");
+					this.OnCriminalOffenceDescChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DisciplinaryCase", DbType="Int")]
+		public System.Nullable<int> DisciplinaryCase
+		{
+			get
+			{
+				return this._DisciplinaryCase;
+			}
+			set
+			{
+				if ((this._DisciplinaryCase != value))
+				{
+					this.OnDisciplinaryCaseChanging(value);
+					this.SendPropertyChanging();
+					this._DisciplinaryCase = value;
+					this.SendPropertyChanged("DisciplinaryCase");
+					this.OnDisciplinaryCaseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DisciplinaryCaseDesc", DbType="VarChar(500)")]
+		public string DisciplinaryCaseDesc
+		{
+			get
+			{
+				return this._DisciplinaryCaseDesc;
+			}
+			set
+			{
+				if ((this._DisciplinaryCaseDesc != value))
+				{
+					this.OnDisciplinaryCaseDescChanging(value);
+					this.SendPropertyChanging();
+					this._DisciplinaryCaseDesc = value;
+					this.SendPropertyChanged("DisciplinaryCaseDesc");
+					this.OnDisciplinaryCaseDescChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YearsofExperiencePublic", DbType="Int")]
+		public System.Nullable<int> YearsofExperiencePublic
+		{
+			get
+			{
+				return this._YearsofExperiencePublic;
+			}
+			set
+			{
+				if ((this._YearsofExperiencePublic != value))
+				{
+					this.OnYearsofExperiencePublicChanging(value);
+					this.SendPropertyChanging();
+					this._YearsofExperiencePublic = value;
+					this.SendPropertyChanged("YearsofExperiencePublic");
+					this.OnYearsofExperiencePublicChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YearsExperience", DbType="Int")]
+		public System.Nullable<int> YearsExperience
+		{
+			get
+			{
+				return this._YearsExperience;
+			}
+			set
+			{
+				if ((this._YearsExperience != value))
+				{
+					this.OnYearsExperienceChanging(value);
+					this.SendPropertyChanging();
+					this._YearsExperience = value;
+					this.SendPropertyChanged("YearsExperience");
+					this.OnYearsExperienceChanged();
 				}
 			}
 		}

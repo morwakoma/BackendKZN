@@ -470,6 +470,31 @@ namespace eRecruitment.BusinessDomain.DAL
 
         }
 
+        //get notice period
+        public List<string> GetNoticePeriod(int applicationID, int vacancyID)
+        {
+            List<string> noticePeriod = new List<string>();
+            var data = from a in _db.lutQuestionCatergories
+                       join b in _db.lutGeneralQuestions on a.QCategoryID equals b.QCategoryID
+                       join c in _db.tblVacancyQuestions on b.id equals c.QuestionID
+                       join d in _db.tblCandidateResponses on b.id equals d.QuestionID
+                       join e in _db.tblCandidateVacancyApplications on d.VacancyID equals e.VacancyID
+                       where a.QCategoryID == 5 && e.ApplicationID == applicationID && c.VacancyID == vacancyID
+                       select new
+                       {
+                           GeneralQuestionDesc = b.GeneralQuestionDesc,
+                           ApplicationDate = e.ApplicationDate
+                       };
+            foreach(var d in data)
+            {
+                noticePeriod.Add(d.GeneralQuestionDesc);
+                noticePeriod.Add(d.ApplicationDate.ToString("yyyy/MM/dd"));
+            }
+                    
+
+            return noticePeriod;
+        }
+
         public OrganisationModel GetOrganisationName(string UserID)
         {
             var p = new OrganisationModel();
@@ -4428,6 +4453,8 @@ namespace eRecruitment.BusinessDomain.DAL
                        join f in _db.lutDisabilities on b.NatureOfDisability equals f.DisabilityID
                        join g in _db.lutYesorNos on b.MatricID equals g.AnswerID
                        join h in _db.lutYesorNos on b.DriversLicenseID equals h.AnswerID
+                       join i in _db.Z83Questions on b.pkProfileID equals i.ProfileID
+                       join j in _db.lutCountries on b.fkNationalityID equals j.CountryID
                        where a.ApplicationID == ID
                        select new
                        {
@@ -4450,6 +4477,9 @@ namespace eRecruitment.BusinessDomain.DAL
                            StreetNo = b.StreetNo,
                            StreetName = b.StreetName,
                            SuburbName = b.SuburbName,
+                           ComplexName = b.ComplexName,
+                           City = b.City,
+                           Province = e.ProvinceName,
                            fkProvinceID = b.fkProvinceID,
                            PostalCode = b.PostalCode,
                            fkDisabilityID = b.fkDisabilityID,
@@ -4459,6 +4489,7 @@ namespace eRecruitment.BusinessDomain.DAL
                            OtherNatureOfDisability = b.OtherNatureOfDisability,
                            SACitizen = b.SACitizen,
                            fkNationalityID = b.fkNationalityID,
+                           Country = j.CountryName,
                            fkWorkPermitID = b.fkWorkPermitID,
                            WorkPermitNo = b.WorkPermitNo,
                            pkCriminalOffenseID = b.pkCriminalOffenseID,
@@ -4477,7 +4508,21 @@ namespace eRecruitment.BusinessDomain.DAL
                            b.ConditionsThatPreventsReEmploymentID,
                            ReEmployment = b.ReEmployment,
                            PreviouslyEmployedDepartment = b.PreviouslyEmployedDepartment,
-                           ProfileID = b.pkProfileID,
+
+                           CriminalCase = i.CriminalCase,
+                           CriminalCaseDesc = i.CriminalCaseDesc,
+                           Misconduct = i.Misconduct,
+                           MisconductDesc = i.MisconductDesc,
+                           DisciplinaryProceeding = i.DisciplinaryProceeding,
+                           RetiredorDiscarged = i.RetiredorDiscarged,
+                           Business = i.Business,
+                           BusinessDesc = i.BusinessDesc,
+                           RelinquishBusiness = i.RelinquishBusiness,
+                           YearsExperience = i.YearsExperience,
+                           CriminalOffence = i.CriminalOffence,
+                           CriminalOffenceDesc = i.CriminalOffenceDesc,
+                           DisciplinaryCase = i.DisciplinaryCase,
+                           DisciplinaryCaseDesc = i.DisciplinaryCaseDesc,
                            ApplicationID = a.ApplicationID
 
                        };
@@ -4515,10 +4560,11 @@ namespace eRecruitment.BusinessDomain.DAL
                 e.fkLanguageForCorrespondenceID = Convert.ToInt32(d.fkLanguageForCorrespondenceID);
                 e.TelNoDuringWorkingHours = Convert.ToString(d.TelNoDuringWorkingHours);
                 e.EmailAddress = Convert.ToString(d.EmailAddress);
-
+                e.ComplexName = Convert.ToString(d.ComplexName);
+                e.Province = Convert.ToString(d.Province);
                 e.MethodOfCommunicationID = Convert.ToInt32(d.MethodOfCommunicationID);
                 e.CorrespondanceDetails = Convert.ToString(d.CorrespondanceDetails);
-
+                e.City = Convert.ToString(d.City);
                 e.ProfessionallyRegisteredID = Convert.ToInt32(d.ProfessionallyRegisteredID);
                 e.RegistrationDate = Convert.ToDateTime(d.RegistrationDate);
                 e.RegistrationNumber = Convert.ToString(d.RegistrationNumber);
@@ -4527,7 +4573,22 @@ namespace eRecruitment.BusinessDomain.DAL
                 e.ConditionsThatPreventsReEmploymentID = Convert.ToInt32(d.ConditionsThatPreventsReEmploymentID);
                 e.ReEmployment = Convert.ToString(d.ReEmployment);
                 e.PreviouslyEmployedDepartment = Convert.ToString(d.PreviouslyEmployedDepartment);
-                e.pkProfileID =int.Parse( Convert.ToString(d.ProfileID));
+                e.Country = Convert.ToString(d.Country);
+
+                e.YearsExperience = Convert.ToInt32(d.YearsExperience);
+                e.Business = Convert.ToInt32(d.Business);
+                e.BusinessDesc = Convert.ToString(d.BusinessDesc);
+                e.RelinquishBusiness = Convert.ToInt32(d.RelinquishBusiness);
+                e.Misconduct = Convert.ToInt32(d.Misconduct);
+                e.MisconductDesc = Convert.ToString(d.MisconductDesc);
+                e.RetiredorDiscarged = Convert.ToInt32(d.RetiredorDiscarged);
+                e.DisciplinaryProceeding = Convert.ToInt32(d.DisciplinaryProceeding);
+                e.CriminalCase = Convert.ToInt32(d.CriminalCase);
+                e.CriminalCaseDesc = Convert.ToString(d.CriminalCaseDesc);
+                e.CriminalOffence = Convert.ToInt32(d.CriminalOffence);
+                e.CriminalOffenceDesc = Convert.ToString(d.CriminalOffenceDesc);
+                e.DisciplinaryCase = Convert.ToInt32(d.DisciplinaryCase);
+                e.DisciplinaryCaseDesc = Convert.ToString(d.DisciplinaryCaseDesc);
                 e.ApplicationID = d.ApplicationID;
                 p.Add(e);
             }
