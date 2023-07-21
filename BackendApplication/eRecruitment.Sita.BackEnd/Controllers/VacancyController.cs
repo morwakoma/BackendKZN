@@ -2284,16 +2284,6 @@ namespace eRecruitment.Sita.BackEnd.Controllers
 
             foreach (var data in candidateInfo)
             {
-                string email = "";
-                if(data.CorrespondanceDetails == null)
-                {
-                    email = data.CorrespondanceDetails;
-                }
-                else
-                {
-                    email = data.EmailAddress;
-                }
-
                 rbuilder = new StringBuilder();
                 rbuilder.Append("Dear : <b>" + data.FirstName + " " + data.Surname + "</b>" + "<br/>");
                 rbuilder.AppendLine("Please note the position " + data.JobTitle + ", Reference No: " + data.ReferenceNo + "<br/>");
@@ -2303,7 +2293,7 @@ namespace eRecruitment.Sita.BackEnd.Controllers
                 rbuilder.Append("<br/><b><i>Please note: This e-mail was sent from a notification-only address that cannot accept incoming e-mail. Please do not reply to this message.</i></b>");
                 rbuilder.Append("<br/>Kind Regards<br/>E-Recruitment Team");
                 string candidateEmailText = rbuilder.ToString();
-                notify.SendEmail(email, "e-Recruitment Notification", candidateEmailText);
+                notify.SendEmail(data.CorrespondanceDetails, "e-Recruitment Notification", candidateEmailText);
 
             }
             var recruiterInfo = (from a in _db.AspNetUserRoles
