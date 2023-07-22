@@ -3141,10 +3141,10 @@ namespace eRecruitment.Sita.BackEnd.Controllers
                 cell = new PdfPCell(new Phrase("Position for which you are applying (as advertised): " + data.JobTitle, arial));
                 table.AddCell(cell);
 
-                cell = new PdfPCell(new Phrase("Department where the position was advertised: " + data.DepartmentName, arial));
+                cell = new PdfPCell(new Phrase("Department where the position was advertised: " + data.DivisionName, arial));
                 table.AddCell(cell);
 
-                cell = new PdfPCell(new Phrase("Reference number (as stated in the advert): " + data.ReferenceNo, arial));
+                cell = new PdfPCell(new Phrase("Reference number (as stated in the advert): " + data.BPSVacancyNo, arial));
                 table.AddCell(cell);
 
                 cell = new PdfPCell(new Phrase("If you are offered the position, when can you start OR how much notice must you serve with your current employer?: " + noticePeriod[0], arial));
@@ -3229,8 +3229,13 @@ namespace eRecruitment.Sita.BackEnd.Controllers
                 cell = new PdfPCell(new Phrase("If no, what is your nationality?", arial));
                 cell.Colspan = 3;
                 table.AddCell(cell);
-                table.AddCell(new PdfPCell(new Phrase(profileData.Country, arial)));
-
+                if (profileData.Country == "Unknown") {
+                    table.AddCell(string.Empty);
+                }
+                else
+                {
+                    table.AddCell(new PdfPCell(new Phrase(profileData.Country, arial)));
+                }
                 cell = new PdfPCell(new Phrase("Do you have a valid work permit? (only if non-South African)", arial));
                 cell.Colspan = 3;
                 table.AddCell(cell);
