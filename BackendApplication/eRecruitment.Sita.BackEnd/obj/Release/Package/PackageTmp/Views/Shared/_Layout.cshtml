@@ -234,11 +234,11 @@
                                 }
                                 @if (usermenu.Contains(Convert.ToString((int)eRecruitment.Sita.BackEnd.Enumeration.SystemMenu.Candidate_Profile)))
                                 {
-                                    <li><a href="@Url.Action("CandidateProfile", "Vacancy", new { id = 0 })"><i class="fa fa-odnoklassniki"></i> Candidate Z83</a></li>
+                                    <li><a href="@Url.Action("CandidateProfile", "Vacancy", new { id = 0 })"><i class="fa fa-odnoklassniki"></i> Candidates Applications</a></li>
                                 }
                                 @if (usermenu.Contains(Convert.ToString((int)eRecruitment.Sita.BackEnd.Enumeration.SystemMenu.Download_Candidate_CV)))
                                 {
-                                    <li><a href="@Url.Action("DownloadCandidateCV", "Vacancy")"><i class="fa fa-exchange"></i> Download Candidate CV</a></li>
+                                    <li><a href="@Url.Action("DownloadCandidateCV", "Vacancy")"><i class="fa fa-exchange"></i> Download Candidate Z83</a></li>
                                 }
                                 @if (usermenu.Contains(Convert.ToString((int)eRecruitment.Sita.BackEnd.Enumeration.SystemMenu.Long_List)))
                                 {
@@ -339,20 +339,20 @@
                                     {
                                         <li><a href="~/Admin/JobLevelList"><i class="fa  fa-money"></i>Job Level</a></li>
                                     }
-                                    @if (usermenu.Contains(Convert.ToString((int)eRecruitment.Sita.BackEnd.Enumeration.SystemMenu.Job_Title)))
+                                    @*@if (usermenu.Contains(Convert.ToString((int)eRecruitment.Sita.BackEnd.Enumeration.SystemMenu.Job_Title)))
                                     {
                                         <li><a href="~/Admin/JobTitleList"><i class="fa  fa-level-up"></i>Job Title</a></li>
-                                    }
+                                    }*@
 
-                                    @if (usermenu.Contains(Convert.ToString((int)eRecruitment.Sita.BackEnd.Enumeration.SystemMenu.Salary_Category)))
+                                    @*@if (usermenu.Contains(Convert.ToString((int)eRecruitment.Sita.BackEnd.Enumeration.SystemMenu.Salary_Category)))
                                     {
                                         <li><a href="~/Admin/SalaryCategoryList"><i class="fa fa-money"></i>Salary Category</a></li>
-                                    }
-                                    @if (usermenu.Contains(Convert.ToString((int)eRecruitment.Sita.BackEnd.Enumeration.SystemMenu.Salary_Sub_Category)))
+                                    }*@
+                                    @*@if (usermenu.Contains(Convert.ToString((int)eRecruitment.Sita.BackEnd.Enumeration.SystemMenu.Salary_Sub_Category)))
                                     {
                                         <li><a href="~/Admin/SalarySubCategoryList"><i class="fa fa-money"></i>Salary Sub-Category</a></li>
-                                    }
-                                    @if (usermenu.Contains(Convert.ToString((int)eRecruitment.Sita.BackEnd.Enumeration.SystemMenu.Salary_Structure)))
+                                    }*@
+                                    @*@if (usermenu.Contains(Convert.ToString((int)eRecruitment.Sita.BackEnd.Enumeration.SystemMenu.Salary_Structure)))
                                     {
                                         <li><a href="~/Admin/SalaryStructureList"><i class="fa fa-money"></i>Salary Structure</a></li>
                                     }
@@ -367,11 +367,11 @@
                                     @if (usermenu.Contains(Convert.ToString((int)eRecruitment.Sita.BackEnd.Enumeration.SystemMenu.Interpersonal_Behavioural_Competency)))
                                     {
                                         <li><a href="~/Admin/BehaveCompetencyList"><i class="fa fa fa-square"></i>Interpersonal / Behavioural<br />Competency</a></li>
-                                    }
-                                    @if (usermenu.Contains(Convert.ToString((int)eRecruitment.Sita.BackEnd.Enumeration.SystemMenu.Job_Profile)))
+                                    }*@
+                                    @*@if (usermenu.Contains(Convert.ToString((int)eRecruitment.Sita.BackEnd.Enumeration.SystemMenu.Job_Profile)))
                                     {
                                         <li><a href="~/Admin/VacancyProfileList"><i class="fa fa-object-group"></i>Job Profile</a></li>
-                                    }
+                                    }*@
                                     <li>
                                         <a href="~/OnlineHelp/Official-SystemAdmin/story_html5.html" target="_blank"><i class="fa fa-question-circle"></i>Online Help</a>
                                     </li>
@@ -417,10 +417,10 @@
                                         {
                                             <li><a href="~/Admin/LocationList"><i class="fa fa-location-arrow"></i>Centre</a></li>
                                         }
-                                        @if (usermenu.Contains(Convert.ToString((int)eRecruitment.Sita.BackEnd.Enumeration.SystemMenu.Qualification_Type)))
+                                        @*@if (usermenu.Contains(Convert.ToString((int)eRecruitment.Sita.BackEnd.Enumeration.SystemMenu.Qualification_Type)))
                                         {
                                             <li><a href="~/Admin/QualificationTypeList"><i class="fa fa-question-circle"></i>Qualification Type</a></li>
-                                        }
+                                        }*@
                                         @if (usermenu.Contains(Convert.ToString((int)eRecruitment.Sita.BackEnd.Enumeration.SystemMenu.Rejection_Reason)))
                                         {
                                             <li><a href="~/Admin/RejectionReasonsList"><i class="fa fa-file-text"></i>Rejection Reason</a></li>

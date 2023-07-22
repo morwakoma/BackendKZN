@@ -108,8 +108,8 @@
                                     <div class="form-group">
                                         <div class="col-md-12">
                                             <label>Job Title:<span class="required" style="color:red;"> * </span></label>
-                                            @Html.DropDownListFor(Model => @item.JobTitleID, new SelectList(ViewBag.JobTitle, "JobTitleID", "JobTitle", @item.JobTitleID), "--Select Vacancy Name--", new { id = "JobTitleID", @class = "form-control", @disabled = "disabled", tabindex = 1, onChange = "GetJobProfileForEdit()" })
-                                            @Html.HiddenFor(Model => @item.JobTitleID)
+                                            @Html.TextBoxFor(Model => @item.JobTitleID, new { id = "JobTitle", @class = "form-control", @disabled = "disabled", tabindex = 1 })
+                                            @Html.HiddenFor(Model => @item.JobTitle)
                                         </div>
 
                                     </div>
@@ -128,18 +128,18 @@
 
                                 <div class="col-md-12">
                                     @*<div class="form-group">
-                                        <div class="col-md-12">
-                                            <label>Salary Category:</label>
-                                            @Html.TextBoxFor(Model => @item.CategoryDescr, new { @id = "SalaryCategory", @class = "form-control", @readonly = "readonly", placeholder = "Salary Category", tabindex = 2 })
-                                        </div>
-                                    </div>
+            <div class="col-md-12">
+                <label>Salary Category:</label>
+                @Html.TextBoxFor(Model => @item.CategoryDescr, new { @id = "SalaryCategory", @class = "form-control", @readonly = "readonly", placeholder = "Salary Category", tabindex = 2 })
+            </div>
+        </div>
 
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <label>Salary Sub-Category:</label>
-                                            @Html.TextBoxFor(Model => @item.Descr, new { @id = "SalarySubCategory", @class = "form-control", placeholder = "Salary Sub-Category", @readonly = "readonly", tabindex = 2 })
-                                        </div>
-                                    </div>*@
+        <div class="form-group">
+            <div class="col-md-12">
+                <label>Salary Sub-Category:</label>
+                @Html.TextBoxFor(Model => @item.Descr, new { @id = "SalarySubCategory", @class = "form-control", placeholder = "Salary Sub-Category", @readonly = "readonly", tabindex = 2 })
+            </div>
+        </div>*@
 
                                     <div class="form-group">
                                         <div class="col-md-12">
@@ -149,20 +149,20 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6" id="Min">
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                                <label> Minimum Salary:</label>
-                                                @Html.TextBoxFor(Model => @item.MinValue, new { @id = "MinValue", @class = "form-control", placeholder = " Minimum Value", @readonly = "readonly", tabindex = 2 })
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @*<div class="col-md-6" id="Min">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label> Minimum Salary:</label>
+                    @Html.TextBoxFor(Model => @item.MinValue, new { @id = "MinValue", @class = "form-control", placeholder = " Minimum Value", @readonly = "readonly", tabindex = 2 })
+                </div>
+            </div>
+        </div>*@
 
                                     <div class="col-md-6" id="Max">
                                         <div class="form-group">
                                             <div class="col-md-12">
                                                 <label> Maximum Salary:</label>
-                                                @Html.TextBoxFor(Model => @item.MaxValue, new { @id = "MaxValue", @class = "form-control", placeholder = "  Maximum Value", @readonly = "readonly", tabindex = 2 })
+                                                @Html.TextBoxFor(Model => @item.Salary, new { @id = "Salary", @class = "form-control", placeholder = "  Salary Value", @readonly = "readonly", tabindex = 2 })
                                             </div>
                                         </div>
                                     </div>
@@ -295,8 +295,8 @@
                                         <div class="form-group">
                                             <div class="col-md-12">
                                                 <label>Centre:<span class="required" style="color:red;"> * </span></label>
-                                                @Html.DropDownListFor(Model => @item.Location, new SelectList(ViewBag.Location, "LocationID", "LocationDiscription", @item.Location), "--Select Location --", new { @class = "form-control", @disabled = "disabled", tabindex = 1 })
-                                                @Html.HiddenFor(Model => @item.Location)
+                                                @Html.TextBoxFor(Model => @item.Centre, new { @class = "form-control", @readonly = "readonly", tabindex = 1 })
+                                                @Html.HiddenFor(Model => @item.Centre)
                                             </div>
                                         </div>
                                     </div>
@@ -321,12 +321,12 @@
             </div>
         </div>*@
 
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <label>Purpose of the Job:</label>
-                                            @Html.TextAreaFor(Model => @item.VacancyPurpose, new { @id = "VacancyPurpose", @class = "form-control", @rows = "3", placeholder = "Purpose of the Job", @readonly = "readonly", tabindex = 15 })
-                                        </div>
-                                    </div>
+                                    @*<div class="form-group">
+            <div class="col-md-12">
+                <label>Purpose of the Job:</label>
+                @Html.TextAreaFor(Model => @item.VacancyPurpose, new { @id = "VacancyPurpose", @class = "form-control", @rows = "3", placeholder = "Purpose of the Job", @readonly = "readonly", tabindex = 15 })
+            </div>
+        </div>*@
 
                                     <div class="form-group">
                                         <div class="col-md-12">
@@ -349,26 +349,26 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <label>Technical Competencies:</label>
-                                            @Html.TextAreaFor(Model => @item.TechComps, new { @id = "TechComps", @class = "form-control", @rows = "3", placeholder = "Technical Competency Descriptions", disabled = "disabled", tabindex = 17 })
-                                        </div>
-                                    </div>
+                                    @*<div class="form-group">
+            <div class="col-md-12">
+                <label>Technical Competencies:</label>
+                @Html.TextAreaFor(Model => @item.TechComps, new { @id = "TechComps", @class = "form-control", @rows = "3", placeholder = "Technical Competency Descriptions", disabled = "disabled", tabindex = 17 })
+            </div>
+        </div>
 
-                                    <div class="form-group" id="Leadership">
-                                        <div class="col-md-12">
-                                            <label>Leadership Competencies:</label>
-                                            @Html.TextAreaFor(Model => @item.LeadComps, new { @id = "LeadComps", @class = "form-control", @rows = "3", placeholder = "Leadership Competency Descriptions", disabled = "disabled", tabindex = 17 })
-                                        </div>
-                                    </div>
+        <div class="form-group" id="Leadership">
+            <div class="col-md-12">
+                <label>Leadership Competencies:</label>
+                @Html.TextAreaFor(Model => @item.LeadComps, new { @id = "LeadComps", @class = "form-control", @rows = "3", placeholder = "Leadership Competency Descriptions", disabled = "disabled", tabindex = 17 })
+            </div>
+        </div>
 
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <label>Interpersonal / Behavioural Competencies:</label>
-                                            @Html.TextAreaFor(Model => @item.BehaveComps, new { @id = "BehaveComps", @class = "form-control", @rows = "3", placeholder = "Behavioural Competency Descriptions", disabled = "disabled", tabindex = 17 })
-                                        </div>
-                                    </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <label>Interpersonal / Behavioural Competencies:</label>
+                @Html.TextAreaFor(Model => @item.BehaveComps, new { @id = "BehaveComps", @class = "form-control", @rows = "3", placeholder = "Behavioural Competency Descriptions", disabled = "disabled", tabindex = 17 })
+            </div>
+        </div>*@
 
                                     <div class="form-group">
                                         <div class="col-md-12">
@@ -434,28 +434,31 @@
                                         </div>
                                     </div>
 
+
+
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <div class="col-md-12">
                                                 <div class="box box-warning">
                                                     <div class="box-header with-border">
-                                                        <h3 class="box-title">Experience<span class="required" style="color:red;"> * </span></h3>
+                                                        <h3 class="box-title">Notice Period<span class="required" style="color:red;"> * </span></h3>
                                                     </div>
                                                     <!-- /.box-header -->
                                                     <div class="box-body">
                                                         @{
-                                                            int vidE = @item.ID;
-                                                            var dataE = _db.tblVacancyQuestions.Where(p => p.VacancyID == vidE).Select(x => x.QuestionID).ToList();
+                                                            int vidNP = @item.ID;
+                                                            var dataNP = _db.tblVacancyQuestions.Where(p => p.VacancyID == vidNP).Select(x => x.QuestionID).ToList();
 
                                                         }
 
-                                                        @if (ViewBag.QuetionExperienceCat != null)
+                                                        @if (ViewBag.QuetionNoticePeriodCat != null)
                                                         {
-                                                            foreach (var d in ViewBag.QuetionExperienceCat)
+                                                            foreach (var d in ViewBag.QuetionNoticePeriodCat)
                                                             {
                                                                 <div class="checkbox">
                                                                     <label>
-                                                                        @if (dataE.Contains(@d.QuestionID))
+                                                                        @if (dataNP.Contains(@d.QuestionID))
                                                                         {
                                                                             <input type="checkbox"
                                                                                    name="VacancyQuestionID" checked
@@ -480,254 +483,110 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                       </div>
+                                        <br />
+                                        <br /><div class="clearfix"></div><br />
 
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                                <div class="box box-primary">
-                                                    <div class="box-header with-border">
-                                                        <h3 class="box-title">Certification<span class="required" style="color:red;"> * </span></h3>
-                                                    </div>
-                                                    <!-- /.box-header -->
-                                                    <div class="box-body">
-                                                        @{
-                                                            int vidC = @item.ID;
-                                                            var dataC = _db.tblVacancyQuestions.Where(p => p.VacancyID == vidC).Select(x => x.QuestionID).ToList();
-
-                                                        }
-
-                                                        @if (ViewBag.QuetionCertificationCat != null)
-                                                        {
-                                                            foreach (var d in ViewBag.QuetionCertificationCat)
-                                                            {
-                                                                <div class="checkbox">
-                                                                    <label>
-                                                                        @if (dataC.Contains(@d.QuestionID))
-                                                                        {
-                                                                            <input type="checkbox"
-                                                                                   name="VacancyQuestionID" checked
-                                                                                   value="@d.QuestionID" /> @d.QuestionDesc
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                <input type="checkbox"
-                                                                                       name="VacancyQuestionID"
-                                                                                       value="@d.QuestionID" /> @d.QuestionDesc
-                                                                                }
-
-                                                                    </label>
-                                                                </div>
-
-                                                            }
-
-                                                        }
-
-                                                    </div>
-                                                    <!-- /.box-body -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                                <div class="box box-primary">
-                                                    <div class="box-header with-border">
-                                                        <h3 class="box-title">Annual Salary<span class="required" style="color:red;"> * </span></h3>
-                                                    </div>
-                                                    <!-- /.box-header -->
-                                                    <div class="box-body">
-                                                        @{
-                                                            int vidAS = @item.ID;
-                                                            var dataAS = _db.tblVacancyQuestions.Where(p => p.VacancyID == vidAS).Select(x => x.QuestionID).ToList();
-
-                                                        }
-
-                                                        @if (ViewBag.QuetionAnnualSalaryCat != null)
-                                                        {
-                                                            foreach (var d in ViewBag.QuetionAnnualSalaryCat)
-                                                            {
-                                                                <div class="checkbox">
-                                                                    <label>
-                                                                        @if (dataAS.Contains(@d.QuestionID))
-                                                                        {
-                                                                            <input type="checkbox"
-                                                                                   name="VacancyQuestionID" checked
-                                                                                   value="@d.QuestionID" /> @d.QuestionDesc
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                <input type="checkbox"
-                                                                                       name="VacancyQuestionID"
-                                                                                       value="@d.QuestionID" /> @d.QuestionDesc
-                                                                                }
-
-                                                                    </label>
-                                                                </div>
-
-                                                            }
-
-                                                        }
-
-                                                    </div>
-                                                    <!-- /.box-body -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="form-group">
                                         <div class="col-md-12">
-                                            <div class="box box-warning">
+                                            <div class="box box-primary">
                                                 <div class="box-header with-border">
-                                                    <h3 class="box-title">Notice Period<span class="required" style="color:red;"> * </span></h3>
+                                                    <h3 class="box-title">Supporting Documents</h3>
                                                 </div>
                                                 <!-- /.box-header -->
-                                                <div class="box-body">
-                                                    @{
-                                                        int vidNP = @item.ID;
-                                                        var dataNP = _db.tblVacancyQuestions.Where(p => p.VacancyID == vidNP).Select(x => x.QuestionID).ToList();
-
-                                                    }
-
-                                                    @if (ViewBag.QuetionNoticePeriodCat != null)
-                                                    {
-                                                        foreach (var d in ViewBag.QuetionNoticePeriodCat)
-                                                        {
-                                                            <div class="checkbox">
-                                                                <label>
-                                                                    @if (dataNP.Contains(@d.QuestionID))
+                                                <!-- form start -->
+                                                <form role="form">
+                                                    <div class="box-body">
+                                                        @{
+                                                            int vacancyid = @item.ID;
+                                                            var doc = _db.tblVacancyDocuments.Where(x => x.fkVacancyID == vacancyid).ToList();
+                                                            <table id="example1" class="table table-bordered table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="col-md-11">Document Name</th>
+                                                                        <th class="col-md-1">Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var d in doc)
                                                                     {
-                                                                        <input type="checkbox"
-                                                                               name="VacancyQuestionID" checked
-                                                                               value="@d.QuestionID" /> @d.QuestionDesc
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            <input type="checkbox"
-                                                                                   name="VacancyQuestionID"
-                                                                                   value="@d.QuestionID" /> @d.QuestionDesc
-                                                                            }
-
-                                                                </label>
-                                                            </div>
+                                                                        <tr>
+                                                                            <td>@d.sFileName</td>
+                                                                            <td>
+                                                                                <div class="hidden-sm hidden-xs btn-group">
+                                                                                    <a class="btn btn-xs btn-success btn-xs" href='@Url.Action("DownLoadFile", "Vacancy", new { id = @d.id})' data-toggle="tooltip" data-placement="left" title="Download file">
+                                                                                        <i class="ace-icon fa fa-download bigger-120"> Download</i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
 
                                                         }
 
-                                                    }
-
-                                                </div>
-                                                <!-- /.box-body -->
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <br />
-                                    <br /><div class="clearfix"></div><br />
-
-                                    <div class="col-md-12">
-                                        <div class="box box-primary">
-                                            <div class="box-header with-border">
-                                                <h3 class="box-title">Supporting Documents</h3>
-                                            </div>
-                                            <!-- /.box-header -->
-                                            <!-- form start -->
-                                            <form role="form">
-                                                <div class="box-body">
-                                                    @{
-                                                        int vacancyid = @item.ID;
-                                                        var doc = _db.tblVacancyDocuments.Where(x => x.fkVacancyID == vacancyid).ToList();
-                                                        <table id="example1" class="table table-bordered table-striped">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="col-md-11">Document Name</th>
-                                                                    <th class="col-md-1">Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @foreach (var d in doc)
-                                                                {
-                                                                    <tr>
-                                                                        <td>@d.sFileName</td>
-                                                                        <td>
-                                                                            <div class="hidden-sm hidden-xs btn-group">
-                                                                                <a class="btn btn-xs btn-success btn-xs" href='@Url.Action("DownLoadFile", "Vacancy", new { id = @d.id})' data-toggle="tooltip" data-placement="left" title="Download file">
-                                                                                    <i class="ace-icon fa fa-download bigger-120"> Download</i>
-                                                                                </a>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                }
-                                                            </tbody>
-                                                        </table>
-
-                                                    }
-
-                                                </div>
-                                                <!-- /.box-body -->
-
-                                            </form>
-                                        </div>
-
-
-                                    </div>
-
-                                    <div class="clearfix"></div><br />
-
-                                    <div class="col-md-12 pull-right">
-                                        @*<a href="@Url.Action("Approve", "Vacancy" , new { id = @item.ID })" class="btn btn-success btn-sm">
-                <span class="fa fa-check" aria-hidden="true"></span>
-                <input type="submit" class="btn btn-success" value="Submit" />
-                Approve
-            </a>*@
-                                        <input type="submit" class="btn btn-success" value="Approve" />
-
-                                        <a class="btn btn-danger btn-sm" href="#myModal" data-toggle="modal"
-                                           id="@item.ID" data-id="@item.ID" data-target="#myModal" onclick="return GetVacancyID(@item.ID)">
-                                            <i class="fa fa-close"></i>
-                                            Reject
-                                        </a>
-                                        <a href="@Url.Action("ApproveVacancy", "Vacancy" , new { id = @item.ID })" class="btn btn-info btn-sm">
-                                            <span class="fa fa-chevron-left" aria-hidden="true"></span>
-                                            Back to List
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="modal fade" id="myModal">
-                                    <div class="modal-dialog">
-                                        <div id="mainContent" class="modal-content col-sm-12">
-                                            <div id="myModalContent"></div>
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                <h4 class="modal-title" id="myModalLabel">Rejection Reason</h4>
-                                            </div>
-                                            @using (Html.BeginForm("RejectVacancy", "Vacancy", FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
-                                            {
-                                                <input type="hidden" id="hdnVacancyID" name="hdnVacancyID" />
-                                                <div class="form-group">
-                                                    @Html.DropDownList("RejectReasonID", new SelectList(ViewBag.RejectReasonList, "RejectReasonID", "RejectReason"), "Select Reject Reason", new { @class = "form-control", id = "RejectReasonID", onchange = "GetRejectReason()", required = "required" })
-                                                </div>
-                                                <div id="divRejectReason">
-                                                    <div>
-                                                        <label for="form-field-9">Reason</label>
-                                                        <textarea class="form-control limited" style="height:200px" id="RejectReason" name="RejectReason" maxlength="200"></textarea>
                                                     </div>
-                                                </div>
+                                                    <!-- /.box-body -->
 
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-success btn-sm" id="load" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing">Submit</button>
-                                                </div>
-                                            }
+                                                </form>
+                                            </div>
+
 
                                         </div>
-                                    </div>
-                                </div>
 
-                            </div>
+                                        <div class="clearfix"></div><br />
+
+                                        <div class="col-md-12 pull-right">
+                                            @*<a href="@Url.Action("Approve", "Vacancy" , new { id = @item.ID })" class="btn btn-success btn-sm">
+                    <span class="fa fa-check" aria-hidden="true"></span>
+                    <input type="submit" class="btn btn-success" value="Submit" />
+                    Approve
+                </a>*@
+                                            <input type="submit" class="btn btn-success" value="Approve" />
+
+                                            <a class="btn btn-danger btn-sm" href="#myModal" data-toggle="modal"
+                                               id="@item.ID" data-id="@item.ID" data-target="#myModal" onclick="return GetVacancyID(@item.ID)">
+                                                <i class="fa fa-close"></i>
+                                                Reject
+                                            </a>
+                                            <a href="@Url.Action("ApproveVacancy", "Vacancy" , new { id = @item.ID })" class="btn btn-info btn-sm">
+                                                <span class="fa fa-chevron-left" aria-hidden="true"></span>
+                                                Back to List
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal fade" id="myModal">
+                                        <div class="modal-dialog">
+                                            <div id="mainContent" class="modal-content col-sm-12">
+                                                <div id="myModalContent"></div>
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title" id="myModalLabel">Rejection Reason</h4>
+                                                </div>
+                                                @using (Html.BeginForm("RejectVacancy", "Vacancy", FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
+                                                {
+                                                    <input type="hidden" id="hdnVacancyID" name="hdnVacancyID" />
+                                                    <div class="form-group">
+                                                        @Html.DropDownList("RejectReasonID", new SelectList(ViewBag.RejectReasonList, "RejectReasonID", "RejectReason"), "Select Reject Reason", new { @class = "form-control", id = "RejectReasonID", onchange = "GetRejectReason()", required = "required" })
+                                                    </div>
+                                                    <div id="divRejectReason">
+                                                        <div>
+                                                            <label for="form-field-9">Reason</label>
+                                                            <textarea class="form-control limited" style="height:200px" id="RejectReason" name="RejectReason" maxlength="200"></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-success btn-sm" id="load" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing">Submit</button>
+                                                    </div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
 
 
                         </div>

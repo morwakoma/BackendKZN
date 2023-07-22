@@ -105,7 +105,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="col-md-12">
-                                            <label>BPS Vacancy Number:</label>
+                                            <label>Advert Reference Number:</label>
                                             @Html.TextAreaFor(Model => @item.BPSVacancyNo, new { @class = "form-control", placeholder = "BPS Vacancy Number", tabindex = 10, @readonly = "readonly" })
                                         </div>
                                     </div>
@@ -114,7 +114,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="col-md-12">
-                                            <label>Division:<span class="required" style="color:red;"> * </span></label>
+                                            <label>Department:<span class="required" style="color:red;"> * </span></label>
                                             @Html.Hidden("myDepartment", Url.Action("GetDepartmentList"))
                                             @Html.DropDownListFor(Model => @item.DivisionID, new SelectList(ViewBag.Division, "DivisionID", "DivisionDiscription", @item.DivisionID), "--Select Division --", new { id = "DivisionID", @class = "form-control", @disabled = "disabled", tabindex = 1, onChange = "GetDepartmentForEdit()" })
                                             @Html.HiddenFor(Model => @item.DivisionID)
@@ -125,7 +125,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="col-md-12">
-                                            <label>Department:<span class="required" style="color:red;"> * </span></label>
+                                            <label>Component:<span class="required" style="color:red;"> * </span></label>
                                             @Html.Hidden("myApprover", Url.Action("GetApproverByDepartmentList"))
                                             @Html.DropDownListFor(Model => @item.DepartmentID, new SelectList(ViewBag.SitaDepartment, "DepartmentID", "DepartmentName", @item.DepartmentID), "--Select Department --", new { id = "DepartmentID", @class = "form-control", @disabled = "disabled", tabindex = 1, onChange = "GetApproverForEdit()" })
                                             @Html.HiddenFor(Model => @item.DepartmentID)
@@ -137,8 +137,8 @@
                                     <div class="form-group">
                                         <div class="col-md-12">
                                             <label>Job Title:<span class="required" style="color:red;"> * </span></label>
-                                            @Html.DropDownListFor(Model => @item.JobTitleID, new SelectList(ViewBag.JobTitle, "JobTitleID", "JobTitle", @item.JobTitleID), "--Select Vacancy Name--", new { id = "JobTitleID", @class = "form-control", @disabled = "disabled", tabindex = 1, onChange = "GetJobProfileForEdit()" })
-                                            @Html.HiddenFor(Model => @item.JobTitleID)
+                                            @Html.TextBoxFor(Model => @item.JobTitle, new { id = "JobTitle", @class = "form-control", @disabled = "disabled", tabindex = 1 })
+                                            @*@Html.HiddenFor(Model => @item.JobTitleID)*@
                                         </div>
 
                                     </div>
@@ -155,7 +155,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
+                                @*<div class="col-md-12">
                                     <div class="form-group">
                                         <div class="col-md-12">
                                             <label>Salary Category:</label>
@@ -168,7 +168,7 @@
                                             <label>Salary Sub-Category:</label>
                                             @Html.TextBoxFor(Model => @item.Descr, new { @id = "SalarySubCategory", @class = "form-control", placeholder = "Salary Sub-Category", @readonly = "readonly", tabindex = 2 })
                                         </div>
-                                    </div>
+                                    </div>*@
 
                                     <div class="form-group">
                                         <div class="col-md-12">
@@ -181,11 +181,11 @@
                                     <div class="col-md-6" id="Min">
                                         <div class="form-group">
                                             <div class="col-md-12">
-                                                <label> Minimum Salary:</label>
-                                                @Html.TextBoxFor(Model => @item.MinValue, new { @id = "MinValue", @class = "form-control", placeholder = " Minimum Value", @readonly = "readonly", tabindex = 2 })
+                                                <label> Salary:</label>
+                                                @Html.TextBoxFor(Model => @item.SalaryRange, new { @id = "Salary", @class = "form-control", placeholder = " Salary", @readonly = "readonly", tabindex = 2 })
                                             </div>
                                         </div>
-                                    </div>
+                                    @*</div>
 
                                     <div class="col-md-6" id="Max">
                                         <div class="form-group">
@@ -194,7 +194,7 @@
                                                 @Html.TextBoxFor(Model => @item.MaxValue, new { @id = "MaxValue", @class = "form-control", placeholder = "  Maximum Value", @readonly = "readonly", tabindex = 2 })
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>*@
 
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -295,8 +295,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <div class="col-md-12">
-                                                <label>Number Of Openings:<span class="required" style="color:red;"> * </span></label>
-                                                @Html.TextBoxFor(Model => @item.NumberOfOpenings, new { @class = "form-control", placeholder = "Number Of Openings", @readonly = "readonly", onkeypress = "return isNumberKey(event)", tabindex = 13 })
+                                                <label>Number Of Posts:<span class="required" style="color:red;"> * </span></label>
+                                                @Html.TextBoxFor(Model => @item.NumberOfOpenings, new { @class = "form-control", placeholder = "Number Of Posts", @readonly = "readonly", onkeypress = "return isNumberKey(event)", tabindex = 13 })
                                             </div>
                                         </div>
                                     </div>
@@ -323,9 +323,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <div class="col-md-12">
-                                                <label>Location:<span class="required" style="color:red;"> * </span></label>
-                                                @Html.DropDownListFor(Model => @item.Location, new SelectList(ViewBag.Location, "LocationID", "LocationDiscription", @item.Location), "--Select Location --", new { @class = "form-control", @disabled = "disabled", tabindex = 1 })
-                                                @Html.HiddenFor(Model => @item.Location)
+                                                <label>Centre:<span class="required" style="color:red;"> * </span></label>
+                                                @*@Html.DropDownListFor(Model => @item.Centre, new SelectList(ViewBag.Location, "LocationID", "LocationDiscription", @item.Location), "--Select Location --", new { @class = "form-control", @disabled = "disabled", tabindex = 1 })*@
+                                                @Html.TextBoxFor(Model => @item.Centre, new { @class = "form-control", placeholder = "Centre", @readonly = "readonly", tabindex = 1 })
+
+                                                @*@Html.HiddenFor(Model => @item.Location)*@
                                             </div>
                                         </div>
                                     </div>
