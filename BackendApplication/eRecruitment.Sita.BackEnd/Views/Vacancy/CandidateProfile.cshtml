@@ -110,7 +110,7 @@
                                         <th>Gender</th>
                                         <th>View Z83</th>
                                         <th>Download Z83</th>
-                                        <th>Download CV</th>
+                                        @*<th>Download CV</th>*@
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -135,10 +135,10 @@
                                             @*<a href="@Url.Action("DownloadCandidateCVitae", "Vacancy", new {ID =@item.ProfileID})"><span class="fa fa-download" style="color:blue"></span> Download Profile</a>*@
                                             <a href="@Url.Action("DownloadCandidateProfile", "Vacancy", new {profileID =@item.ProfileID,ID=@item.ApplicationID})"><span class="fa fa-download" style="color:blue"></span> Download Z83</a>
                                         </td>
-                                        <td>
+                                        <!--<td>-->
                                             @*<a href="@Url.Action("DownloadCandidateCVitae", "Vacancy", new {ID =@item.ProfileID})"><span class="fa fa-download" style="color:blue"></span> Download Profile</a>*@
-                                            <a href="@Url.Action("DownloadAttachment", "Vacancy", new {ID =@item.ProfileID})"><span class="fa fa-download" style="color:blue"></span> Download CV</a>
-                                        </td>
+                                            <!--<a href="@Url.Action("DownloadAttachment", "Vacancy", new {ID =@item.ProfileID})"><span class="fa fa-download" style="color:blue"></span> Download CV</a>
+                                        </td>-->
                                     </tr>
 
 

@@ -3033,9 +3033,9 @@ namespace eRecruitment.BusinessDomain.DAL
         }
 
         //Insert Vacancy
-        public int InsertVacancy(string UserID, int OrganisationID, string BPSVacancyNo, int DivisionID, int DepartmentID, int JobTitleID, int SalaryTypeID, string Recruiter,
+        public int InsertVacancy(string UserID, int OrganisationID, string BPSVacancyNo, int DivisionID, int DepartmentID, int SalaryTypeID, string Recruiter,
                                  string RecruiterEmail, string RecruiterTel, string RecruiterUserId, string Manager, int GenderID, int RaceID, int EmploymentTypeID,
-                                 string ContractDuration, DateTime ClosingDate, int NumberOfOpenings, int VancyTypeID, string DeligationReasons, string Location,
+                                 string ContractDuration, DateTime ClosingDate, int NumberOfOpenings, int VancyTypeID, string DeligationReasons,
                                 string AdditionalRequirement, string VacancyPurpose, string QualificationAndExperience
                                 , string TechnicalCompetenciesDescription, string Disclaimer, string Responsibility, string Knowledge, string LeadershipCompetencies
                                 , string behaviouralCompetencyDesc)
@@ -3044,9 +3044,9 @@ namespace eRecruitment.BusinessDomain.DAL
 
             _db = new eRecruitmentDataClassesDataContext();
 
-            var vacancy = _db.proc_eRecruitmentInsertVacancy(UserID, OrganisationID, BPSVacancyNo, DivisionID, DepartmentID, JobTitleID, SalaryTypeID, Recruiter,
+            var vacancy = _db.proc_eRecruitmentInsertVacancy(UserID, OrganisationID, BPSVacancyNo, DivisionID, DepartmentID, SalaryTypeID, Recruiter,
                             RecruiterEmail, RecruiterTel, RecruiterUserId, Manager, GenderID, RaceID,
-                            EmploymentTypeID, ContractDuration, ClosingDate, NumberOfOpenings, VancyTypeID, DeligationReasons, Location, AdditionalRequirement,
+                            EmploymentTypeID, ContractDuration, ClosingDate, NumberOfOpenings, VancyTypeID, DeligationReasons,AdditionalRequirement,
                              VacancyPurpose, QualificationAndExperience, TechnicalCompetenciesDescription
                             , Disclaimer, Responsibility, Knowledge, LeadershipCompetencies, behaviouralCompetencyDesc);
             foreach (var d in vacancy)
@@ -3058,17 +3058,17 @@ namespace eRecruitment.BusinessDomain.DAL
             return id;
         }
         //UPdate Vacancy
-        public int UpdateVacancy(int id, string UserID, int OrganisationID, string BPSVacancyNo, int DivisionID, int DepartmentID, int JobTitleID, int SalaryTypeID, string Recruiter,
+        public int UpdateVacancy(int id, string UserID, int OrganisationID, string BPSVacancyNo, int DivisionID, int DepartmentID, int SalaryTypeID, string Recruiter,
                                  string RecruiterEmail, string RecruiterTel, string RecruiterUserId, string Manager, int GenderID, int RaceID, int EmploymentTypeID,
-                                 string ContractDuration, DateTime ClosingDate, int NumberOfOpenings, int VancyTypeID, string DeligationReasons, string Location,
+                                 string ContractDuration, DateTime ClosingDate, int NumberOfOpenings, int VancyTypeID, string DeligationReasons,
                                  string AdditionalRequirements, string VacancyPurpose, string QualificationAndExperience
                                 , string TechnicalCompetenciesDescription, string Disclaimer, string Responsibility, string Knowledge, string LeadershipCompetencies, string behaviouralCompetencyDesc)
         {
             _db = new eRecruitmentDataClassesDataContext();
 
-            var vacancy = _db.proc_eRecruitmentUpdateVacancy(id, UserID, OrganisationID, BPSVacancyNo, DivisionID, DepartmentID, JobTitleID, SalaryTypeID, Recruiter,
+            var vacancy = _db.proc_eRecruitmentUpdateVacancy(id, UserID, OrganisationID, BPSVacancyNo, DivisionID, DepartmentID, SalaryTypeID, Recruiter,
                             RecruiterEmail, RecruiterTel, RecruiterUserId, Manager, GenderID, RaceID,
-                            EmploymentTypeID, ContractDuration, ClosingDate, NumberOfOpenings, VancyTypeID, DeligationReasons, Location, AdditionalRequirements,
+                            EmploymentTypeID, ContractDuration, ClosingDate, NumberOfOpenings, VancyTypeID, DeligationReasons,AdditionalRequirements,
                              VacancyPurpose, QualificationAndExperience, TechnicalCompetenciesDescription, Disclaimer, Responsibility, Knowledge
                             , LeadershipCompetencies, behaviouralCompetencyDesc);
 
@@ -3475,7 +3475,8 @@ namespace eRecruitment.BusinessDomain.DAL
 
             var data = _db.GetVacancyListForEditByID(id);
 
-            var vacancySalary = GetVacancySalary(id);
+            //var vacancySalary = GetVacancySalary(id);
+            var vacancyExtension = GetVacancyExtension(id);
 
             foreach (var d in data)
             {
@@ -3484,7 +3485,7 @@ namespace eRecruitment.BusinessDomain.DAL
                 e.BPSVacancyNo = Convert.ToString(d.BPSVacancyNo);
                 e.DivisionID = Convert.ToInt32(d.DivisionID);
                 e.DepartmentID = Convert.ToInt32(d.DepartmentID);
-                e.JobTitleID = Convert.ToInt32(d.JobTitleID);
+                //e.JobTitleID = Convert.ToInt32(d.JobTitleID);
                 e.EmploymentTypeID = Convert.ToInt32(d.EmploymentTypeID);
                 e.Status = Convert.ToString(d.StatusDescription);
                 e.CreatedDate = Convert.ToDateTime(d.CreatedDate).ToShortDateString();
@@ -3492,9 +3493,11 @@ namespace eRecruitment.BusinessDomain.DAL
                 e.ClosingDate = Convert.ToDateTime(d.ClosingDate).ToShortDateString();
                 e.ReferenceNo = Convert.ToString(d.ReferenceNo);
                
-                e.JobLevelName = Convert.ToString(vacancySalary.JobLevel);
-                e.MinValue = Convert.ToDecimal(vacancySalary.MinValue);
-                e.MaxValue = Convert.ToDecimal(vacancySalary.MaxValue);
+                e.JobLevelName = Convert.ToString(vacancyExtension.JobLevel);
+                //e.MinValue = Convert.ToDecimal(vacancySalary.MinValue);
+                //e.MaxValue = Convert.ToDecimal(vacancySalary.MaxValue);
+                e.Salary = vacancyExtension.Salary;
+                e.JobTitle = vacancyExtension.JobTitle;
                 e.Recruiter = Convert.ToString(d.Recruiter);
                 e.RecruiterEmail = Convert.ToString(d.RecruiterEmail);
                 e.RecruiterTel = Convert.ToString(d.RecruiterTel);
@@ -3503,16 +3506,16 @@ namespace eRecruitment.BusinessDomain.DAL
                 e.ContractDuration = Convert.ToString(d.ContractDuration);
                 e.NumberOfOpenings = Convert.ToInt32(d.NumberOfOpenings);
                 e.VancyTypeID = Convert.ToInt32(d.VancyTypeID);
-                e.Location = Convert.ToString(d.Location);
+                e.Centre = vacancyExtension.Centre;
                 e.GenderID = Convert.ToInt32(d.GenderID);
                 e.RaceID = Convert.ToInt32(d.RaceID);
                 e.SalaryTypeID = Convert.ToInt32(d.SalaryTypeID);
                 e.VacancyPurpose = Convert.ToString(d.VacancyPurpose);
                 e.DeligationReasons = Convert.ToString(d.DeligationReasons);
                 e.Responsibility = Convert.ToString(d.Responsibility);
-                e.TechComps = d.TechnicalCompetenciesDescription;
-                e.LeadComps = d.LeadershipCompetencies;
-                e.BehaveComps = d.BehaviouralCompetency;
+                //e.TechComps = d.TechnicalCompetenciesDescription;
+                //e.LeadComps = d.LeadershipCompetencies;
+                //e.BehaveComps = d.BehaviouralCompetency;
                 e.QualificationAndExperience = Convert.ToString(d.QualificationAndExperience);
                 e.Knowledge = Convert.ToString(d.Knowledge);
                 e.AdditonalRequirements = Convert.ToString(d.AdditonalRequirements);
@@ -3638,7 +3641,8 @@ namespace eRecruitment.BusinessDomain.DAL
                           join e in _db.lutDivisions on a.DivisionID equals e.DivisionID
                           join f in _db.lutDepartments on a.DepartmentID equals f.DepartmentID
                           //join g in _db.tblJobProfiles on a.VacancyProfileID equals g.JobProfileID
-                          join h in _db.lutJobTitles on a.JobTitleID equals h.JobTitleID
+                          join h in _db.tblVacancyExtensions on a.ID equals h.VacancyID
+                          //join i in _db.AssignedDivisionDepartments on a.DepartmentID equals i.DepartmentID
                           where a.StatusID == 2 && a.OrganisationID == orgid && a.Manager == userid
                           && a.ClosingDate >= DateTime.Now
                           orderby a.CreatedDate descending
@@ -3713,7 +3717,8 @@ namespace eRecruitment.BusinessDomain.DAL
             _db = new eRecruitmentDataClassesDataContext();
 
             var data = _db.GetVacancyListForEditByID(id);
-            var vacancySalry = GetVacancySalary(id);
+            //var vacancySalry = GetVacancySalary(id);
+            var vacancyExtesnion = GetVacancyExtension(id);
             foreach (var d in data)
             {
                 VacancyModels e = new VacancyModels();
@@ -3721,7 +3726,7 @@ namespace eRecruitment.BusinessDomain.DAL
                 e.BPSVacancyNo = Convert.ToString(d.BPSVacancyNo);
                 e.DivisionID = Convert.ToInt32(d.DivisionID);
                 e.DepartmentID = Convert.ToInt32(d.DepartmentID);
-                e.JobTitleID = Convert.ToInt32(d.JobTitleID);
+                e.JobTitle= vacancyExtesnion.JobTitle;
                 e.EmploymentTypeID = Convert.ToInt32(d.EmploymentTypeID);
                 e.Status = Convert.ToString(d.StatusDescription);
                 e.CreatedDate = Convert.ToDateTime(d.CreatedDate).ToShortDateString();
@@ -3729,9 +3734,8 @@ namespace eRecruitment.BusinessDomain.DAL
                 e.ClosingDate = Convert.ToDateTime(d.ClosingDate).ToShortDateString();
                 e.ReferenceNo = Convert.ToString(d.ReferenceNo);
               
-                e.JobLevelName = Convert.ToString(vacancySalry.JobLevel);
-                e.MinValue = Convert.ToDecimal(vacancySalry.MinValue);
-                e.MaxValue = Convert.ToDecimal(vacancySalry.MaxValue);
+                e.JobLevelName = vacancyExtesnion.JobLevel;
+                e.Salary = vacancyExtesnion.Salary;
                 e.Recruiter = Convert.ToString(d.Recruiter);
                 e.RecruiterEmail = Convert.ToString(d.RecruiterEmail);
                 e.RecruiterTel = Convert.ToString(d.RecruiterTel);
@@ -3740,7 +3744,7 @@ namespace eRecruitment.BusinessDomain.DAL
                 e.ContractDuration = Convert.ToString(d.ContractDuration);
                 e.NumberOfOpenings = Convert.ToInt32(d.NumberOfOpenings);
                 e.VancyTypeID = Convert.ToInt32(d.VancyTypeID);
-                e.Location = Convert.ToString(d.Location);
+                e.Centre = vacancyExtesnion.Centre;
                 e.GenderID = Convert.ToInt32(d.GenderID);
                 e.RaceID = Convert.ToInt32(d.RaceID);
                 e.SalaryTypeID = Convert.ToInt32(d.SalaryTypeID);
@@ -4208,7 +4212,7 @@ namespace eRecruitment.BusinessDomain.DAL
             _db = new eRecruitmentDataClassesDataContext();
 
             var data = from a in _db.tblVacancies
-                       join b in _db.lutJobTitles on a.JobTitleID equals b.JobTitleID
+                       join b in _db.tblVacancyExtensions on a.ID equals b.VacancyID
                        where a.RecruiterUserId == userid
                        //============Peter 20221028============
                        orderby a.ReferenceNo.Trim() ascending
@@ -4355,7 +4359,7 @@ namespace eRecruitment.BusinessDomain.DAL
             _db = new eRecruitmentDataClassesDataContext();
 
             var data = (from a in _db.tblVacancies
-                        join b in _db.lutJobTitles on a.JobTitleID equals b.JobTitleID
+                        join b in _db.tblVacancyExtensions on a.ID equals b.VacancyID
                         join c in _db.tblCandidateVacancyApplications on a.ID equals c.VacancyID
 
                         where a.RecruiterUserId == userid
@@ -5668,11 +5672,60 @@ namespace eRecruitment.BusinessDomain.DAL
                                VacancyID= int.Parse(vS.VacancyID.ToString())
                                
                            }).FirstOrDefault();
+    
+        }
+        public VacancyExtension GetVacancyExtension(int VacancyID)
+        {
+            return (from vE in _db.tblVacancyExtensions
+
+                    where vE.VacancyID == VacancyID
+                    select new VacancyExtension()
+                    {
+                        VacancyExtensionID = vE.VacancyExtensionID,
+                        JobTitle = vE.JobTitle,
+                        JobLevel = vE.JobLevel,
+
+                        Salary = vE.Salary.ToString(),
+                        VacancyID = int.Parse(vE.VacancyID.ToString()),
+                        Centre = vE.Centre,
 
 
-            
+
+                    }).FirstOrDefault();
+
         }
 
+        public void updateVacancyExtension(tblVacancyExtension vacancyExtension)
+        {
+
+            tblVacancyExtension vacancyExtensionTable = _db.tblVacancyExtensions.Where(x => x.VacancyID == vacancyExtension.VacancyID).FirstOrDefault();
+            vacancyExtensionTable.JobTitle = vacancyExtension.JobTitle;
+            vacancyExtensionTable.JobLevel = vacancyExtension.JobLevel;
+            vacancyExtensionTable.Salary = vacancyExtension.Salary;
+            vacancyExtensionTable.Centre = vacancyExtension.Centre;
+            vacancyExtensionTable.VacancyID = vacancyExtension.VacancyID;
+
+
+            _db.SubmitChanges();
+
+        }
+
+        public void saveVacancyExtension(tblVacancyExtension extension)
+        {
+            _db.tblVacancyExtensions.InsertOnSubmit(extension);
+
+            _db.SubmitChanges();
+        }
+
+        public string getDisclaimer(string userID)
+        {
+           
+            var orgID = GetOrganisationID(userID);
+               String  result  = (String)_db.lutDiscalmers.Where(x => x.OrginazationID == orgID).Select(y => y.Disclamer).FirstOrDefault();
+
+            return result;
+
+        }
     }
 }
 

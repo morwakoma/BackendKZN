@@ -20,6 +20,7 @@ using iTextSharp.text.pdf;
 using OfficeOpenXml;
 using System.Text.RegularExpressions;
 using SITA.Notifications;
+using System.Globalization;
 //using OfficeOpenXml.Style;
 
 
@@ -57,33 +58,33 @@ namespace eRecruitment.Sita.BackEnd.Controllers
                 //                && a.CreatedDate >= b.StartDate && a.CreatedDate <= b.EndDate && a.RecruiterUserId == userid
                 //                select a.ID).Count();
                 totalVacancy = (from a in _db.tblVacancies
-                                from b in _db.tblFinYears
-                                where a.OrganisationID == cid && a.RecruiterUserId == userid
-                                && a.CreatedDate >= b.StartDate && a.CreatedDate <= b.EndDate && a.RecruiterUserId == userid
+                                    //from b in _db.tblFinYears
+                                where a.OrganisationID == cid && a.RecruiterUserId == userid &&
+                               /* && a.CreatedDate >= b.StartDate && a.CreatedDate <= b.EndDate &&*/ a.RecruiterUserId == userid
                                 select a.ID).Count();
 
                 //totalApproved = _db.tblVacancies.Where(x => x.UserID == userid && x.StatusID == 3).Count();
                 totalApproved = (from a in _db.tblVacancies
-                                 from b in _db.tblFinYears
+                                     //from b in _db.tblFinYears
                                  where a.OrganisationID == cid && a.RecruiterUserId == userid
-                                 && a.StatusID == 3
-                                 && a.CreatedDate >= b.StartDate && a.CreatedDate <= b.EndDate && a.RecruiterUserId == userid
+                                 && a.StatusID == 3 &&
+                                /* && a.CreatedDate >= b.StartDate && a.CreatedDate <= b.EndDate && */a.RecruiterUserId == userid
                                  select a.ID).Count();
 
                 //totalRejected = _db.tblVacancies.Where(x => x.UserID == userid && x.StatusID == 4).Count();
                 totalRejected = (from a in _db.tblVacancies
-                                 from b in _db.tblFinYears
+                                     //from b in _db.tblFinYears
                                  where a.OrganisationID == cid && a.RecruiterUserId == userid
-                                 && a.StatusID == 4
-                                 && a.CreatedDate >= b.StartDate && a.CreatedDate <= b.EndDate && a.RecruiterUserId == userid
+                                 && a.StatusID == 4 &&
+                               /*  && a.CreatedDate >= b.StartDate && a.CreatedDate <= b.EndDate && */a.RecruiterUserId == userid
                                  select a.ID).Count();
 
                 //totalWithdrawn = _db.tblVacancies.Where(x => x.UserID == userid && x.StatusID == 5).Count();
                 totalWithdrawn = (from a in _db.tblVacancies
-                                  from b in _db.tblFinYears
+                                      //from b in _db.tblFinYears
                                   where a.OrganisationID == cid && a.RecruiterUserId == userid
-                                  && a.StatusID == 5
-                                  && a.CreatedDate >= b.StartDate && a.CreatedDate <= b.EndDate && a.RecruiterUserId == userid
+                                  && a.StatusID == 5 &&
+                                /*  && a.CreatedDate >= b.StartDate && a.CreatedDate <= b.EndDate &&*/ a.RecruiterUserId == userid
                                   select a.ID).Count();
             }
 
@@ -92,7 +93,7 @@ namespace eRecruitment.Sita.BackEnd.Controllers
                 //totalVacancy = _db.tblVacancies.Where(x => x.UserID == userid).Count();
                 totalVacancy = (from a in _db.tblVacancies
                                 from b in _db.lutOrganisations
-                                where a.OrganisationID == b.OrganisationID && a.OrganisationID ==cid
+                                where a.OrganisationID == b.OrganisationID && a.OrganisationID == cid && a.Recruiter == userid
                                 select new
                                 {
                                     a.ID
@@ -101,26 +102,26 @@ namespace eRecruitment.Sita.BackEnd.Controllers
 
                 //totalApproved = _db.tblVacancies.Where(x => x.UserID == userid && x.StatusID == 3).Count();
                 ViewBag.totalApproved = (from a in _db.tblVacancies
-                                 from b in _db.tblFinYears
-                                 where a.OrganisationID == cid
-                                 && a.StatusID == 3
-                                 && a.CreatedDate >= b.StartDate && a.CreatedDate <= b.EndDate
-                                 select a.ID).Count();
+                                             //from b in _db.tblFinYears
+                                         where a.OrganisationID == cid
+                                         && a.StatusID == 3
+                                         && /*a.CreatedDate >= b.StartDate && a.CreatedDate <= b.EndDate*/ a.Recruiter == userid
+                                         select a.ID).Count();
 
                 //totalRejected = _db.tblVacancies.Where(x => x.UserID == userid && x.StatusID == 4).Count();
                 totalRejected = (from a in _db.tblVacancies
-                                 from b in _db.tblFinYears
+                                     //from b in _db.tblFinYears
                                  where a.OrganisationID == cid && a.UserID == userid
                                  && a.StatusID == 4
-                                 && a.CreatedDate >= b.StartDate && a.CreatedDate <= b.EndDate
+                                 && a.Recruiter == userid
                                  select a.ID).Count();
 
                 //totalWithdrawn = _db.tblVacancies.Where(x => x.UserID == userid && x.StatusID == 5).Count();
                 totalWithdrawn = (from a in _db.tblVacancies
-                                  from b in _db.tblFinYears
-                                  where a.OrganisationID == cid && a.UserID == userid
+                                      //from b in _db.tblFinYears
+                                  where a.OrganisationID == cid
                                   && a.StatusID == 5
-                                  && a.CreatedDate >= b.StartDate && a.CreatedDate <= b.EndDate
+                                  && a.Recruiter == userid
                                   select a.ID).Count();
             }
 
@@ -128,30 +129,30 @@ namespace eRecruitment.Sita.BackEnd.Controllers
             {
                 //totalVacancy = _db.tblVacancies.Where(x => x.OrganisationID == cid).Count();
                 totalVacancy = (from a in _db.tblVacancies
-                                from b in _db.tblFinYears
+                                    //from b in _db.tblFinYears
                                 where a.OrganisationID == cid
-                                && a.CreatedDate >= b.StartDate && a.CreatedDate <= b.EndDate && a.Manager == userid
+                                 && a.Manager == userid
                                 select a.ID).Count();
 
                 //totalApproved = _db.tblVacancies.Where(x => x.OrganisationID == cid && x.StatusID == 3).Count();
                 totalApproved = (from a in _db.tblVacancies
-                                 from b in _db.tblFinYears
+                                     //from b in _db.tblFinYears
                                  where a.OrganisationID == cid && a.StatusID == 3
-                                 && a.CreatedDate >= b.StartDate && a.CreatedDate <= b.EndDate && a.Manager == userid
+                                && a.Manager == userid
                                  select a.ID).Count();
 
                 //totalRejected = _db.tblVacancies.Where(x => x.OrganisationID == cid && x.StatusID == 4).Count();
                 totalRejected = (from a in _db.tblVacancies
-                                 from b in _db.tblFinYears
+                                     //from b in _db.tblFinYears
                                  where a.OrganisationID == cid && a.StatusID == 4
-                                 && a.CreatedDate >= b.StartDate && a.CreatedDate <= b.EndDate && a.Manager == userid
+                                 && /*a.CreatedDate >= b.StartDate && a.CreatedDate <= b.EndDate &&*/ a.Manager == userid
                                  select a.ID).Count();
 
                 //totalWithdrawn = _db.tblVacancies.Where(x => x.OrganisationID == cid && x.StatusID == 5).Count();
                 totalWithdrawn = (from a in _db.tblVacancies
-                                  from b in _db.tblFinYears
+                                      //from b in _db.tblFinYears
                                   where a.OrganisationID == cid && a.StatusID == 5
-                                  && a.CreatedDate >= b.StartDate && a.CreatedDate <= b.EndDate && a.Manager == userid
+                                  && /*a.CreatedDate >= b.StartDate && a.CreatedDate <= b.EndDate && */a.Manager == userid
                                   select a.ID).Count();
             }
             ViewBag.TotalVacancy = totalVacancy;
@@ -429,7 +430,7 @@ namespace eRecruitment.Sita.BackEnd.Controllers
                 cellLocation.HorizontalAlignment = Element.ALIGN_LEFT;
                 table.AddCell(cellLocation);
 
-                PdfPCell cellLocationContent = new PdfPCell(new Phrase(data.Location.ToString(), font));
+                PdfPCell cellLocationContent = new PdfPCell(new Phrase(data.Centre.ToString(), font));
                 cellLocationContent.Colspan = 1;
                 cellLocationContent.HorizontalAlignment = Element.ALIGN_JUSTIFIED;
                 table.AddCell(cellLocationContent);
@@ -876,8 +877,11 @@ namespace eRecruitment.Sita.BackEnd.Controllers
             //String[] strlist = str.Split(spearator);
 
             //Check files Extensions
+            string userid = User.Identity.GetUserId();
+            var orgID = _dal.GetOrganisationID(userid);
+            string Disclaimer = _dal.getDisclaimer(userid);
 
-
+            
             foreach (var file in files)
             {
                 if (file.ContentLength > 0 && file != null)
@@ -898,8 +902,8 @@ namespace eRecruitment.Sita.BackEnd.Controllers
                 }
             }
 
-            string userid = User.Identity.GetUserId();
-            var orgID = _dal.GetOrganisationID(userid);
+            //string userid = User.Identity.GetUserId();
+            //var orgID = _dal.GetOrganisationID(userid);
             var VacancyProfileID = _dal.GetVacancyProfileID(model.JobTitleID);
             ViewBag.EmploymentType = _dal.GetEmploymentTypeList();
             ViewBag.Organisation = _dal.GetOrganisationList(userid);
@@ -960,7 +964,7 @@ namespace eRecruitment.Sita.BackEnd.Controllers
                 string VacancyPurpose = string.Empty;
                 string QualificationAndExperience = string.Empty;
                 string TechComps = string.Empty;
-                string Disclaimer = string.Empty;
+                //string Disclaimer = string.Empty;
                 string Responsibility = string.Empty;
                 string Knowledge = string.Empty;
                 string LeadComps = string.Empty;
@@ -971,7 +975,7 @@ namespace eRecruitment.Sita.BackEnd.Controllers
                 if (model.VacancyPurpose != null) { VacancyPurpose = this.RemoveSpecialCharacters(model.VacancyPurpose); } else { VacancyPurpose = string.Empty; }
                 if (model.QualificationAndExperience != null) { QualificationAndExperience = this.RemoveSpecialCharacters(model.QualificationAndExperience); } else { QualificationAndExperience = string.Empty; }
                 if (model.TechComps != null) { TechComps = this.RemoveSpecialCharacters(model.TechComps); } else { TechComps = string.Empty; }
-                if (model.Disclaimer != null) { Disclaimer = this.RemoveSpecialCharacters(model.Disclaimer); } else { Disclaimer = string.Empty; }
+                //if (model.Disclaimer != null) { Disclaimer = this.RemoveSpecialCharacters(Disclaimer.ToString()); } else { Disclaimer = string.Empty; }
                 if (model.Responsibility != null) { Responsibility = this.RemoveSpecialCharacters(model.Responsibility); } else { Responsibility = string.Empty; }
                 if (model.Knowledge != null) { Knowledge = this.RemoveSpecialCharacters(model.Knowledge); } else { Knowledge = string.Empty; }
                 if (model.LeadComps != null) { LeadComps = this.RemoveSpecialCharacters(model.LeadComps); } else { LeadComps = string.Empty; }
@@ -981,28 +985,32 @@ namespace eRecruitment.Sita.BackEnd.Controllers
                 //int startIndex = 0, Length = 11;
                 //BpsNo = model.BPSVacancyNo.Replace(System.Environment.NewLine, "").Substring(0, 11);
 
-                int? vacancyid = _dal.InsertVacancy(userid, Convert.ToInt32(Organisation), model.BPSVacancyNo, model.DivisionID, model.DepartmentID, model.JobTitleID,
+                int? vacancyid = _dal.InsertVacancy(userid, Convert.ToInt32(Organisation), model.BPSVacancyNo, model.DivisionID, model.DepartmentID,
                                                        model.SalaryTypeID, Recruiter, RecruiterEmail, model.RecruiterTel, model.RecruiterUserId, model.Manager, model.GenderID, model.RaceID,
                                                        model.EmploymentTypeID, model.ContractDuration, Convert.ToDateTime(model.ClosingDate), model.NumberOfOpenings, model.VancyTypeID,
-                                                       DeligationReasons, model.Location, AdditonalRequirements,
+                                                       DeligationReasons, AdditonalRequirements,
                                                        VacancyPurpose, QualificationAndExperience, TechComps, Disclaimer, Responsibility,
                                                        Knowledge, LeadComps, BehaveComps);
 
                 if (vacancyid != null)
                 {
 
-                    tblVacancySalary salary = new tblVacancySalary
+                    
+
+                    tblVacancyExtension extension = new tblVacancyExtension
                     {
-                        JobTitleID = model.JobTitleID,
+                        JobTitle = model.JobTitle,
                         JobLevel = model.JobLevelName,
-                        MinValue = model.MinValue,
-                        MaxValue = model.MaxValue,
-                        VacancyID = (int)vacancyid
+                        //MinValue = model.MinValue,
+                        //MaxValue = model.MaxValue,
+                        VacancyID = (int)vacancyid,
+                        Salary = Convert.ToDecimal(model.Salary),
+                        Centre =model.Centre
 
 
                     };
 
-                    _dal.saveVacancySalary(salary);
+                    _dal.saveVacancyExtension(extension);
 
 
                     if (model.VacancyQuestionID != null)
@@ -1391,28 +1399,48 @@ namespace eRecruitment.Sita.BackEnd.Controllers
                 //if (item.LeadComps != null) { LeadComps = item.LeadComps; } else { LeadComps = string.Empty; }
                 //if (item.BehaveComps != null) { BehaveComps = item.BehaveComps; } else { BehaveComps = string.Empty; }
 
-                int? vacancyid = _dal.UpdateVacancy(id, userid, Convert.ToInt32(Organisation), item.BPSVacancyNo, item.DivisionID, item.DepartmentID, item.JobTitleID,
+                int? vacancyid = _dal.UpdateVacancy(id, userid, Convert.ToInt32(Organisation), item.BPSVacancyNo, item.DivisionID, item.DepartmentID,
                                                     item.SalaryTypeID, item.Recruiter, item.RecruiterEmail, item.RecruiterTel, item.RecruiterUserId, item.Manager, item.GenderID, item.RaceID,
                                                     item.EmploymentTypeID, item.ContractDuration, Convert.ToDateTime(item.ClosingDate), item.NumberOfOpenings
                                                     , item.VancyTypeID, DeligationReasons,
-                                                    item.Location, AdditonalRequirements,
+                                                     AdditonalRequirements,
                                                     VacancyPurpose, QualificationAndExperience, TechComps
                                                     , Disclaimer, Responsibility, Knowledge, LeadComps, BehaveComps);
 
                 if (vacancyid != null)
                 {
 
-                    tblVacancySalary salary = new tblVacancySalary
-                    {
-                        JobTitleID = item.JobTitleID,
-                        JobLevel = item.JobLevelName,
-                        MinValue = item.MinValue,
-                        MaxValue = item.MaxValue,
-                        VacancyID = (int)vacancyid
+                    //tblVacancySalary salary = new tblVacancySalary
+                    //{
+                    //    JobTitleID = item.JobTitleID,
+                    //    JobLevel = item.JobLevelName,
+                    //    MinValue = item.MinValue,
+                    //    MaxValue = item.MaxValue,
+                    //    VacancyID = (int)vacancyid
 
 
-                    };
-                    _dal.updateVacancySalary(salary);
+                    //};
+
+                 
+
+                        decimal vacancySalary = Decimal.Parse(item.Salary, CultureInfo.InvariantCulture);
+                        tblVacancyExtension extension = new tblVacancyExtension
+                        {
+                            JobTitle = item.JobTitle,
+                            JobLevel = item.JobLevelName,
+                            //MinValue = model.MinValue,
+                            //MaxValue = model.MaxValue,
+                            VacancyID = (int)vacancyid,
+                            Salary = Decimal.Parse(item.Salary, CultureInfo.InvariantCulture),
+                            Centre = item.Centre
+
+
+                                   
+                        };
+                    _dal.updateVacancyExtension(extension);
+                
+             
+                    //_dal.updateVacancySalary(salary);
                     if (vacancyid != null)
                     {
                         if (VacancyQuestionID != null)
@@ -1726,7 +1754,7 @@ namespace eRecruitment.Sita.BackEnd.Controllers
                                                     item.SalaryTypeID, item.Recruiter, item.RecruiterEmail, item.RecruiterTel, item.RecruiterUserId, item.Manager, item.GenderID, item.RaceID,
                                                     item.EmploymentTypeID, item.ContractDuration, Convert.ToDateTime(item.ClosingDate), item.NumberOfOpenings
                                                     , item.VancyTypeID, DeligationReasons,
-                                                    item.Location, AdditonalRequirements, VacancyProfileID[0].VacancyProfileID,
+                                                    item.Centre, AdditonalRequirements, VacancyProfileID[0].VacancyProfileID,
                                                     VacancyPurpose, QualificationAndExperience, TechComps
                                                     , Disclaimer, Responsibility, Knowledge, LeadComps, BehaveComps);
 

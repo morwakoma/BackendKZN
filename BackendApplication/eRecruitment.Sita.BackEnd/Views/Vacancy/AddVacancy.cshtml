@@ -147,72 +147,72 @@ tabindex = 10
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label>Job Title:<span class="required" style="color:red;"> * </span></label>
-                                    @*<select class="form-control select2" style="width: 100%;">
-                                            <option selected="selected">Alabama</option>
-                                            <option>Alaska</option>
-                                            <option>California</option>
-                                            <option>Delaware</option>
-                                            <option>Tennessee</option>
-                                            <option>Texas</option>
-                                            <option>Washington</option>
-                                        </select>*@
-                                    @Html.DropDownListFor(Model => Model.JobTitleID, new SelectList(ViewBag.JobTitle, "JobTitleID", "JobTitle"), "--Select Vacancy Name--", new { @class = "form-control select2", required = "Required", tabindex = 1, onChange = "GetJobProfile()" })
-                                </div>
-
-                            </div>
-                        </div>
-
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label>Salary Type:<span class="required" style="color:red;"> * </span></label>
-                                    @Html.DropDownListFor(Model => Model.SalaryTypeID, new SelectList(ViewBag.SalaryType, "SalaryTypeID", "SalaryTypeDescr"), "--Select Salary Type--", new { @class = "form-control", required = "Required", tabindex = 1, onChange = "GetSalary()" })
+                                    @Html.DropDownListFor(Model => Model.SalaryTypeID, new SelectList(ViewBag.SalaryType, "SalaryTypeID", "SalaryTypeDescr"), "--Select Salary Type--", new { @class = "form-control", required = "Required", tabindex = 2, onChange = "GetSalary()" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Job Title:<span class="required" style="color:red;"> * </span></label>
+
+                                    @Html.TextBoxFor(Model => Model.JobTitle, new { @id = "JobLevel", @class = "form-control", placeholder = "Job Title", tabindex = 2 })
                                 </div>
 
                             </div>
                         </div>
 
+
+
                         <div class="col-md-12">
                             @*<div class="form-group">
-                                <div class="col-md-12">
-                                    <label>Salary Category:</label>
-                                    @Html.TextBoxFor(Model => Model.CategoryDescr, new { @id = "SalaryCategory", @class = "form-control", disabled = "disabled", placeholder = "Salary Category", tabindex = 2 })
+                                    <div class="col-md-12">
+                                        <label>Salary Category:</label>
+                                        @Html.TextBoxFor(Model => Model.CategoryDescr, new { @id = "SalaryCategory", @class = "form-control", disabled = "disabled", placeholder = "Salary Category", tabindex = 2 })
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label>Salary Sub-Category:</label>
-                                    @Html.TextBoxFor(Model => Model.Descr, new { @id = "SalarySubCategory", @class = "form-control", placeholder = "Salary Sub-Category", disabled = "disabled", tabindex = 2 })
-                                </div>
-                            </div>*@
-
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label>Job Level:</label>
-                                    @Html.TextBoxFor(Model => Model.JobLevelName, new { @id = "JobLevelName", @class = "form-control", placeholder = "Job Level",  tabindex = 2 })
-                                </div>
-                            </div>
-
-                            <div class="col-md-6" id="Min">
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <label> Minimum Salary:</label>
-                                        @Html.TextBoxFor(Model => Model.MinValue, new { @id = "MinValue", @class = "form-control", placeholder = " Minimum Value",  tabindex = 2 })
+                                        <label>Salary Sub-Category:</label>
+                                        @Html.TextBoxFor(Model => Model.Descr, new { @id = "SalarySubCategory", @class = "form-control", placeholder = "Salary Sub-Category", disabled = "disabled", tabindex = 2 })
+                                    </div>
+                                </div>*@
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Job Level:</label>
+                                        @Html.TextBoxFor(Model => Model.JobLevelName, new { @id = "JobLevelName", @class = "form-control", placeholder = "Job Level", tabindex = 2 })
                                     </div>
                                 </div>
                             </div>
+                            @*<div class="col-md-6" id="Min">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label> Minimum Salary:</label>
+                                            @Html.TextBoxFor(Model => Model.MinValue, new { @id = "MinValue", @class = "form-control", placeholder = " Minimum Value",  tabindex = 2 })
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="col-md-6" id="Max">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label> Maximum Salary:</label>
+                                            @Html.TextBoxFor(Model => Model.MaxValue, new { @id = "MaxValue", @class = "form-control", placeholder = "  Maximum Value",  tabindex = 2 })
+                                        </div>
+                                    </div>
+                                </div>*@
                             <div class="col-md-6" id="Max">
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <label> Maximum Salary:</label>
-                                        @Html.TextBoxFor(Model => Model.MaxValue, new { @id = "MaxValue", @class = "form-control", placeholder = "  Maximum Value",  tabindex = 2 })
+                                        <label> Salary:</label>
+                                        @Html.TextBoxFor(Model => Model.Salary, new { @id = "Salary", @class = "form-control", placeholder = "  Salary Value", tabindex = 2 })
                                     </div>
                                 </div>
                             </div>
@@ -377,31 +377,13 @@ tabindex = 10
                                 <div class="form-group">
                                     <div class="col-md-12">
                                         <label> Centre :<span class="required" style="color:red;"> * </span></label>
-                                        @Html.DropDownListFor(Model => Model.Location, new SelectList(ViewBag.Location, "LocationID", "LocationDiscription"), "--Select Location --", new { @class = "form-control", required = "Required", tabindex = 1 })
-                                        @*@Html.TextBoxFor(Model => Model.Location, new { @class = "form-control", placeholder = "Location", required = "Required", tabindex = 14 })*@
+                                        @*@Html.DropDownListFor(Model => Model.Location, new SelectList(ViewBag.Location, "LocationID", "LocationDiscription"), "--Select Centre --", new { @class = "form-control", required = "Required", tabindex = 1 })*@
+                                        @Html.TextBoxFor(Model => Model.Centre, new { @class = "form-control", placeholder = "Centre", required = "Required", tabindex = 1 })
                                     </div>
                                 </div>
                             </div>
 
-                            @*<div class="form-group">
-                                    <div class="col-md-12">
-                                        <label>Skill Category:<span class="required" style="color:red;"> * </span></label>
-                                        @Html.DropDownListFor(Model => Model.CategoryID, new SelectList(ViewBag.SkillsCategoryList, "CategoryID", "Description"), "--Select Skill Category --", new { @class = "form-control", required = "Required", tabindex = 1, onChange = "GetSkillPerCatergory()" })
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="box box-warning">
-                                        <div class="box-header with-border">
-                                            <h3 class="box-title">Skills<span class="required" style="color:red;"> * </span></h3>
-                                        </div>
-                                        <!-- /.box-header -->
-                                        <div class="box-body" id="Skill">
-
-                                        </div>
-                                        <!-- /.box-body -->
-                                    </div>
-                                </div>*@
+                          
 
                             <div class="col-md-12" hidden>
                                 <div class="box box-warning">
@@ -428,17 +410,17 @@ tabindex = 10
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label>Purpose of the Job:</label>
-                                    @*@Html.TextAreaFor(Model => Model.VacancyPurpose, new { @id = "VacancyPurpose", @class = "form-control", @rows = "3", placeholder = "Purpose of the Job", disabled = "disabled", tabindex = 15 })*@
-                                    @Html.TextAreaFor(Model => Model.VacancyPurpose, new { @id = "VacancyPurpose", @class = "form-control", @rows = "3", placeholder = "Purpose of the Job", tabindex = 15 })
-                                </div>
-                            </div>
+                            @*<div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Purpose of the Job:</label>
+                                        @Html.TextAreaFor(Model => Model.VacancyPurpose, new { @id = "VacancyPurpose", @class = "form-control", @rows = "3", placeholder = "Purpose of the Job", disabled = "disabled", tabindex = 15 })
+                                        @Html.TextAreaFor(Model => Model.VacancyPurpose, new { @id = "VacancyPurpose", @class = "form-control", @rows = "3", placeholder = "Purpose of the Job", tabindex = 15 })
+                                    </div>
+                                </div>*@
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label>Responsibility:</label>
+                                    <label>Duties/Responsibilities:</label>
                                     @*@Html.TextAreaFor(Model => Model.Responsibility, new { @id = "Responsibility", @class = "form-control", @rows = "3", placeholder = "Responsibilities of the Job", disabled = "disabled", tabindex = 16 })*@
                                     @Html.TextAreaFor(Model => Model.Responsibility, new { @id = "Responsibility", @class = "form-control", @rows = "3", placeholder = "Responsibilities of the Job", tabindex = 16 })
                                 </div>
@@ -455,35 +437,35 @@ tabindex = 10
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label>Knowledge:</label>
+                                    <label>Essential Knowledge, Skills and Competencies:</label>
                                     @*@Html.TextAreaFor(Model => Model.Knowledge, new { @id = "Knowledge", @class = "form-control", @rows = "3", placeholder = "Knowledge", disabled = "disabled", tabindex = 21 })*@
                                     @Html.TextAreaFor(Model => Model.Knowledge, new { @id = "Knowledge", @class = "form-control ", @rows = "3", placeholder = "Knowledge", tabindex = 21 })
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label>Technical Competencies:</label>
-                                    @*@Html.TextAreaFor(Model => Model.TechComps, new { @id = "TechComps", @class = "form-control", @rows = "3", placeholder = "Technical Competency Descriptions", disabled = "disabled", tabindex = 17 })*@
-                                    @Html.TextAreaFor(Model => Model.TechComps, new { @id = "TechComps", @class = "form-control", @rows = "3", placeholder = "Technical Competency Descriptions", tabindex = 17 })
+                            <!--<div class="form-group">
+                            <div class="col-md-12">
+                                <label>Technical Competencies:</label>-->
+                            @*@Html.TextAreaFor(Model => Model.TechComps, new { @id = "TechComps", @class = "form-control", @rows = "3", placeholder = "Technical Competency Descriptions", disabled = "disabled", tabindex = 17 })*@
+                            <!--@Html.TextAreaFor(Model => Model.TechComps, new { @id = "TechComps", @class = "form-control", @rows = "3", placeholder = "Technical Competency Descriptions", tabindex = 17 })
                                 </div>
                             </div>
 
                             <div class="form-group" id="Leadership">
                                 <div class="col-md-12">
-                                    <label>Leadership Competencies:</label>
-                                    @*@Html.TextAreaFor(Model => Model.LeadComps, new { @id = "LeadComps", @class = "form-control", @rows = "3", placeholder = "Leadership Competency Descriptions", disabled = "disabled", tabindex = 17 })*@
-                                    @Html.TextAreaFor(Model => Model.LeadComps, new { @id = "LeadComps", @class = "form-control", @rows = "3", placeholder = "Leadership Competency Descriptions", tabindex = 17 })
+                                    <label>Leadership Competencies:</label>-->
+                            @*@Html.TextAreaFor(Model => Model.LeadComps, new { @id = "LeadComps", @class = "form-control", @rows = "3", placeholder = "Leadership Competency Descriptions", disabled = "disabled", tabindex = 17 })*@
+                            <!--@Html.TextAreaFor(Model => Model.LeadComps, new { @id = "LeadComps", @class = "form-control", @rows = "3", placeholder = "Leadership Competency Descriptions", tabindex = 17 })
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label>Interpersonal / Behavioural Competencies:</label>
-                                    @*@Html.TextAreaFor(Model => Model.BehaveComps, new { @id = "BehaveComps", @class = "form-control", @rows = "3", placeholder = "Behavioural Competency Descriptions", disabled = "disabled", tabindex = 17 })*@
-                                    @Html.TextAreaFor(Model => Model.BehaveComps, new { @id = "BehaveComps", @class = "form-control", @rows = "3", placeholder = "Behavioural Competency Descriptions", tabindex = 17 })
+                                    <label>Interpersonal / Behavioural Competencies:</label>-->
+                            @*@Html.TextAreaFor(Model => Model.BehaveComps, new { @id = "BehaveComps", @class = "form-control", @rows = "3", placeholder = "Behavioural Competency Descriptions", disabled = "disabled", tabindex = 17 })*@
+                            <!--@Html.TextAreaFor(Model => Model.BehaveComps, new { @id = "BehaveComps", @class = "form-control", @rows = "3", placeholder = "Behavioural Competency Descriptions", tabindex = 17 })
                                 </div>
-                            </div>
+                            </div>-->
 
                             <div class="form-group">
                                 <div class="col-md-12">
@@ -495,7 +477,7 @@ tabindex = 10
                             <div class="form-group">
                                 <div class="col-md-12">
 
-     
+
                                     <label>Disclaimer:</label>
                                     <div class="box-body">
                                         @if (ViewBag.Disclaimer != null)
@@ -506,14 +488,14 @@ tabindex = 10
                                                     <label>
                                                         <input type="checkbox"
                                                                name="VacancyQuestionID"
-                                                               value="@d.Disclaimer" /> @d.Disclaimer
+                                                               value="@d.Disclamer" /> @d.Disclamer
                                                         </label>
                                                     </div>
                                                 }
                                             }
                                     </div>
-                                        @*@Html.TextAreaFor(Model => Model.Disclaimer, new { @id = "Disclaimer", @class = "form-control", @rows = "3", placeholder = "Disclaimer", disabled = "disabled", tabindex = 23 })*@
-                                      
+                                    @*@Html.TextAreaFor(Model => Model.Disclaimer, new { @id = "Disclaimer", @class = "form-control", @rows = "3", placeholder = "Disclaimer", disabled = "disabled", tabindex = 23 })*@
+
                                 </div>
                             </div>
 
@@ -600,18 +582,17 @@ tabindex = 10
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-md-6">
                                 <div class="col-md-12">
                                     <div class="box box-warning">
                                         <div class="box-header with-border">
-                                            <h3 class="box-title">Experience<span class="required" style="color:red;"> * </span></h3>
+                                            <h3 class="box-title">Notice Period<span style="color:red;"> * </span></h3>
                                         </div>
                                         <!-- /.box-header -->
-                                        <div class="box-body-experience">
-                                            @if (ViewBag.QuetionExperienceCat != null)
+                                        <div class="box-body-notice-period">
+                                            @if (ViewBag.QuetionNoticePeriodCat != null)
                                             {
-                                                foreach (var d in ViewBag.QuetionExperienceCat)
+                                                foreach (var d in ViewBag.QuetionNoticePeriodCat)
                                                 {
                                                     <div class="checkbox">
                                                         <label>
@@ -627,111 +608,109 @@ tabindex = 10
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-6">
-                                <div class="col-md-12">
-                                    <div class="box box-primary">
-                                        <div class="box-header with-border">
-                                            <h3 class="box-title">Certification</h3>
-                                        </div>
-                                        <!-- /.box-header -->
-                                        <div class="box-body-certification">
-                                            @if (ViewBag.QuetionCertificationCat != null)
-                                            {
-                                                foreach (var d in ViewBag.QuetionCertificationCat)
-                                                {
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox"
-                                                                   name="VacancyQuestionID"
-                                                                   value="@d.QuestionID" /> @d.QuestionDesc
-                                                            </label>
-                                                        </div>
-                                                    }
-                                                }
-                                        </div>
-                                        <!-- /.box-body -->
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="col-md-12">
-                                    <div class="box box-primary">
-                                        <div class="box-header with-border">
-                                            <h3 class="box-title">Current Annual Salary<span class="required" style="color:red;"> * </span></h3>
-                                        </div>
-                                        <!-- /.box-header -->
-                                        <div class="box-body-annaul-salary">
-                                            @if (ViewBag.QuetionAnnualSalaryCat != null)
-                                            {
-                                                foreach (var d in ViewBag.QuetionAnnualSalaryCat)
-                                                {
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox"
-                                                                   name="VacancyQuestionID"
-                                                                   value="@d.QuestionID" /> @d.QuestionDesc
-                                                            </label>
-                                                        </div>
-                                                    }
-                                                }
-                                        </div>
-                                        <!-- /.box-body -->
-                                    </div>
-                                </div>
-                            </div>
-
+                            <!--<div class="col-md-6">
                             <div class="col-md-12">
                                 <div class="box box-warning">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Notice Period<span style="color:red;"> * </span></h3>
-                                    </div>
-                                    <!-- /.box-header -->
-                                    <div class="box-body-notice-period">
-                                        @if (ViewBag.QuetionNoticePeriodCat != null)
-                                        {
-                                            foreach (var d in ViewBag.QuetionNoticePeriodCat)
-                                            {
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox"
-                                                               name="VacancyQuestionID"
-                                                               value="@d.QuestionID" /> @d.QuestionDesc
-                                                        </label>
-                                                    </div>
-                                                }
-                                            }
-                                    </div>
-                                    <!-- /.box-body -->
+                                        <h3 class="box-title">Experience<span class="required" style="color:red;"> * </span></h3>
+                                    </div>-->
+                            <!-- /.box-header -->
+                            <!--<div class="box-body-experience">
+                                @if (ViewBag.QuetionExperienceCat != null)
+                                {
+                                    foreach (var d in ViewBag.QuetionExperienceCat)
+                                    {
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"
+                                                       name="VacancyQuestionID"
+                                                       value="@d.QuestionID" /> @d.QuestionDesc
+                                                </label>
+                                            </div>
+                                        }
+                                    }
+                            </div>-->
+                            <!-- /.box-body -->
+                            <!--</div>
                                 </div>
-                            </div>
-
+                            </div>-->
+                            <!--<div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="box box-primary">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Certification</h3>
+                                    </div>-->
+                            <!-- /.box-header -->
+                            <!--<div class="box-body-certification">
+                                @if (ViewBag.QuetionCertificationCat != null)
+                                {
+                                    foreach (var d in ViewBag.QuetionCertificationCat)
+                                    {
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"
+                                                       name="VacancyQuestionID"
+                                                       value="@d.QuestionID" /> @d.QuestionDesc
+                                                </label>
+                                            </div>
+                                        }
+                                    }
+                            </div>-->
+                            <!-- /.box-body -->
+                            <!--</div>
+                                </div>
+                            </div>-->
+                            <!--<div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="box box-primary">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Current Annual Salary<span class="required" style="color:red;"> * </span></h3>
+                                    </div>-->
+                            <!-- /.box-header -->
+                            <!--<div class="box-body-annaul-salary">
+                                @if (ViewBag.QuetionAnnualSalaryCat != null)
+                                {
+                                    foreach (var d in ViewBag.QuetionAnnualSalaryCat)
+                                    {
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"
+                                                       name="VacancyQuestionID"
+                                                       value="@d.QuestionID" /> @d.QuestionDesc
+                                                </label>
+                                            </div>
+                                        }
+                                    }
+                            </div>-->
+                            <!-- /.box-body -->
+                            <!--</div>
+                                </div>
+                            </div>-->
                             @*====================Peter 20221206 - Add Job Specific Questions====================*@
                             @*<div class="col-md-12">
-                                <div class="box box-warning">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Job Specific Questions<span style="color:red;"> * </span></h3>
-                                    </div>
-                                    <div>
-                                        <button type="button" id="btnDisplayJobDescTxtbox" onclick="DisplayJobDescTxtbox()" class="btn btn-secondary btn-sm bg-gray-active"><span class="fa fa-question-circle" aria-hidden="true"></span> Add Job Specific Questions</button>
+                                    <div class="box box-warning">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Job Specific Questions<span style="color:red;"> * </span></h3>
+                                        </div>
+                                        <div>
+                                            <button type="button" id="btnDisplayJobDescTxtbox" onclick="DisplayJobDescTxtbox()" class="btn btn-secondary btn-sm bg-gray-active"><span class="fa fa-question-circle" aria-hidden="true"></span> Add Job Specific Questions</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6" id="divJobSpecQuestion">
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        @Html.TextBoxFor(Model => Model.JobSpecificQuestions, new { @id = "JobSpecQuestions", @class = "form-control", placeholder = "Add Job specific question here", required = "Required", tabindex = 14 })
+                                <div class="col-md-6" id="divJobSpecQuestion">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            @Html.TextBoxFor(Model => Model.JobSpecificQuestions, new { @id = "JobSpecQuestions", @class = "form-control", placeholder = "Add Job specific question here", required = "Required", tabindex = 14 })
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6" id="divBtnAddQuestion">
-                                <div class="form-group">
-                                    <input type="submit" onclick="customValidation(event)" name="button" value="Add" class="btn btn-info btn-sm" />
-                                </div>
-                            </div>*@
+                                <div class="col-md-6" id="divBtnAddQuestion">
+                                    <div class="form-group">
+                                        <input type="submit" onclick="customValidation(event)" name="button" value="Add" class="btn btn-info btn-sm" />
+                                    </div>
+                                </div>*@
 
                             @*==================================================================================*@
                             @*==================================================================================*@
@@ -877,7 +856,7 @@ tabindex = 10
     //        dataType: 'JSON',
     //        contentType: 'application/json; charset=utf-8',
     //        success: function (data) {
-                
+
     //        },
     //        error: function () {
     //            alert('There is some problem to add the job specific question.');

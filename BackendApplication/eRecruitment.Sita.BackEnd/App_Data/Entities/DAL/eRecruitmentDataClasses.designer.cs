@@ -309,6 +309,12 @@ namespace eRecruitment.Sita.BackEnd.App_Data.Entities.DAL
     partial void InsertZ83Question(Z83Question instance);
     partial void UpdateZ83Question(Z83Question instance);
     partial void DeleteZ83Question(Z83Question instance);
+    partial void InserttblVacancyExtension(tblVacancyExtension instance);
+    partial void UpdatetblVacancyExtension(tblVacancyExtension instance);
+    partial void DeletetblVacancyExtension(tblVacancyExtension instance);
+    partial void InsertAssignedDivisionDepartment1(AssignedDivisionDepartment1 instance);
+    partial void UpdateAssignedDivisionDepartment1(AssignedDivisionDepartment1 instance);
+    partial void DeleteAssignedDivisionDepartment1(AssignedDivisionDepartment1 instance);
     #endregion
 		
 		public eRecruitmentDataClassesDataContext() : 
@@ -1162,6 +1168,22 @@ namespace eRecruitment.Sita.BackEnd.App_Data.Entities.DAL
 			get
 			{
 				return this.GetTable<Z83Question>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tblVacancyExtension> tblVacancyExtensions
+		{
+			get
+			{
+				return this.GetTable<tblVacancyExtension>();
+			}
+		}
+		
+		public System.Data.Linq.Table<AssignedDivisionDepartment1> AssignedDivisionDepartment1s
+		{
+			get
+			{
+				return this.GetTable<AssignedDivisionDepartment1>();
 			}
 		}
 		
@@ -2072,50 +2094,6 @@ namespace eRecruitment.Sita.BackEnd.App_Data.Entities.DAL
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_GetVacancyAdDetail")]
-		public ISingleResult<sp_GetVacancyAdDetailResult> sp_GetVacancyAdDetail([global::System.Data.Linq.Mapping.ParameterAttribute(Name="VacancyID", DbType="Int")] System.Nullable<int> vacancyID)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), vacancyID);
-			return ((ISingleResult<sp_GetVacancyAdDetailResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.proc_eRecruitmentInsertVacancy")]
-		public ISingleResult<proc_eRecruitmentInsertVacancyResult> proc_eRecruitmentInsertVacancy(
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserID", DbType="NVarChar(50)")] string userID, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="OrganisationID", DbType="Int")] System.Nullable<int> organisationID, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="BPSVacancyNo", DbType="VarChar(500)")] string bPSVacancyNo, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="DivisionID", DbType="Int")] System.Nullable<int> divisionID, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="DepartmentID", DbType="Int")] System.Nullable<int> departmentID, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="JobTitleID", DbType="Int")] System.Nullable<int> jobTitleID, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="SalaryTypeID", DbType="Int")] System.Nullable<int> salaryTypeID, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Recruiter", DbType="VarChar(50)")] string recruiter, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RecruiterEmail", DbType="VarChar(50)")] string recruiterEmail, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RecruiterTel", DbType="VarChar(50)")] string recruiterTel, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RecruiterUserId", DbType="NVarChar(50)")] string recruiterUserId, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Manager", DbType="VarChar(MAX)")] string manager, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="GenderID", DbType="Int")] System.Nullable<int> genderID, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RaceID", DbType="Int")] System.Nullable<int> raceID, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="EmploymentTypeID", DbType="Int")] System.Nullable<int> employmentTypeID, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="ContractDuration", DbType="VarChar(50)")] string contractDuration, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="ClosingDate", DbType="DateTime")] System.Nullable<System.DateTime> closingDate, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumberOfOpenings", DbType="Int")] System.Nullable<int> numberOfOpenings, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="VancyTypeID", DbType="Int")] System.Nullable<int> vancyTypeID, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="DeligationReasons", DbType="VarChar(1000)")] string deligationReasons, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Location", DbType="VarChar(50)")] string location, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="AdditionalRequirements", DbType="VarChar(MAX)")] string additionalRequirements, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="VacancyPurpose", DbType="VarChar(MAX)")] string vacancyPurpose, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="QualificationAndExperience", DbType="VarChar(MAX)")] string qualificationAndExperience, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="TechnicalCompetenciesDescription", DbType="VarChar(MAX)")] string technicalCompetenciesDescription, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Disclaimer", DbType="VarChar(MAX)")] string disclaimer, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Responsibility", DbType="VarChar(MAX)")] string responsibility, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Knowledge", DbType="VarChar(MAX)")] string knowledge, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="LeadershipCompetencies", DbType="VarChar(MAX)")] string leadershipCompetencies, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="BehaviouralCompetency", DbType="VarChar(MAX)")] string behaviouralCompetency)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), userID, organisationID, bPSVacancyNo, divisionID, departmentID, jobTitleID, salaryTypeID, recruiter, recruiterEmail, recruiterTel, recruiterUserId, manager, genderID, raceID, employmentTypeID, contractDuration, closingDate, numberOfOpenings, vancyTypeID, deligationReasons, location, additionalRequirements, vacancyPurpose, qualificationAndExperience, technicalCompetenciesDescription, disclaimer, responsibility, knowledge, leadershipCompetencies, behaviouralCompetency);
-			return ((ISingleResult<proc_eRecruitmentInsertVacancyResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetVancyList")]
 		public ISingleResult<GetVancyListResult> GetVancyList([global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserID", DbType="NVarChar(50)")] string userID)
 		{
@@ -2130,6 +2108,13 @@ namespace eRecruitment.Sita.BackEnd.App_Data.Entities.DAL
 			return ((ISingleResult<GetVacancyListForEditByIDResult>)(result.ReturnValue));
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_tblVacancyListForView_Get")]
+		public ISingleResult<sp_tblVacancyListForView_GetResult> sp_tblVacancyListForView_Get([global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserId", DbType="NVarChar(50)")] string userId)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), userId);
+			return ((ISingleResult<sp_tblVacancyListForView_GetResult>)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.proc_eRecruitmentUpdateVacancy")]
 		public int proc_eRecruitmentUpdateVacancy(
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="ID", DbType="Int")] System.Nullable<int> iD, 
@@ -2138,7 +2123,6 @@ namespace eRecruitment.Sita.BackEnd.App_Data.Entities.DAL
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="BPSVacancyNo", DbType="VarChar(500)")] string bPSVacancyNo, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="DivisionID", DbType="Int")] System.Nullable<int> divisionID, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="DepartmentID", DbType="Int")] System.Nullable<int> departmentID, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="JobTitleID", DbType="Int")] System.Nullable<int> jobTitleID, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="SalaryTypeID", DbType="Int")] System.Nullable<int> salaryTypeID, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Recruiter", DbType="VarChar(50)")] string recruiter, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RecruiterEmail", DbType="VarChar(50)")] string recruiterEmail, 
@@ -2153,7 +2137,6 @@ namespace eRecruitment.Sita.BackEnd.App_Data.Entities.DAL
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumberOfOpenings", DbType="Int")] System.Nullable<int> numberOfOpenings, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="VancyTypeID", DbType="Int")] System.Nullable<int> vancyTypeID, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="DeligationReasons", DbType="VarChar(1000)")] string deligationReasons, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Location", DbType="VarChar(50)")] string location, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="AdditionalRequirements", DbType="VarChar(MAX)")] string additionalRequirements, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="VacancyPurpose", DbType="VarChar(MAX)")] string vacancyPurpose, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="QualificationAndExperience", DbType="VarChar(MAX)")] string qualificationAndExperience, 
@@ -2164,15 +2147,50 @@ namespace eRecruitment.Sita.BackEnd.App_Data.Entities.DAL
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="LeadershipCompetencies", DbType="VarChar(MAX)")] string leadershipCompetencies, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="BehaviouralCompetency", DbType="VarChar(MAX)")] string behaviouralCompetency)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iD, userID, organisationID, bPSVacancyNo, divisionID, departmentID, jobTitleID, salaryTypeID, recruiter, recruiterEmail, recruiterTel, recruiterUserId, manager, genderID, raceID, employmentTypeID, contractDuration, closingDate, numberOfOpenings, vancyTypeID, deligationReasons, location, additionalRequirements, vacancyPurpose, qualificationAndExperience, technicalCompetenciesDescription, disclaimer, responsibility, knowledge, leadershipCompetencies, behaviouralCompetency);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iD, userID, organisationID, bPSVacancyNo, divisionID, departmentID, salaryTypeID, recruiter, recruiterEmail, recruiterTel, recruiterUserId, manager, genderID, raceID, employmentTypeID, contractDuration, closingDate, numberOfOpenings, vancyTypeID, deligationReasons, additionalRequirements, vacancyPurpose, qualificationAndExperience, technicalCompetenciesDescription, disclaimer, responsibility, knowledge, leadershipCompetencies, behaviouralCompetency);
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_tblVacancyListForView_Get")]
-		public ISingleResult<sp_tblVacancyListForView_GetResult> sp_tblVacancyListForView_Get([global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserId", DbType="NVarChar(50)")] string userId)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.proc_eRecruitmentInsertVacancy")]
+		public ISingleResult<proc_eRecruitmentInsertVacancyResult> proc_eRecruitmentInsertVacancy(
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserID", DbType="NVarChar(50)")] string userID, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="OrganisationID", DbType="Int")] System.Nullable<int> organisationID, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="BPSVacancyNo", DbType="VarChar(500)")] string bPSVacancyNo, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="DivisionID", DbType="Int")] System.Nullable<int> divisionID, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="DepartmentID", DbType="Int")] System.Nullable<int> departmentID, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="SalaryTypeID", DbType="Int")] System.Nullable<int> salaryTypeID, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Recruiter", DbType="VarChar(50)")] string recruiter, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RecruiterEmail", DbType="VarChar(50)")] string recruiterEmail, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RecruiterTel", DbType="VarChar(50)")] string recruiterTel, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RecruiterUserId", DbType="NVarChar(50)")] string recruiterUserId, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Manager", DbType="VarChar(MAX)")] string manager, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="GenderID", DbType="Int")] System.Nullable<int> genderID, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RaceID", DbType="Int")] System.Nullable<int> raceID, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="EmploymentTypeID", DbType="Int")] System.Nullable<int> employmentTypeID, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="ContractDuration", DbType="VarChar(50)")] string contractDuration, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="ClosingDate", DbType="DateTime")] System.Nullable<System.DateTime> closingDate, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumberOfOpenings", DbType="Int")] System.Nullable<int> numberOfOpenings, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="VancyTypeID", DbType="Int")] System.Nullable<int> vancyTypeID, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="DeligationReasons", DbType="VarChar(1000)")] string deligationReasons, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="AdditionalRequirements", DbType="VarChar(MAX)")] string additionalRequirements, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="VacancyPurpose", DbType="VarChar(MAX)")] string vacancyPurpose, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="QualificationAndExperience", DbType="VarChar(MAX)")] string qualificationAndExperience, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="TechnicalCompetenciesDescription", DbType="VarChar(MAX)")] string technicalCompetenciesDescription, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Disclaimer", DbType="VarChar(MAX)")] string disclaimer, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Responsibility", DbType="VarChar(MAX)")] string responsibility, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Knowledge", DbType="VarChar(MAX)")] string knowledge, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="LeadershipCompetencies", DbType="VarChar(MAX)")] string leadershipCompetencies, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="BehaviouralCompetency", DbType="VarChar(MAX)")] string behaviouralCompetency)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), userId);
-			return ((ISingleResult<sp_tblVacancyListForView_GetResult>)(result.ReturnValue));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), userID, organisationID, bPSVacancyNo, divisionID, departmentID, salaryTypeID, recruiter, recruiterEmail, recruiterTel, recruiterUserId, manager, genderID, raceID, employmentTypeID, contractDuration, closingDate, numberOfOpenings, vancyTypeID, deligationReasons, additionalRequirements, vacancyPurpose, qualificationAndExperience, technicalCompetenciesDescription, disclaimer, responsibility, knowledge, leadershipCompetencies, behaviouralCompetency);
+			return ((ISingleResult<proc_eRecruitmentInsertVacancyResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_GetVacancyAdDetail")]
+		public ISingleResult<sp_GetVacancyAdDetailResult> sp_GetVacancyAdDetail([global::System.Data.Linq.Mapping.ParameterAttribute(Name="VacancyID", DbType="Int")] System.Nullable<int> vacancyID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), vacancyID);
+			return ((ISingleResult<sp_GetVacancyAdDetailResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -21427,6 +21445,466 @@ namespace eRecruitment.Sita.BackEnd.App_Data.Entities.DAL
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblVacancyExtension")]
+	public partial class tblVacancyExtension : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _VacancyExtensionID;
+		
+		private System.Nullable<int> _JobTitleID;
+		
+		private string _JobTitle;
+		
+		private string _JobLevel;
+		
+		private System.Nullable<decimal> _MinValue;
+		
+		private System.Nullable<decimal> _MaxValue;
+		
+		private System.Nullable<int> _VacancyID;
+		
+		private System.Nullable<decimal> _Salary;
+		
+		private string _Centre;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnVacancyExtensionIDChanging(int value);
+    partial void OnVacancyExtensionIDChanged();
+    partial void OnJobTitleIDChanging(System.Nullable<int> value);
+    partial void OnJobTitleIDChanged();
+    partial void OnJobTitleChanging(string value);
+    partial void OnJobTitleChanged();
+    partial void OnJobLevelChanging(string value);
+    partial void OnJobLevelChanged();
+    partial void OnMinValueChanging(System.Nullable<decimal> value);
+    partial void OnMinValueChanged();
+    partial void OnMaxValueChanging(System.Nullable<decimal> value);
+    partial void OnMaxValueChanged();
+    partial void OnVacancyIDChanging(System.Nullable<int> value);
+    partial void OnVacancyIDChanged();
+    partial void OnSalaryChanging(System.Nullable<decimal> value);
+    partial void OnSalaryChanged();
+    partial void OnCentreChanging(string value);
+    partial void OnCentreChanged();
+    #endregion
+		
+		public tblVacancyExtension()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VacancyExtensionID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int VacancyExtensionID
+		{
+			get
+			{
+				return this._VacancyExtensionID;
+			}
+			set
+			{
+				if ((this._VacancyExtensionID != value))
+				{
+					this.OnVacancyExtensionIDChanging(value);
+					this.SendPropertyChanging();
+					this._VacancyExtensionID = value;
+					this.SendPropertyChanged("VacancyExtensionID");
+					this.OnVacancyExtensionIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobTitleID", DbType="Int")]
+		public System.Nullable<int> JobTitleID
+		{
+			get
+			{
+				return this._JobTitleID;
+			}
+			set
+			{
+				if ((this._JobTitleID != value))
+				{
+					this.OnJobTitleIDChanging(value);
+					this.SendPropertyChanging();
+					this._JobTitleID = value;
+					this.SendPropertyChanged("JobTitleID");
+					this.OnJobTitleIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobTitle", DbType="NVarChar(250)")]
+		public string JobTitle
+		{
+			get
+			{
+				return this._JobTitle;
+			}
+			set
+			{
+				if ((this._JobTitle != value))
+				{
+					this.OnJobTitleChanging(value);
+					this.SendPropertyChanging();
+					this._JobTitle = value;
+					this.SendPropertyChanged("JobTitle");
+					this.OnJobTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobLevel", DbType="NVarChar(50)")]
+		public string JobLevel
+		{
+			get
+			{
+				return this._JobLevel;
+			}
+			set
+			{
+				if ((this._JobLevel != value))
+				{
+					this.OnJobLevelChanging(value);
+					this.SendPropertyChanging();
+					this._JobLevel = value;
+					this.SendPropertyChanged("JobLevel");
+					this.OnJobLevelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MinValue", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> MinValue
+		{
+			get
+			{
+				return this._MinValue;
+			}
+			set
+			{
+				if ((this._MinValue != value))
+				{
+					this.OnMinValueChanging(value);
+					this.SendPropertyChanging();
+					this._MinValue = value;
+					this.SendPropertyChanged("MinValue");
+					this.OnMinValueChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaxValue", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> MaxValue
+		{
+			get
+			{
+				return this._MaxValue;
+			}
+			set
+			{
+				if ((this._MaxValue != value))
+				{
+					this.OnMaxValueChanging(value);
+					this.SendPropertyChanging();
+					this._MaxValue = value;
+					this.SendPropertyChanged("MaxValue");
+					this.OnMaxValueChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VacancyID", DbType="Int")]
+		public System.Nullable<int> VacancyID
+		{
+			get
+			{
+				return this._VacancyID;
+			}
+			set
+			{
+				if ((this._VacancyID != value))
+				{
+					this.OnVacancyIDChanging(value);
+					this.SendPropertyChanging();
+					this._VacancyID = value;
+					this.SendPropertyChanged("VacancyID");
+					this.OnVacancyIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Salary", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> Salary
+		{
+			get
+			{
+				return this._Salary;
+			}
+			set
+			{
+				if ((this._Salary != value))
+				{
+					this.OnSalaryChanging(value);
+					this.SendPropertyChanging();
+					this._Salary = value;
+					this.SendPropertyChanged("Salary");
+					this.OnSalaryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Centre", DbType="NVarChar(250)")]
+		public string Centre
+		{
+			get
+			{
+				return this._Centre;
+			}
+			set
+			{
+				if ((this._Centre != value))
+				{
+					this.OnCentreChanging(value);
+					this.SendPropertyChanging();
+					this._Centre = value;
+					this.SendPropertyChanged("Centre");
+					this.OnCentreChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AssignedDivisionDepartment")]
+	public partial class AssignedDivisionDepartment1 : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _AssignedDivisionDepartmentID;
+		
+		private string _UserId;
+		
+		private System.Nullable<int> _OrganisationID;
+		
+		private System.Nullable<int> _DivisionID;
+		
+		private System.Nullable<int> _DepartmentID;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private System.Nullable<int> _CreatedBy;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnAssignedDivisionDepartmentIDChanging(int value);
+    partial void OnAssignedDivisionDepartmentIDChanged();
+    partial void OnUserIdChanging(string value);
+    partial void OnUserIdChanged();
+    partial void OnOrganisationIDChanging(System.Nullable<int> value);
+    partial void OnOrganisationIDChanged();
+    partial void OnDivisionIDChanging(System.Nullable<int> value);
+    partial void OnDivisionIDChanged();
+    partial void OnDepartmentIDChanging(System.Nullable<int> value);
+    partial void OnDepartmentIDChanged();
+    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedOnChanged();
+    partial void OnCreatedByChanging(System.Nullable<int> value);
+    partial void OnCreatedByChanged();
+    #endregion
+		
+		public AssignedDivisionDepartment1()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssignedDivisionDepartmentID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int AssignedDivisionDepartmentID
+		{
+			get
+			{
+				return this._AssignedDivisionDepartmentID;
+			}
+			set
+			{
+				if ((this._AssignedDivisionDepartmentID != value))
+				{
+					this.OnAssignedDivisionDepartmentIDChanging(value);
+					this.SendPropertyChanging();
+					this._AssignedDivisionDepartmentID = value;
+					this.SendPropertyChanged("AssignedDivisionDepartmentID");
+					this.OnAssignedDivisionDepartmentIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="NVarChar(128)")]
+		public string UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrganisationID", DbType="Int")]
+		public System.Nullable<int> OrganisationID
+		{
+			get
+			{
+				return this._OrganisationID;
+			}
+			set
+			{
+				if ((this._OrganisationID != value))
+				{
+					this.OnOrganisationIDChanging(value);
+					this.SendPropertyChanging();
+					this._OrganisationID = value;
+					this.SendPropertyChanged("OrganisationID");
+					this.OnOrganisationIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DivisionID", DbType="Int")]
+		public System.Nullable<int> DivisionID
+		{
+			get
+			{
+				return this._DivisionID;
+			}
+			set
+			{
+				if ((this._DivisionID != value))
+				{
+					this.OnDivisionIDChanging(value);
+					this.SendPropertyChanging();
+					this._DivisionID = value;
+					this.SendPropertyChanged("DivisionID");
+					this.OnDivisionIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DepartmentID", DbType="Int")]
+		public System.Nullable<int> DepartmentID
+		{
+			get
+			{
+				return this._DepartmentID;
+			}
+			set
+			{
+				if ((this._DepartmentID != value))
+				{
+					this.OnDepartmentIDChanging(value);
+					this.SendPropertyChanging();
+					this._DepartmentID = value;
+					this.SendPropertyChanged("DepartmentID");
+					this.OnDepartmentIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this.OnCreatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedOn = value;
+					this.SendPropertyChanged("CreatedOn");
+					this.OnCreatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="Int")]
+		public System.Nullable<int> CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	public partial class proc_eRecruitmentGetScreenedCandidateListResult
 	{
 		
@@ -23345,598 +23823,6 @@ namespace eRecruitment.Sita.BackEnd.App_Data.Entities.DAL
 		}
 	}
 	
-	public partial class sp_GetVacancyAdDetailResult
-	{
-		
-		private string _ReferenceNo;
-		
-		private string _BPSVacancyNo;
-		
-		private System.Nullable<int> _jobtitleid;
-		
-		private System.Nullable<int> _jobprofileid;
-		
-		private string _JobTitle;
-		
-		private string _JobLevel;
-		
-		private string _OrganisationName;
-		
-		private string _VacancyTypeName;
-		
-		private string _DivisionName;
-		
-		private string _DepartmentName;
-		
-		private string _Race;
-		
-		private string _Gender;
-		
-		private string _Deviation;
-		
-		private string _Location;
-		
-		private System.Nullable<int> _NumberOfOpenings;
-		
-		private string _ContractDuration;
-		
-		private string _EmploymentType;
-		
-		private string _Salary;
-		
-		private string _VacancyPurpose;
-		
-		private string _Responsibility;
-		
-		private string _Knowledge;
-		
-		private string _QualificationsandExperience;
-		
-		private string _TechnicalCompetenciesDescription;
-		
-		private string _OtherSpecialRequirements;
-		
-		private System.Data.Linq.Binary _FileData;
-		
-		private string _FileName;
-		
-		private System.Nullable<System.DateTime> _ClosingDate;
-		
-		private string _Disclaimer;
-		
-		private string _Manager;
-		
-		private string _LeadershipCompetencies;
-		
-		private string _BehaviouralCompetency;
-		
-		public sp_GetVacancyAdDetailResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReferenceNo", DbType="VarChar(50)")]
-		public string ReferenceNo
-		{
-			get
-			{
-				return this._ReferenceNo;
-			}
-			set
-			{
-				if ((this._ReferenceNo != value))
-				{
-					this._ReferenceNo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BPSVacancyNo", DbType="VarChar(500)")]
-		public string BPSVacancyNo
-		{
-			get
-			{
-				return this._BPSVacancyNo;
-			}
-			set
-			{
-				if ((this._BPSVacancyNo != value))
-				{
-					this._BPSVacancyNo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_jobtitleid", DbType="Int")]
-		public System.Nullable<int> jobtitleid
-		{
-			get
-			{
-				return this._jobtitleid;
-			}
-			set
-			{
-				if ((this._jobtitleid != value))
-				{
-					this._jobtitleid = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_jobprofileid", DbType="Int")]
-		public System.Nullable<int> jobprofileid
-		{
-			get
-			{
-				return this._jobprofileid;
-			}
-			set
-			{
-				if ((this._jobprofileid != value))
-				{
-					this._jobprofileid = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobTitle", DbType="NVarChar(MAX)")]
-		public string JobTitle
-		{
-			get
-			{
-				return this._JobTitle;
-			}
-			set
-			{
-				if ((this._JobTitle != value))
-				{
-					this._JobTitle = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobLevel", DbType="NVarChar(50)")]
-		public string JobLevel
-		{
-			get
-			{
-				return this._JobLevel;
-			}
-			set
-			{
-				if ((this._JobLevel != value))
-				{
-					this._JobLevel = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrganisationName", DbType="VarChar(250)")]
-		public string OrganisationName
-		{
-			get
-			{
-				return this._OrganisationName;
-			}
-			set
-			{
-				if ((this._OrganisationName != value))
-				{
-					this._OrganisationName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VacancyTypeName", DbType="VarChar(50)")]
-		public string VacancyTypeName
-		{
-			get
-			{
-				return this._VacancyTypeName;
-			}
-			set
-			{
-				if ((this._VacancyTypeName != value))
-				{
-					this._VacancyTypeName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DivisionName", DbType="VarChar(150)")]
-		public string DivisionName
-		{
-			get
-			{
-				return this._DivisionName;
-			}
-			set
-			{
-				if ((this._DivisionName != value))
-				{
-					this._DivisionName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DepartmentName", DbType="VarChar(150)")]
-		public string DepartmentName
-		{
-			get
-			{
-				return this._DepartmentName;
-			}
-			set
-			{
-				if ((this._DepartmentName != value))
-				{
-					this._DepartmentName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Race", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Race
-		{
-			get
-			{
-				return this._Race;
-			}
-			set
-			{
-				if ((this._Race != value))
-				{
-					this._Race = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Gender", DbType="VarChar(50)")]
-		public string Gender
-		{
-			get
-			{
-				return this._Gender;
-			}
-			set
-			{
-				if ((this._Gender != value))
-				{
-					this._Gender = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deviation", DbType="VarChar(1000)")]
-		public string Deviation
-		{
-			get
-			{
-				return this._Deviation;
-			}
-			set
-			{
-				if ((this._Deviation != value))
-				{
-					this._Deviation = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Location", DbType="VarChar(250)")]
-		public string Location
-		{
-			get
-			{
-				return this._Location;
-			}
-			set
-			{
-				if ((this._Location != value))
-				{
-					this._Location = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumberOfOpenings", DbType="Int")]
-		public System.Nullable<int> NumberOfOpenings
-		{
-			get
-			{
-				return this._NumberOfOpenings;
-			}
-			set
-			{
-				if ((this._NumberOfOpenings != value))
-				{
-					this._NumberOfOpenings = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContractDuration", DbType="VarChar(50)")]
-		public string ContractDuration
-		{
-			get
-			{
-				return this._ContractDuration;
-			}
-			set
-			{
-				if ((this._ContractDuration != value))
-				{
-					this._ContractDuration = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmploymentType", DbType="VarChar(250)")]
-		public string EmploymentType
-		{
-			get
-			{
-				return this._EmploymentType;
-			}
-			set
-			{
-				if ((this._EmploymentType != value))
-				{
-					this._EmploymentType = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Salary", DbType="VarChar(65)")]
-		public string Salary
-		{
-			get
-			{
-				return this._Salary;
-			}
-			set
-			{
-				if ((this._Salary != value))
-				{
-					this._Salary = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VacancyPurpose", DbType="VarChar(MAX)")]
-		public string VacancyPurpose
-		{
-			get
-			{
-				return this._VacancyPurpose;
-			}
-			set
-			{
-				if ((this._VacancyPurpose != value))
-				{
-					this._VacancyPurpose = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Responsibility", DbType="VarChar(MAX)")]
-		public string Responsibility
-		{
-			get
-			{
-				return this._Responsibility;
-			}
-			set
-			{
-				if ((this._Responsibility != value))
-				{
-					this._Responsibility = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Knowledge", DbType="VarChar(MAX)")]
-		public string Knowledge
-		{
-			get
-			{
-				return this._Knowledge;
-			}
-			set
-			{
-				if ((this._Knowledge != value))
-				{
-					this._Knowledge = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QualificationsandExperience", DbType="VarChar(MAX)")]
-		public string QualificationsandExperience
-		{
-			get
-			{
-				return this._QualificationsandExperience;
-			}
-			set
-			{
-				if ((this._QualificationsandExperience != value))
-				{
-					this._QualificationsandExperience = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TechnicalCompetenciesDescription", DbType="VarChar(MAX)")]
-		public string TechnicalCompetenciesDescription
-		{
-			get
-			{
-				return this._TechnicalCompetenciesDescription;
-			}
-			set
-			{
-				if ((this._TechnicalCompetenciesDescription != value))
-				{
-					this._TechnicalCompetenciesDescription = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OtherSpecialRequirements", DbType="VarChar(MAX)")]
-		public string OtherSpecialRequirements
-		{
-			get
-			{
-				return this._OtherSpecialRequirements;
-			}
-			set
-			{
-				if ((this._OtherSpecialRequirements != value))
-				{
-					this._OtherSpecialRequirements = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileData", DbType="VarBinary(MAX)")]
-		public System.Data.Linq.Binary FileData
-		{
-			get
-			{
-				return this._FileData;
-			}
-			set
-			{
-				if ((this._FileData != value))
-				{
-					this._FileData = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileName", DbType="VarChar(50)")]
-		public string FileName
-		{
-			get
-			{
-				return this._FileName;
-			}
-			set
-			{
-				if ((this._FileName != value))
-				{
-					this._FileName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClosingDate", DbType="Date")]
-		public System.Nullable<System.DateTime> ClosingDate
-		{
-			get
-			{
-				return this._ClosingDate;
-			}
-			set
-			{
-				if ((this._ClosingDate != value))
-				{
-					this._ClosingDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Disclaimer", DbType="VarChar(MAX)")]
-		public string Disclaimer
-		{
-			get
-			{
-				return this._Disclaimer;
-			}
-			set
-			{
-				if ((this._Disclaimer != value))
-				{
-					this._Disclaimer = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Manager", DbType="VarChar(101)")]
-		public string Manager
-		{
-			get
-			{
-				return this._Manager;
-			}
-			set
-			{
-				if ((this._Manager != value))
-				{
-					this._Manager = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LeadershipCompetencies", DbType="VarChar(MAX)")]
-		public string LeadershipCompetencies
-		{
-			get
-			{
-				return this._LeadershipCompetencies;
-			}
-			set
-			{
-				if ((this._LeadershipCompetencies != value))
-				{
-					this._LeadershipCompetencies = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BehaviouralCompetency", DbType="VarChar(MAX)")]
-		public string BehaviouralCompetency
-		{
-			get
-			{
-				return this._BehaviouralCompetency;
-			}
-			set
-			{
-				if ((this._BehaviouralCompetency != value))
-				{
-					this._BehaviouralCompetency = value;
-				}
-			}
-		}
-	}
-	
-	public partial class proc_eRecruitmentInsertVacancyResult
-	{
-		
-		private System.Nullable<decimal> _VacancyID;
-		
-		public proc_eRecruitmentInsertVacancyResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VacancyID", DbType="Decimal(38,0)")]
-		public System.Nullable<decimal> VacancyID
-		{
-			get
-			{
-				return this._VacancyID;
-			}
-			set
-			{
-				if ((this._VacancyID != value))
-				{
-					this._VacancyID = value;
-				}
-			}
-		}
-	}
-	
 	public partial class GetVancyListResult
 	{
 		
@@ -24928,6 +24814,544 @@ namespace eRecruitment.Sita.BackEnd.App_Data.Entities.DAL
 				if ((this._StatusID != value))
 				{
 					this._StatusID = value;
+				}
+			}
+		}
+	}
+	
+	public partial class proc_eRecruitmentInsertVacancyResult
+	{
+		
+		private System.Nullable<decimal> _VacancyID;
+		
+		public proc_eRecruitmentInsertVacancyResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VacancyID", DbType="Decimal(38,0)")]
+		public System.Nullable<decimal> VacancyID
+		{
+			get
+			{
+				return this._VacancyID;
+			}
+			set
+			{
+				if ((this._VacancyID != value))
+				{
+					this._VacancyID = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_GetVacancyAdDetailResult
+	{
+		
+		private string _ReferenceNo;
+		
+		private string _BPSVacancyNo;
+		
+		private string _JobTitle;
+		
+		private string _JobLevel;
+		
+		private string _OrganisationName;
+		
+		private string _VacancyTypeName;
+		
+		private string _DivisionName;
+		
+		private string _DepartmentName;
+		
+		private string _Race;
+		
+		private string _Gender;
+		
+		private string _Deviation;
+		
+		private string _Centre;
+		
+		private System.Nullable<int> _NumberOfOpenings;
+		
+		private string _ContractDuration;
+		
+		private string _EmploymentType;
+		
+		private string _Salary;
+		
+		private string _VacancyPurpose;
+		
+		private string _Responsibility;
+		
+		private string _Knowledge;
+		
+		private string _QualificationsandExperience;
+		
+		private string _TechnicalCompetenciesDescription;
+		
+		private string _OtherSpecialRequirements;
+		
+		private System.Data.Linq.Binary _FileData;
+		
+		private string _FileName;
+		
+		private System.Nullable<System.DateTime> _ClosingDate;
+		
+		private string _Disclaimer;
+		
+		private string _LeadershipCompetencies;
+		
+		private string _BehaviouralCompetency;
+		
+		public sp_GetVacancyAdDetailResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReferenceNo", DbType="VarChar(50)")]
+		public string ReferenceNo
+		{
+			get
+			{
+				return this._ReferenceNo;
+			}
+			set
+			{
+				if ((this._ReferenceNo != value))
+				{
+					this._ReferenceNo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BPSVacancyNo", DbType="VarChar(500)")]
+		public string BPSVacancyNo
+		{
+			get
+			{
+				return this._BPSVacancyNo;
+			}
+			set
+			{
+				if ((this._BPSVacancyNo != value))
+				{
+					this._BPSVacancyNo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobTitle", DbType="NVarChar(250)")]
+		public string JobTitle
+		{
+			get
+			{
+				return this._JobTitle;
+			}
+			set
+			{
+				if ((this._JobTitle != value))
+				{
+					this._JobTitle = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobLevel", DbType="NVarChar(50)")]
+		public string JobLevel
+		{
+			get
+			{
+				return this._JobLevel;
+			}
+			set
+			{
+				if ((this._JobLevel != value))
+				{
+					this._JobLevel = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrganisationName", DbType="VarChar(250)")]
+		public string OrganisationName
+		{
+			get
+			{
+				return this._OrganisationName;
+			}
+			set
+			{
+				if ((this._OrganisationName != value))
+				{
+					this._OrganisationName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VacancyTypeName", DbType="VarChar(50)")]
+		public string VacancyTypeName
+		{
+			get
+			{
+				return this._VacancyTypeName;
+			}
+			set
+			{
+				if ((this._VacancyTypeName != value))
+				{
+					this._VacancyTypeName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DivisionName", DbType="VarChar(150)")]
+		public string DivisionName
+		{
+			get
+			{
+				return this._DivisionName;
+			}
+			set
+			{
+				if ((this._DivisionName != value))
+				{
+					this._DivisionName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DepartmentName", DbType="VarChar(150)")]
+		public string DepartmentName
+		{
+			get
+			{
+				return this._DepartmentName;
+			}
+			set
+			{
+				if ((this._DepartmentName != value))
+				{
+					this._DepartmentName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Race", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Race
+		{
+			get
+			{
+				return this._Race;
+			}
+			set
+			{
+				if ((this._Race != value))
+				{
+					this._Race = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Gender", DbType="VarChar(50)")]
+		public string Gender
+		{
+			get
+			{
+				return this._Gender;
+			}
+			set
+			{
+				if ((this._Gender != value))
+				{
+					this._Gender = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deviation", DbType="VarChar(1000)")]
+		public string Deviation
+		{
+			get
+			{
+				return this._Deviation;
+			}
+			set
+			{
+				if ((this._Deviation != value))
+				{
+					this._Deviation = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Centre", DbType="NVarChar(250)")]
+		public string Centre
+		{
+			get
+			{
+				return this._Centre;
+			}
+			set
+			{
+				if ((this._Centre != value))
+				{
+					this._Centre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumberOfOpenings", DbType="Int")]
+		public System.Nullable<int> NumberOfOpenings
+		{
+			get
+			{
+				return this._NumberOfOpenings;
+			}
+			set
+			{
+				if ((this._NumberOfOpenings != value))
+				{
+					this._NumberOfOpenings = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContractDuration", DbType="VarChar(50)")]
+		public string ContractDuration
+		{
+			get
+			{
+				return this._ContractDuration;
+			}
+			set
+			{
+				if ((this._ContractDuration != value))
+				{
+					this._ContractDuration = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmploymentType", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
+		public string EmploymentType
+		{
+			get
+			{
+				return this._EmploymentType;
+			}
+			set
+			{
+				if ((this._EmploymentType != value))
+				{
+					this._EmploymentType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Salary", DbType="VarChar(31)")]
+		public string Salary
+		{
+			get
+			{
+				return this._Salary;
+			}
+			set
+			{
+				if ((this._Salary != value))
+				{
+					this._Salary = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VacancyPurpose", DbType="VarChar(MAX)")]
+		public string VacancyPurpose
+		{
+			get
+			{
+				return this._VacancyPurpose;
+			}
+			set
+			{
+				if ((this._VacancyPurpose != value))
+				{
+					this._VacancyPurpose = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Responsibility", DbType="VarChar(MAX)")]
+		public string Responsibility
+		{
+			get
+			{
+				return this._Responsibility;
+			}
+			set
+			{
+				if ((this._Responsibility != value))
+				{
+					this._Responsibility = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Knowledge", DbType="VarChar(MAX)")]
+		public string Knowledge
+		{
+			get
+			{
+				return this._Knowledge;
+			}
+			set
+			{
+				if ((this._Knowledge != value))
+				{
+					this._Knowledge = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QualificationsandExperience", DbType="VarChar(MAX)")]
+		public string QualificationsandExperience
+		{
+			get
+			{
+				return this._QualificationsandExperience;
+			}
+			set
+			{
+				if ((this._QualificationsandExperience != value))
+				{
+					this._QualificationsandExperience = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TechnicalCompetenciesDescription", DbType="VarChar(MAX)")]
+		public string TechnicalCompetenciesDescription
+		{
+			get
+			{
+				return this._TechnicalCompetenciesDescription;
+			}
+			set
+			{
+				if ((this._TechnicalCompetenciesDescription != value))
+				{
+					this._TechnicalCompetenciesDescription = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OtherSpecialRequirements", DbType="VarChar(MAX)")]
+		public string OtherSpecialRequirements
+		{
+			get
+			{
+				return this._OtherSpecialRequirements;
+			}
+			set
+			{
+				if ((this._OtherSpecialRequirements != value))
+				{
+					this._OtherSpecialRequirements = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileData", DbType="VarBinary(MAX)")]
+		public System.Data.Linq.Binary FileData
+		{
+			get
+			{
+				return this._FileData;
+			}
+			set
+			{
+				if ((this._FileData != value))
+				{
+					this._FileData = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileName", DbType="VarChar(50)")]
+		public string FileName
+		{
+			get
+			{
+				return this._FileName;
+			}
+			set
+			{
+				if ((this._FileName != value))
+				{
+					this._FileName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClosingDate", DbType="Date")]
+		public System.Nullable<System.DateTime> ClosingDate
+		{
+			get
+			{
+				return this._ClosingDate;
+			}
+			set
+			{
+				if ((this._ClosingDate != value))
+				{
+					this._ClosingDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Disclaimer", DbType="VarChar(MAX)")]
+		public string Disclaimer
+		{
+			get
+			{
+				return this._Disclaimer;
+			}
+			set
+			{
+				if ((this._Disclaimer != value))
+				{
+					this._Disclaimer = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LeadershipCompetencies", DbType="VarChar(MAX)")]
+		public string LeadershipCompetencies
+		{
+			get
+			{
+				return this._LeadershipCompetencies;
+			}
+			set
+			{
+				if ((this._LeadershipCompetencies != value))
+				{
+					this._LeadershipCompetencies = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BehaviouralCompetency", DbType="VarChar(MAX)")]
+		public string BehaviouralCompetency
+		{
+			get
+			{
+				return this._BehaviouralCompetency;
+			}
+			set
+			{
+				if ((this._BehaviouralCompetency != value))
+				{
+					this._BehaviouralCompetency = value;
 				}
 			}
 		}

@@ -621,10 +621,22 @@
         <elementListCompartment Id="02b4c0d9-4852-42c9-95cc-3d1d53882e9e" isExpanded="false" absoluteBounds="7.765, 5.71, 1.9700000000000002, 0.2493896484375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="b70d4844-7817-4cf3-8ce6-48e862939dac" absoluteBounds="6.5, 7.625, 2, 4.2708154296875">
+    <classShape Id="b70d4844-7817-4cf3-8ce6-48e862939dac" isExpanded="false" absoluteBounds="5.5, 7.5, 2, 0.45">
       <DataClassMoniker Name="/eRecruitmentDataClassesDataContext/Z83Question" />
       <nestedChildShapes>
-        <elementListCompartment Id="af8e465b-c02f-4203-92d5-b1759ab1424b" absoluteBounds="6.515, 8.085, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="af8e465b-c02f-4203-92d5-b1759ab1424b" absoluteBounds="5.515, 7.9600000000000009, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c5a73323-e1fa-4ecd-9825-c116a1c4c7e3" absoluteBounds="7.75, 6.375, 2, 2.5401025390625">
+      <DataClassMoniker Name="/eRecruitmentDataClassesDataContext/tblVacancyExtension" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0e167b42-fb94-4084-b652-cec71e07d5a6" absoluteBounds="7.7650000000000006, 6.835, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="caa4d624-3304-43a1-8e0e-746e12d232c0" absoluteBounds="6, 8.875, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/eRecruitmentDataClassesDataContext/AssignedDivisionDepartment1" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2682e65c-5395-412a-b513-d7a771bc0ed9" absoluteBounds="6.015, 9.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

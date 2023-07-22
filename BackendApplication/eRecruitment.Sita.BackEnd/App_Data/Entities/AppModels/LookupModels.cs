@@ -498,7 +498,7 @@ namespace eRecruitment.BusinessDomain.DAL.Entities.AppModels
         public string SkillDescription { get; set; }
         public int StatusID { get; set; }
         public string Status { get; set; }
-        public string Location { get; set; }
+        public string Centre { get; set; }
 
         public string Manager { get; set; }
         public int EmploymentTypeID { get; set; }
@@ -581,7 +581,7 @@ namespace eRecruitment.BusinessDomain.DAL.Entities.AppModels
         
         public string JobTitle { get; set; }
         public string Department { get; set; }
-        public string Location { get; set; }
+        public string Centre { get; set; }
         public string EmploymentType { get; set; }
         public string Organisation { get; set; }
         public string CreatedDate { get; set; }
@@ -590,6 +590,7 @@ namespace eRecruitment.BusinessDomain.DAL.Entities.AppModels
         public string Salary { get; set; }
         public string Status { get; set; }
         public int NumberOfOpenings { get; set; }
+        
     }
 
     public class DownloadVacancyAd
@@ -604,7 +605,7 @@ namespace eRecruitment.BusinessDomain.DAL.Entities.AppModels
         public string Race { get; set; }
         public string Gender { get; set; }
         public string Deviation { get; set; }
-        public string Location { get; set; }
+        public string Centre { get; set; }
         public string NumberOfOpenings { get; set; }
         public string ContractDuration { get; set; }
         public string EmploymentType { get; set; }
@@ -688,7 +689,7 @@ namespace eRecruitment.BusinessDomain.DAL.Entities.AppModels
         public DateTime ClosingDate { get; set; }
         public int NumberOfOpenings { get; set; }
         public int VancyTypeID { get; set; }
-        public string Location { get; set; }
+        public string Centre { get; set; }
         public int StatusID { get; set; }
         public int WithdrawalReasonID { get; set; }
         public string WithdrawalReasonOther { get; set; }
@@ -1121,11 +1122,20 @@ namespace eRecruitment.BusinessDomain.DAL.Entities.AppModels
         public decimal MaxValue { get; set; }
 
         public int VacancyID { get; set; }
+    }
 
+    public class VacancyExtension
+    {
+        public int VacancyExtensionID { get; set; }
 
-
-
-
+        public int JobTitleID { get; set; }
+        public string JobTitle { get; set; }
+        public String JobLevel { get; set; }
+        public decimal MinValue { get; set; }
+        public decimal MaxValue { get; set; }
+        public string Salary { get; set; }
+        public int VacancyID { get; set; }
+        public string Centre { get; set; }
 
     }
 }

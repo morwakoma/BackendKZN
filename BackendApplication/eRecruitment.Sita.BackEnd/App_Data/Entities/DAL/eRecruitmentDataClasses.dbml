@@ -1094,6 +1094,30 @@
       <Column Name="YearsExperience" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.tblVacancyExtension" Member="tblVacancyExtensions">
+    <Type Name="tblVacancyExtension">
+      <Column Name="VacancyExtensionID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="JobTitleID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="JobTitle" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="JobLevel" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MinValue" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="MaxValue" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="VacancyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Salary" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Centre" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AssignedDivisionDepartment" Member="AssignedDivisionDepartment1s">
+    <Type Name="AssignedDivisionDepartment1">
+      <Column Name="AssignedDivisionDepartmentID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="OrganisationID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DivisionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DepartmentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.proc_eRecruitmentInsertUserRole" Method="proc_eRecruitmentInsertUserRole">
     <Parameter Name="UserId" Parameter="userId" Type="System.String" DbType="NVarChar(128)" />
     <Parameter Name="RoleId" Parameter="roleId" Type="System.Int32" DbType="Int" />
@@ -1932,77 +1956,6 @@
     <Parameter Name="ModifiedBy" Parameter="modifiedBy" Type="System.String" DbType="VarChar(50)" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.sp_GetVacancyAdDetail" Method="sp_GetVacancyAdDetail">
-    <Parameter Name="VacancyID" Parameter="vacancyID" Type="System.Int32" DbType="Int" />
-    <ElementType Name="sp_GetVacancyAdDetailResult">
-      <Column Name="ReferenceNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="BPSVacancyNo" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
-      <Column Name="jobtitleid" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="jobprofileid" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="JobTitle" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="JobLevel" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="OrganisationName" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
-      <Column Name="VacancyTypeName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="DivisionName" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
-      <Column Name="DepartmentName" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
-      <Column Name="Race" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Gender" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Deviation" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
-      <Column Name="Location" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
-      <Column Name="NumberOfOpenings" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ContractDuration" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="EmploymentType" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
-      <Column Name="Salary" Type="System.String" DbType="VarChar(65)" CanBeNull="true" />
-      <Column Name="VacancyPurpose" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="Responsibility" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="Knowledge" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="QualificationsandExperience" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="TechnicalCompetenciesDescription" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="OtherSpecialRequirements" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="FileData" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" />
-      <Column Name="FileName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="ClosingDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="Disclaimer" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="Manager" Type="System.String" DbType="VarChar(101)" CanBeNull="true" />
-      <Column Name="LeadershipCompetencies" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="BehaviouralCompetency" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.proc_eRecruitmentInsertVacancy" Method="proc_eRecruitmentInsertVacancy">
-    <Parameter Name="UserID" Parameter="userID" Type="System.String" DbType="NVarChar(50)" />
-    <Parameter Name="OrganisationID" Parameter="organisationID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="BPSVacancyNo" Parameter="bPSVacancyNo" Type="System.String" DbType="VarChar(500)" />
-    <Parameter Name="DivisionID" Parameter="divisionID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="DepartmentID" Parameter="departmentID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="JobTitleID" Parameter="jobTitleID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="SalaryTypeID" Parameter="salaryTypeID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="Recruiter" Parameter="recruiter" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="RecruiterEmail" Parameter="recruiterEmail" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="RecruiterTel" Parameter="recruiterTel" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="RecruiterUserId" Parameter="recruiterUserId" Type="System.String" DbType="NVarChar(50)" />
-    <Parameter Name="Manager" Parameter="manager" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="GenderID" Parameter="genderID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="RaceID" Parameter="raceID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="EmploymentTypeID" Parameter="employmentTypeID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="ContractDuration" Parameter="contractDuration" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="ClosingDate" Parameter="closingDate" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="NumberOfOpenings" Parameter="numberOfOpenings" Type="System.Int32" DbType="Int" />
-    <Parameter Name="VancyTypeID" Parameter="vancyTypeID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="DeligationReasons" Parameter="deligationReasons" Type="System.String" DbType="VarChar(1000)" />
-    <Parameter Name="Location" Parameter="location" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="AdditionalRequirements" Parameter="additionalRequirements" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="VacancyPurpose" Parameter="vacancyPurpose" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="QualificationAndExperience" Parameter="qualificationAndExperience" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="TechnicalCompetenciesDescription" Parameter="technicalCompetenciesDescription" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="Disclaimer" Parameter="disclaimer" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="Responsibility" Parameter="responsibility" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="Knowledge" Parameter="knowledge" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="LeadershipCompetencies" Parameter="leadershipCompetencies" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="BehaviouralCompetency" Parameter="behaviouralCompetency" Type="System.String" DbType="VarChar(MAX)" />
-    <ElementType Name="proc_eRecruitmentInsertVacancyResult">
-      <Column Name="VacancyID" Type="System.Decimal" DbType="Decimal(38,0)" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.GetVancyList" Method="GetVancyList">
     <Parameter Name="UserID" Parameter="userID" Type="System.String" DbType="NVarChar(50)" />
     <ElementType Name="GetVancyListResult">
@@ -2055,40 +2008,6 @@
       <Column Name="RaceID" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.proc_eRecruitmentUpdateVacancy" Method="proc_eRecruitmentUpdateVacancy">
-    <Parameter Name="ID" Parameter="iD" Type="System.Int32" DbType="Int" />
-    <Parameter Name="UserID" Parameter="userID" Type="System.String" DbType="NVarChar(50)" />
-    <Parameter Name="OrganisationID" Parameter="organisationID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="BPSVacancyNo" Parameter="bPSVacancyNo" Type="System.String" DbType="VarChar(500)" />
-    <Parameter Name="DivisionID" Parameter="divisionID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="DepartmentID" Parameter="departmentID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="JobTitleID" Parameter="jobTitleID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="SalaryTypeID" Parameter="salaryTypeID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="Recruiter" Parameter="recruiter" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="RecruiterEmail" Parameter="recruiterEmail" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="RecruiterTel" Parameter="recruiterTel" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="RecruiterUserId" Parameter="recruiterUserId" Type="System.String" DbType="NVarChar(50)" />
-    <Parameter Name="Manager" Parameter="manager" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="GenderID" Parameter="genderID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="RaceID" Parameter="raceID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="EmploymentTypeID" Parameter="employmentTypeID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="ContractDuration" Parameter="contractDuration" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="ClosingDate" Parameter="closingDate" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="NumberOfOpenings" Parameter="numberOfOpenings" Type="System.Int32" DbType="Int" />
-    <Parameter Name="VancyTypeID" Parameter="vancyTypeID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="DeligationReasons" Parameter="deligationReasons" Type="System.String" DbType="VarChar(1000)" />
-    <Parameter Name="Location" Parameter="location" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="AdditionalRequirements" Parameter="additionalRequirements" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="VacancyPurpose" Parameter="vacancyPurpose" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="QualificationAndExperience" Parameter="qualificationAndExperience" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="TechnicalCompetenciesDescription" Parameter="technicalCompetenciesDescription" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="Disclaimer" Parameter="disclaimer" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="Responsibility" Parameter="responsibility" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="Knowledge" Parameter="knowledge" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="LeadershipCompetencies" Parameter="leadershipCompetencies" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="BehaviouralCompetency" Parameter="behaviouralCompetency" Type="System.String" DbType="VarChar(MAX)" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.sp_tblVacancyListForView_Get" Method="sp_tblVacancyListForView_Get">
     <Parameter Name="UserId" Parameter="userId" Type="System.String" DbType="NVarChar(50)" />
     <ElementType Name="sp_tblVacancyListForView_GetResult">
@@ -2104,6 +2023,104 @@
       <Column Name="ClosingDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="Status" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="StatusID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.proc_eRecruitmentUpdateVacancy" Method="proc_eRecruitmentUpdateVacancy">
+    <Parameter Name="ID" Parameter="iD" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UserID" Parameter="userID" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="OrganisationID" Parameter="organisationID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="BPSVacancyNo" Parameter="bPSVacancyNo" Type="System.String" DbType="VarChar(500)" />
+    <Parameter Name="DivisionID" Parameter="divisionID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="DepartmentID" Parameter="departmentID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SalaryTypeID" Parameter="salaryTypeID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Recruiter" Parameter="recruiter" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="RecruiterEmail" Parameter="recruiterEmail" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="RecruiterTel" Parameter="recruiterTel" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="RecruiterUserId" Parameter="recruiterUserId" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Manager" Parameter="manager" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="GenderID" Parameter="genderID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="RaceID" Parameter="raceID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="EmploymentTypeID" Parameter="employmentTypeID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ContractDuration" Parameter="contractDuration" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="ClosingDate" Parameter="closingDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="NumberOfOpenings" Parameter="numberOfOpenings" Type="System.Int32" DbType="Int" />
+    <Parameter Name="VancyTypeID" Parameter="vancyTypeID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="DeligationReasons" Parameter="deligationReasons" Type="System.String" DbType="VarChar(1000)" />
+    <Parameter Name="AdditionalRequirements" Parameter="additionalRequirements" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="VacancyPurpose" Parameter="vacancyPurpose" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="QualificationAndExperience" Parameter="qualificationAndExperience" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="TechnicalCompetenciesDescription" Parameter="technicalCompetenciesDescription" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="Disclaimer" Parameter="disclaimer" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="Responsibility" Parameter="responsibility" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="Knowledge" Parameter="knowledge" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="LeadershipCompetencies" Parameter="leadershipCompetencies" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="BehaviouralCompetency" Parameter="behaviouralCompetency" Type="System.String" DbType="VarChar(MAX)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.proc_eRecruitmentInsertVacancy" Method="proc_eRecruitmentInsertVacancy">
+    <Parameter Name="UserID" Parameter="userID" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="OrganisationID" Parameter="organisationID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="BPSVacancyNo" Parameter="bPSVacancyNo" Type="System.String" DbType="VarChar(500)" />
+    <Parameter Name="DivisionID" Parameter="divisionID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="DepartmentID" Parameter="departmentID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SalaryTypeID" Parameter="salaryTypeID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Recruiter" Parameter="recruiter" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="RecruiterEmail" Parameter="recruiterEmail" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="RecruiterTel" Parameter="recruiterTel" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="RecruiterUserId" Parameter="recruiterUserId" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Manager" Parameter="manager" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="GenderID" Parameter="genderID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="RaceID" Parameter="raceID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="EmploymentTypeID" Parameter="employmentTypeID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ContractDuration" Parameter="contractDuration" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="ClosingDate" Parameter="closingDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="NumberOfOpenings" Parameter="numberOfOpenings" Type="System.Int32" DbType="Int" />
+    <Parameter Name="VancyTypeID" Parameter="vancyTypeID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="DeligationReasons" Parameter="deligationReasons" Type="System.String" DbType="VarChar(1000)" />
+    <Parameter Name="AdditionalRequirements" Parameter="additionalRequirements" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="VacancyPurpose" Parameter="vacancyPurpose" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="QualificationAndExperience" Parameter="qualificationAndExperience" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="TechnicalCompetenciesDescription" Parameter="technicalCompetenciesDescription" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="Disclaimer" Parameter="disclaimer" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="Responsibility" Parameter="responsibility" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="Knowledge" Parameter="knowledge" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="LeadershipCompetencies" Parameter="leadershipCompetencies" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="BehaviouralCompetency" Parameter="behaviouralCompetency" Type="System.String" DbType="VarChar(MAX)" />
+    <ElementType Name="proc_eRecruitmentInsertVacancyResult">
+      <Column Name="VacancyID" Type="System.Decimal" DbType="Decimal(38,0)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_GetVacancyAdDetail" Method="sp_GetVacancyAdDetail">
+    <Parameter Name="VacancyID" Parameter="vacancyID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_GetVacancyAdDetailResult">
+      <Column Name="ReferenceNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BPSVacancyNo" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="JobTitle" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="JobLevel" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="OrganisationName" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="VacancyTypeName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DivisionName" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="DepartmentName" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Race" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Gender" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Deviation" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="Centre" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="NumberOfOpenings" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContractDuration" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EmploymentType" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Salary" Type="System.String" DbType="VarChar(31)" CanBeNull="true" />
+      <Column Name="VacancyPurpose" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Responsibility" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Knowledge" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="QualificationsandExperience" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="TechnicalCompetenciesDescription" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="OtherSpecialRequirements" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="FileData" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" />
+      <Column Name="FileName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ClosingDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Disclaimer" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="LeadershipCompetencies" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="BehaviouralCompetency" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>
