@@ -3376,8 +3376,8 @@ namespace eRecruitment.Sita.BackEnd.Controllers
                 table.AddCell(new PdfPCell(new Phrase("Private Sector", arial)));
                 table.AddCell(new PdfPCell(new Phrase("Public Sector", arial)));
 
-                table.AddCell(new PdfPCell(new Phrase(profileData.YearsExperience.ToString(), arial)));
-                table.AddCell(new PdfPCell(new Phrase(profileData.YearsExperience.ToString(), arial)));
+                table.AddCell(new PdfPCell(new Phrase(profileData.YearsExperiencePrivate.ToString(), arial)));
+                table.AddCell(new PdfPCell(new Phrase(profileData.YearsExperiencePublic.ToString(), arial)));
 
                 document.Add(table);
 
@@ -3398,7 +3398,7 @@ namespace eRecruitment.Sita.BackEnd.Controllers
                 table.AddCell(new PdfPCell(new Phrase(commMethod, arial)));
 
                 table.AddCell(new PdfPCell(new Phrase("Contact details (in terms of the above)", arial)));
-                table.AddCell(new PdfPCell(new Phrase(profileData.EmailAddress, arial)));
+                table.AddCell(new PdfPCell(new Phrase(profileData.CorrespondanceDetails, arial)));
 
                 document.Add(table);
                 document.Add(new Paragraph("\n"));

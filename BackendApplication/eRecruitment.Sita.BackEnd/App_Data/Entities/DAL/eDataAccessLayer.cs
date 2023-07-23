@@ -4527,7 +4527,9 @@ namespace eRecruitment.BusinessDomain.DAL
                            CriminalOffenceDesc = i.CriminalOffenceDesc,
                            DisciplinaryCase = i.DisciplinaryCase,
                            DisciplinaryCaseDesc = i.DisciplinaryCaseDesc,
-                           ApplicationID = a.ApplicationID
+                           ApplicationID = a.ApplicationID,
+                           YearsExperiencePublic = i.YearsofExperiencePublic,
+                           YearsExperiencePrivate = i.YearsExperiencePrivate
 
                        };
 
@@ -4579,7 +4581,8 @@ namespace eRecruitment.BusinessDomain.DAL
                 e.PreviouslyEmployedDepartment = Convert.ToString(d.PreviouslyEmployedDepartment);
                 e.Country = Convert.ToString(d.Country);
 
-                e.YearsExperience = Convert.ToInt32(d.YearsExperience);
+                e.YearsExperiencePrivate = Convert.ToInt32(d.YearsExperiencePrivate);
+                e.YearsExperiencePublic = Convert.ToInt32(d.YearsExperiencePublic);
                 e.Business = Convert.ToInt32(d.Business);
                 e.BusinessDesc = Convert.ToString(d.BusinessDesc);
                 e.RelinquishBusiness = Convert.ToInt32(d.RelinquishBusiness);
@@ -4593,6 +4596,7 @@ namespace eRecruitment.BusinessDomain.DAL
                 e.CriminalOffenceDesc = Convert.ToString(d.CriminalOffenceDesc);
                 e.DisciplinaryCase = Convert.ToInt32(d.DisciplinaryCase);
                 e.DisciplinaryCaseDesc = Convert.ToString(d.DisciplinaryCaseDesc);
+                e.yea
                 e.ApplicationID = d.ApplicationID;
                 p.Add(e);
             }
